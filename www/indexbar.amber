@@ -1,0 +1,3 @@
+nav.navbar.fixed-bottom.navbar-dark
+  a.navbar-brand.blue[href=""] NBA
+    small 2019-20

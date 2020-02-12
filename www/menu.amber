@@ -1,0 +1,3 @@
+  nav.nav
+    a.nav-link.active[href=""] Home
+    a.nav-link[href=""] Players

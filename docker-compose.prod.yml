@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik"
+    command:
+      - "--global.sendAnonymousUsage=false"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.traefik.address=:8080"
+      - "--log.level=WARN"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    image: "redis"
+    restart: "unless-stopped"
+    volumes:
+      - "redata:/data"
+  nbad:
+    image: "nbad"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nbad.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.nbad.entrypoints=web"
+    restart: "unless-stopped"
+    volumes:
+      - "./secrets:/run/secrets"
+      - "nbadata:/usr/local/nbad"
+    depends_on:
+      - "redis"
+volumes:
+  redata: {}
+  nbadata: {}
+  

@@ -1,0 +1,123 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.col
+        ul.list-group.list-group-horizontal
+          li.list-group-item
+            div NYK
+              span.score 86
+            div BOS
+              span.score 113
+          li.list-group-item
+            div LAC
+              span.score 120
+            div SAS
+              span.score 102
+          li.list-group-item
+            div SAC
+              span.score 99
+            div DAL
+              span.score 105
+          li.list-group-item
+            div ATL
+              span.score 115
+            div TOR
+              span.score 131
+          li.list-group-item
+            div NYK
+              span.score 86
+            div BOS
+              span.score 113
+          li.list-group-item
+            div LAC
+              span.score 120
+            div SAS
+              span.score 102
+          li.list-group-item
+            div SAC
+              span.score 99
+            div DAL
+              span.score 105
+          li.list-group-item
+            div ATL
+              span.score 115
+            div TOR
+              span.score 131
+        br
+        br
+    div.row
+      div.col-4
+        div.list-group
+          a.list-group-item.list-group-item-action[href=""]
+            div.media
+              img.mr-3[src="/www/202710.png"][width="132"]
+              div.media-body            
+                h5.mb-0.electric-blue Jimmy Butler
+                div PER 20.0
+                div PPG 25.7
+            i.fas.fa-caret-down.fa-5x
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.media
+              img.mr-3[src="/www/202710.png"][width="132"]
+              div.media-body            
+                h5.mb-0.electric-blue Jimmy Butler
+                div PER 20.0
+                div PPG 25.7
+            i.fas.fa-caret-down.fa-5x
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.media
+              img.mr-3[src="/www/202710.png"][width="132"]
+              div.media-body            
+                h5.mb-0.electric-blue Jimmy Butler
+                div PER 20.0
+                div PPG 25.7
+            i.fas.fa-caret-down.fa-5x
+      div.col-8
+        div.list-group
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between              
+              h5.mb-1.blue Hawks Trade for Clint Capella
+              small 3h ago
+            p.mb-1 Four Teams, Twelve Players.
+            small Read more from ESPN.com
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between 
+              h5.mb-1.blue Trevor Ariza Traded to Portland
+              small 6h
+            p.mb-1 His 9th team in the last 15 years.
+            small Read more from NBA.com
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between 
+              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
+              small 1d
+            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
+            small Listen to the podcast at Sweeper
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between              
+              h5.mb-1.blue Hawks Trade for Clint Capella
+              small 3h ago
+            p.mb-1 Four Teams, Twelve Players.
+            small Read more from ESPN.com
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between 
+              h5.mb-1.blue Trevor Ariza Traded to Portland
+              small 6h
+            p.mb-1 His 9th team in the last 15 years.
+            small Read more from NBA.com
+          br
+          a.list-group-item.list-group-item-action[href=""]
+            div.d-flex.w-100.justify-content-between 
+              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
+              small 1d
+            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
+            small Listen to the podcast at Sweeper
+  import indexbar
+  
