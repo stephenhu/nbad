@@ -14,5 +14,16 @@ const (
 )
 
 const (
+	PAGE_HOME						= "home.amber"
+	PAGE_GAMES					= "games.amber"
+	PAGE_PLAYERS				= "players.amber"
+	PAGE_TEAMS					= "teams.amber"
+)
+
+const (
+	ESPN_PLAYER_PIC_URL			= "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=160&w=220&scale=crop"
+)
+
+const (
 	INDEX_PAGE				 	= "index.amber"
 )

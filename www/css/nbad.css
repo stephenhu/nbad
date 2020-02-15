@@ -6,24 +6,31 @@ html {
 
 body {
   height: 100%;
-  background: #191919;
+  /* background-color: #031c2a;  // titans */
+  /* background-color: #0c2340;    // texans */
+  background-color: #02141f;
   color: #e1e4e6;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
+  text-decoration: none;
 }
 
 a, a:active, a:link, a:hover, a:visited {
   text-decoration: none;
 }
 
+div {
+  color: #dddddd;
+}
+
 p {
-  color: #e1e4e6;
+  /* color: #4f606a; */
 }
 
 small {
-  color: #e1e4e6;
+  color: #53a9ff;
 }
 
 /* custom classes */
@@ -36,7 +43,15 @@ small {
   color: #0c2340;
 }
 
+.serene-blue {
+  color: #052584;
+}
+
 .blue {
+  color: #046ec8;
+}
+
+.bright-blue {
   color: #2090ff;
 }
 
@@ -48,33 +63,8 @@ small {
   color: #e1e4e6;
 }
 
-/* bootstrap */
-
-.container {
-  padding-top: 20px;
-}
-
-.nav {
-  background: #151515;
-}
-
-.navbar-dark .navbar-brand {
-  color: #04efef;
-}
-
-.list-group-item {
-  background: #031C2a;
-  opacity: .9;
-  margin-left: 5px;
-}
-
-.list-group-item:hover {
-  color: #ffffff;
-  background: #53a9ff;
-}
-
-.list-group-item a:hover {
-  color: #ffffff;
+.date {
+  background-color: #dd0000;
 }
 
 .score {
@@ -83,43 +73,32 @@ small {
   float: right;
 }
 
-/* material ui theme */
+/* bootstrap */
 
-:root {
-  --mdc-theme-primary: #00ff00;
-  --mdc-theme-secondary: #ff0000;
-  --mdc-theme-background: #031c2a;
-  --mdc-theme-surface: #0c2340;
-  --mdc-theme-on-primary: #ff0000;
-  --mdc-theme-on-secondary: #ffffff;
-  --mdc-theme-on-surface: #ff0000;
-  --mdc-theme-text-primary-on-light: #ff0000;
-  --mdc-theme-text-secondary-on-light: #ff0000;
-  --mdc-theme-text-hint-on-light: #b1c026;
-  --mdc-theme-text-disabled-on-light: #ffffff;
-  --mdc-theme-text-icon-on-light: #ffffff;
-  --mdc-theme-text-primary-on-dark: #ffffff;
-  --mdc-theme-text-secondary-on-dark: #ffffff;
-  --mdc-theme-text-hint-on-dark: #ffffff;
-  --mdc-theme-text-disabled-on-dark: #ffffff;
-  --mdc-theme-text-icon-on-dark: #ffffff;
-  --mdc-theme-text-primary-on-background: #04efef;
-  --mdc-theme-text-secondary-on-background: #ffffff;
-  --mdc-theme-text-hint-on-background: #ffffff;
-  --mdc-theme-text-disabled-on-background: #ffffff;
-  --mdc-theme-text-icon-on-background: #ffffff;
+.nav {
+  background-color: #151515;
 }
 
-.mdc-top-app-bar {
-  background: #dd0000;
+.navbar-dark .navbar-brand {
+  color: #052584;
 }
 
-.mdc-data-table__header-cell {
+.list-group-item {
+  background-color: #0c2340;
+  opacity: .9;
+  margin-left: 5px;
+}
+
+.list-group-item:hover {  
+  background-color: #052584;
+}
+
+.list-group-item-action:hover {
   color: #ffffff;
-  opacity: .6;
+  background-color: #052584;
+  opacity: .8;
 }
 
-.mdc-data-table__cell {
-  color: #04efef;
+.jumbotron {
+  background-color: #02141f;
 }
-

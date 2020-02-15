@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
-	"strings"
+	//"strings"
+
+	"github.com/eknkc/amber"
 )
 
 
@@ -18,13 +21,34 @@ func addr(s Service) string {
 
 
 func pathToTemplate(p string) string {
-
-	page := strings.Trim(p, ROOT_PATH)
-
-	if page == EMPTY_PATH {
-		return fmt.Sprintf("%s/%s", APP_TEMPLATE, INDEX_PAGE)
-	} else {
-		return fmt.Sprintf("%%s/s.amber", APP_TEMPLATE, page)
-	}
-  
+	return fmt.Sprintf("%s/%s", APP_TEMPLATE, INDEX_PAGE)	
 } // pathToTemplate
+
+
+func renderPage(path string) *template.Template {
+
+	compiler := amber.New()
+
+	p := pathToTemplate(path)
+
+	err := compiler.ParseFile(p)
+
+	if err != nil {
+		logf("renderPage", err.Error())
+		return nil
+	} else {
+
+		t, err := compiler.Compile()
+
+		if err != nil {
+			logf("renderPage", err.Error())
+			return nil
+		} else {
+			return t
+		}
+
+	}
+
+} // renderPage
+
+

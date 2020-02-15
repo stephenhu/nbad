@@ -56,17 +56,31 @@ block content
               div bos
                 span.score 113
     div.row.mt-3
-      div.col-lg-7
-        h5 tracked players
+      div.col-lg-12
+        h3 tracked players
           small last 5 games
-        div.list-group.mt-3
+    div.row.mt-3    
+      div.col-lg-4
+        div.list-group
           a.list-group-item.list-group-item-action[href=""]
             div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=80&w=110&scale=crop"][width="96"]
+              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&scale=crop"][width="132"]
               div.media-body            
                 h5.mb-0.blue James Harden
-                canvas.mt-2[id="harden"][width="170"][height="100"]
-          a.list-group-item.list-group-item-action.mt-3[href=""]
+                div ppg
+                  span.score 28.7
+                div rpg
+                  span.score 8.0
+                div apg
+                  span.score 5.3
+                div spg
+                  span.score 2.2
+                div bpg
+                  span.score 0.8
+                div plus minus
+                  span.score +12
+      div.col-lg-4
+          a.list-group-item.list-group-item-action[href=""]
             div.media
               img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&h=80&w=110&scale=crop"][width="132"]
               div.media-body            
@@ -82,8 +96,9 @@ block content
                 div bpg
                   span.score 1.2
                 div plus minus
-                  span.score +24
-          a.list-group-item.list-group-item-action.mt-3[href=""]
+                  span.score +24            
+      div.col-lg-4
+          a.list-group-item.list-group-item-action[href=""]
             div.media
               img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&h=80&w=110&scale=crop"][width="132"]
               div.media-body            
@@ -100,8 +115,11 @@ block content
                   span.score 1.0
                 div plus minus
                   span.score +25           
-      div.col-lg-5
-        h5 top headlines
+    div.row.mt-3
+      div.col-lg-12
+        h3 news          
+    div.row.mt-3
+      div.col
         div.list-group
           a.list-group-item.list-group-item-action.mt-3[href=""]
             div.d-flex.w-100.justify-content-between              
@@ -139,26 +157,5 @@ block content
               small 1d
             p.mb-1 Long time friends, Russell and KAT are now finally reunited.
             small Listen to the podcast at Sweeper
-        div.list-group.mt-3
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.blue Hawks Trade for Clint Capella
-              small.score 3h ago            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Trevor Ariza Traded to Portland
-              small.score 6h            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small.score 1d            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
   import indexbar
-  script
-    playerTrend("harden");
   
