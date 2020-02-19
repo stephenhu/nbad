@@ -21,7 +21,7 @@ func addr(s Service) string {
 
 
 func pathToTemplate(p string) string {
-	return fmt.Sprintf("%s/%s", APP_TEMPLATE, INDEX_PAGE)	
+	return fmt.Sprintf("%s/%s", APP_TEMPLATE, p)	
 } // pathToTemplate
 
 

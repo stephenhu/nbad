@@ -2,163 +2,215 @@ extends layout
 
 block content
   div.container
-    div.row.mt-3
+    div.row.pt-3
       div.col
         div.list-group.list-group-horizontal
-          div.list-group-item.active
-            div feb 12
-          div.list-group-item
+          div.list-group-item.rounded.active
+            div.text-center feb
+            small 12
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 111
+                small.meter-sm DAL
+              div.float-right.text-center
+                div.meter-l 132
+                small.meter-sm MIL
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 100
+                small.meter-sm BKN
+              div.float-right.text-center
+                div.meter-l 83
+                small.meter-sm DET
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 100
+                small.meter-sm LAL
+              div.float-right.text-center
+                div.meter-l 104
+                small.meter-sm DEN
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 94
+                small.meter-sm HOU
+              div.float-right.text-center
+                div.meter-l 111
+                small.meter-sm OKC
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 105
+                small.meter-sm SAC
+              div.float-right.text-center
+                div.meter-l 92
+                small.meter-sm GSW
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 112
+                small.meter-sm POR
+              div.float-right.text-center
+                div.meter-l 97
+                small.meter-sm ORL
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
+              div.float-right.pl-3.text-center
+                div.meter-l 103
+                small.meter-sm ATL
+              div.float-right.text-center
+                div.meter-l 121
+                small.meter-sm SAS
+          div.list-group-item.ml-2.rounded
             a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-    div.row.mt-3
-      div.col-lg-7
-        h5 tracked players
-          small last 5 games
-        div.list-group.mt-3
-          a.list-group-item.list-group-item-action[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=80&w=110&scale=crop"][width="96"]
-              div.media-body            
-                h5.mb-0.blue James Harden
-                canvas.mt-2[id="harden"][width="170"][height="100"]
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body            
-                h5.mb-0.blue Kawhi Leonard
-                div ppg
-                  span.score 23.5
-                div rpg
-                  span.score 7.6
-                div apg
-                  span.score 3.3
-                div spg
-                  span.score 2.1
-                div bpg
-                  span.score 1.2
-                div plus minus
-                  span.score +24
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body            
-                h5.mb-0.blue Jimmy Butler
-                div ppg
-                  span.score 19.2
-                div rpg
-                  span.score 7.8
-                div apg
-                  span.score 7.4
-                div spg
-                  span.score 1.3
-                div bpg
-                  span.score 1.0
-                div plus minus
-                  span.score +25           
+              div.float-right.pl-3.text-center
+                div.meter-l 113
+                small.meter-sm NYK
+              div.float-right.text-center
+                div.meter-l 99
+                small.meter-sm BOS
+    div.row.pt-5
       div.col-lg-5
         h5 top headlines
-        div.list-group
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between              
-              h5.mb-1.blue Hawks Trade for Clint Capella
-              small 3h ago
-            p.mb-1 Four Teams, Twelve Players.
-            small Read more from ESPN.com          
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Trevor Ariza Traded to Portland
-              small 6h
-            p.mb-1 His 9th team in the last 15 years.
-            small Read more from NBA.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small 1d
-            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
-            small Listen to the podcast at Sweeper
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between              
-              h5.mb-1.blue Hawks Trade for Clint Capella
-              small 3h ago
-            p.mb-1 Four Teams, Twelve Players.
-            small Read more from ESPN.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Trevor Ariza Traded to Portland
-              small 6h
-            p.mb-1 His 9th team in the last 15 years.
-            small Read more from NBA.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small 1d
-            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
-            small Listen to the podcast at Sweeper
         div.list-group.mt-3
-          a.list-group-item.list-group-item-action.mt-1[href=""]
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
             div.blue Hawks Trade for Clint Capella
-              small.score 3h ago            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
+              small.score 3h
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
             div.mt-1.blue Trevor Ariza Traded to Portland
-              small.score 6h            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
+              small.score 6h
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
             div.mt-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small.score 1d            
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
-          a.list-group-item.list-group-item-action.mt-1[href=""]
-            div.mt-1.blue Hawks Trade for Clint Capella
-              small.score 3h ago
+              small.score 1d
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
+            div.mt-1.blue Freddie Jones Jr. Wins Slam Dunk Contest
+              small.score 3h
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
+            div.mt-1.blue Paul George Gets Fined for Comments on Referees
+              small.score 3h
+          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
+            div.mt-1.blue Common to Head the All-Star Event in Chicago
+              small.score 3h
+        h5.pt-5 followed teams
+        div.list-group.mt-3
+          a.list-group-item.list-group-item-action.mt-3[href=""]
+            div.media
+              img.mr-3[src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png"][width="132"]
+              div.media-body
+                h5.mb-0.blue LA Clippers
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.rounded.mr-1.text-center
+                    div.meter-l 20.2
+                    small.meter-sm PPG
+                  div.list-group-item.rounded.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm OPPG
+                  div.list-group-item.rounded.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm RPG
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.rounded.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm APG
+                  div.list-group-item.rounded.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm SPG
+      div.col-lg-7
+        h5 followed players
+          small last 5 games
+        div.list-group.mt-3
+          a.list-group-item.list-group-item-action.rounded[href=""]
+            div.media
+              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=80&w=110&scale=crop"][width="72"]
+              div.media-body
+                h5.mb-0.blue James Harden
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 20.2
+                    small.meter-sm PPG
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 5.2
+                    small.meter-sm RPG
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm APG
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm SPG
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm BPG
+                canvas.mt-3[id="harden"]
+          a.list-group-item.list-group-item-action.rounded.mt-3[href=""]
+            div.media
+              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&h=80&w=110&scale=crop"][width="132"]
+              div.media-body
+                h5.mb-0.blue Kawhi Leonard
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 20.2
+                    small.meter-sm ppg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm rpg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm apg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm spg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm bpg
+          a.list-group-item.list-group-item-action.rounded.mt-3[href="/players/jimmy.butler"]
+            div.media
+              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&h=80&w=110&scale=crop"][width="132"]
+              div.media-body
+                h5.mb-0.blue Jimmy Butler
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 20.2
+                    small.meter-sm ppg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm rpg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm apg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm spg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm bpg
+                div.list-group.list-group-horizontal.mt-3
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 20.2
+                    small.meter-sm ppg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm rpg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm apg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm spg
+                  div.list-group-item.mr-1.text-center
+                    div.meter-l 103.2
+                    small.meter-sm bpg
   import indexbar
   script
-    playerTrend("harden");
-  
+    //playerTrend("harden");
+
+    var a = {
+      teams: ["LAL", "POR", "NYK", "HOU", "SAC"],
+      points: [42, 30, 20, 17, 21],
+      rebounds: [7, 5, 8, 11, 6, 9],
+      assists: [3, 5, 8, 4, 3]
+    }
+
+    playerLastGames("harden", a);

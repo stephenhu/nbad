@@ -1,100 +1,432 @@
 /* nbad.js */
 
-function playerTrend(n) {
+const F8BLACK         = "rgba(0, 0, 0, 0.8)";
+const F8CHARCOAL      = "rgba(38, 40, 42, 0.8)";
+const F8BLUE1         = "rgba(12, 34, 65, 0.8)";
+const F8BLUE2         = "rgba(23, 64, 139, 0.8)";
+const F8BLUE3         = "rgba(3, 145, 198, 0.8)";
+const F8BLUE4         = "rgba(8, 114, 225, 0.8)";
+const F8BLUE5         = "rgba(1, 247, 247, 0.8)";
+const F8GREEN         = "rgba(0, 255, 0, 0.8)";
+const F8RED           = "rgba(201, 8, 42, 0.8)";
+const F8WHITE         = "rgba(255, 255, 255, 0.8)";
 
-  var ctx = document.getElementById(n).getContext("2d");
+const F1BLACK         = "rgba(0, 0, 0, 0.1)";
+const F1CHARCOAL      = "rgba(38, 40, 42, 0.1)";
+const F1BLUE1         = "rgba(12, 34, 65, 0.1)";
+const F1BLUE2         = "rgba(23, 64, 139, 0.1)";
+const F1BLUE3         = "rgba(3, 145, 198, 0.1)";
+const F1BLUE4         = "rgba(8, 114, 225, 0.1)";
+const F1BLUE5         = "rgba(1, 247, 247, 0.1)";
+const F1GREEN         = "rgba(0, 255, 0, 0.1)";
+const F1RED           = "rgba(201, 8, 42, 0.1)";
+const F1WHITE         = "rgba(255, 255, 255, 0.1)";
+
+const F8WHEEL         = [F8GREEN, F8BLUE4, F8WHITE, F8CHARCOAL,
+  F8BLUE2, F8BLUE3, F8BLUE5, F8WHITE];
+
+const F1WHEEL         = [F1GREEN, F1BLUE4, F1WHITE, F1CHARCOAL,
+  F1BLUE2, F1BLUE3, F1BLUE5, F1WHITE];
+
+const FADE1           = "0.1";
+const FADE8           = "0.8";
+
+const PTS             = "pts";
+const FGA             = "fga";
+const FGM             = "fgm";
+const FG3A            = "fg3a";
+const FG3M            = "fg3m";
+const FTA             = "fta";
+const FTM             = "ftm";
+const REB             = "reb";
+const AST             = "ast";
+const ST              = "st";
+const BL              = "b";
+const TO              = "to";
+const PF              = "f";
+
+const CHART_BAR       = "bar";
+const CHART_DOUGHNUT  = "doughnut";
+const CHART_2D        = "2d";
+
+
+function getColors(c, b) {
+
+  if(c > 0) {
+
+  }
+
+} // getColors
+
+
+function playerBasicStats(n, d) {
+
+  var ctx = document.getElementById(n).getContext(CHART_2D);
 
   var c = new Chart(ctx, {
-    type: "bar",
+    type: CHART_DOUGHNUT,
     data: {
-      labels: ["atl", "bos", "cle", "sas", "orl"],
+      labels: [PTS, REB, AST],
       datasets: [{
-        label: "pts",
-        data: [34, 48, 17, 21, 18],
+        data: d.stats,
         borderColor: [
-          "rgba(0, 255, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)"          
+          F8GREEN,
+          F8BLUE4,
+          F8WHITE
         ],
         backgroundColor: [
-          "rgba(0, 255, 0, 0.1)",
-          "rgba(0, 255, 0, 0.1)",
-          "rgba(0, 255, 0, 0.1)",
-          "rgba(0, 255, 0, 0.1)",
-          "rgba(0, 255, 0, 0.1)"
+          F1GREEN,
+          F1BLUE4,
+          F1WHITE
+        ],
+        hoverBackgroundColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8WHITE
+        ],
+        hoverBorderColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8WHITE
         ],
         borderWidth: 1,
-        //pointRadius: 0,
+        fill: true
+      }
+      ]
+    },
+    options: {
+      title: {
+        text: d.name,
+        display: true
+      },
+      scales: {
+        yAxes: [{
+          display: false
+        }],
+        xAxes: [{
+          display: false
+        }]
+      }
+    }
+  });
+
+} // playerBasicStats
+
+
+function playerLastGames(n, d) {
+
+  var ctx = document.getElementById(n).getContext(CHART_2D);
+
+  var c = new Chart(ctx, {
+    type: CHART_BAR,
+    data: {
+      labels: d.teams,
+      datasets: [{
+        label: PTS,
+        data: d.points,
+        borderColor: [
+          F8GREEN,
+          F8GREEN,
+          F8GREEN,
+          F8GREEN,
+          F8GREEN
+        ],
+        backgroundColor: [
+          F1GREEN,
+          F1GREEN,
+          F1GREEN,
+          F1GREEN,
+          F1GREEN
+        ],
+        borderWidth: 1,
         fill: true
       },
       {
-        label: "rebs",
-        data: [11, 5, 9, 8, 7],
+        label: REB,
+        data: d.rebounds,
         borderColor: [
-          "rgba(0, 0, 255, 0.2)",
-          "rgba(0, 0, 255, 0.2)",
-          "rgba(0, 0, 255, 0.2)",
-          "rgba(0, 0, 255, 0.2)",
-          "rgba(0, 0, 255, 0.2)",
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4
         ],
         backgroundColor: [
-          "rgba(0, 0, 255, 0.1)",
-          "rgba(0, 0, 255, 0.1)",
-          "rgba(0, 0, 255, 0.1)",
-          "rgba(0, 0, 255, 0.1)",
-          "rgba(0, 0, 255, 0.1)",
+          F1BLUE4,
+          F1BLUE4,
+          F1BLUE4,
+          F1BLUE4,
+          F1BLUE4
         ],
         borderWidth: 1,
-        //pointRadius: 0,
-        fill: true      
+        fill: true
       },
       {
-        label: "asts",
-        data: [3, 8, 3, 3, 5],
+        label: AST,
+        data: d.assists,
         borderColor: [
-          "rgba(255, 0, 0, 0.2)",
-          "rgba(255, 0, 0, 0.2)",
-          "rgba(255, 0, 0, 0.2)",
-          "rgba(255, 0, 0, 0.2)",
-          "rgba(255, 0, 0, 0.2)"
+          F8WHITE,
+          F8WHITE,
+          F8WHITE,
+          F8WHITE,
+          F8WHITE
         ],
         backgroundColor: [
-          "rgba(255, 0, 0, 0.1)",
-          "rgba(255, 0, 0, 0.1)",
-          "rgba(255, 0, 0, 0.1)",
-          "rgba(255, 0, 0, 0.1)",
-          "rgba(255, 0, 0, 0.1)"
+          F1WHITE,
+          F1WHITE,
+          F1WHITE,
+          F1WHITE,
+          F1WHITE
         ],
         borderWidth: 1,
-        //pointRadius: 0,
-        fill: true      
+        fill: true
       }
       ]
     },
     options: {
       scales: {
         yAxes: [{
-          /*ticks: {
-            beginAtZero: true,
-            stepSize: 20,
-            
-          },
-          gridLines: {
-            display: false,
-          },
-          drawBorder: true*/
           stacked: true
         }],
         xAxes: [{
-          /*gridLines: {
-            display: false,
-          }*/
           stacked: true
         }]
       }
     }
   });
 
-} // playerTrend
+} // playerLastGames
+
+
+function teamComparison(n, d) {
+
+  var ctx = document.getElementById(n).getContext(CHART_2D);
+
+  var c = new Chart(ctx, {
+    type: CHART_BAR,
+    data: {
+      labels: [FGA, FGM, FG3A, FG3M, FTA, FTM, REB, AST, ST, BL, TO, PF],
+      datasets: [{
+        label: d.away,
+        data: d.awayStats,
+        backgroundColor: [
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2,
+          F1BLUE2
+        ],
+        borderColor: [
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2,
+          F8BLUE2
+        ],
+        hoverBackgroundColor: [
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1
+        ],
+        hoverBorderColor: [
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1,
+          F8BLUE1
+        ],
+        borderWidth: 1,
+        fill: true
+      },
+      {
+        label: d.home,
+        data: d.homeStats,
+        backgroundColor: [
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED,
+          F1RED
+        ],
+        borderColor: [
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED
+        ],
+        hoverBackgroundColor: [
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED
+        ],
+        hoverBorderColor: [
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED,
+          F8RED
+        ],
+        borderWidth: 1,
+        fill: true
+      }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Team comparison"
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 20,
+          },
+          gridLines: {
+            display: false,
+          },
+          drawBorder: true
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+          gridLines: {
+            display: false,
+          }
+        }]
+      }
+    }
+  });
+
+} // teamComparison
+
+
+function shotDistribution(n, d) {
+
+  var ctx = document.getElementById(n).getContext(CHART_2D);
+
+  var c = new Chart(ctx, {
+    type: CHART_DOUGHNUT,
+    data: {
+      labels: d.players,
+      datasets: [{
+        data: d.shots,
+        backgroundColor: [
+          F1GREEN,
+          F1BLUE4,
+          F1CHARCOAL,
+          F1BLUE2,
+          F1BLUE3,
+          F1BLUE5,
+          F1WHITE
+        ],
+        borderColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8WHITE
+        ],
+        hoverBackgroundColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8WHITE
+        ],
+        hoverBorderColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8WHITE
+        ],
+        fill: false
+      }
+      ]
+    },
+    options: {
+      title: {
+        text: d.team + " shot distribution",
+        display: true
+      },
+      scales: {
+        yAxes: [{
+          display: false,
+        }],
+        xAxes: [{
+          display: false,
+        }]
+      }
+    }
+  });
+
+} // shotDistribution

@@ -12,7 +12,7 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPut:
 	case http.MethodGet:		
 
-		t := renderPage("/notfound")
+		t := renderPage(PAGE_NOT_FOUND)
 
 		if t == nil {
 			w.WriteHeader(http.StatusNotFound)

@@ -4,5 +4,5 @@ block content
   div.jumbotron.mt-3
     h1.display-1 NBAd
       small Page not found
-    h3 Resource does not exist, please check the URL and try again.
-  
+    h4 Resource does not exist, please check the URL and try again.
+    a[href="/"] Return to the main page.

@@ -14,10 +14,11 @@ const (
 )
 
 const (
-	PAGE_HOME						= "home.amber"
+	PAGE_HOME						= "index.amber"
 	PAGE_GAMES					= "games.amber"
 	PAGE_PLAYERS				= "players.amber"
 	PAGE_TEAMS					= "teams.amber"
+	PAGE_NOT_FOUND      = "notfound.amber"
 )
 
 const (

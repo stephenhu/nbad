@@ -7,8 +7,13 @@ html {
 body {
   height: 100%;
   /* background-color: #031c2a;  // titans */
-  /* background-color: #0c2340;    // texans */
-  background-color: #02141f;
+  /* background-color: #0c2340; */
+  /* background-color: #02141f; */
+  /* background-color: #26282A; */
+  /* background-color: #161616; */
+  /* background-color: #ff0000; */
+  /* background-color: #052A51; */
+  background-color: #181818;
   color: #e1e4e6;
 }
 
@@ -31,6 +36,14 @@ p {
 
 small {
   color: #53a9ff;
+}
+
+table {
+  border: none;
+}
+
+th {
+  text-decoration: none;
 }
 
 /* custom classes */
@@ -73,6 +86,18 @@ small {
   float: right;
 }
 
+.meter-sm {
+  font-size: 12px;
+}
+
+.meter-m {
+  font-size: 16px;
+}
+
+.meter-l {
+  font-size: 18px;
+}
+
 /* bootstrap */
 
 .nav {
@@ -84,21 +109,78 @@ small {
 }
 
 .list-group-item {
-  background-color: #0c2340;
-  opacity: .9;
-  margin-left: 5px;
+  background-color: #06315B;
+  /*background-color: #0c2340; */
+  /*background-color: #03202f; */
+  /* opacity: .9; */
+  border: 1px solid #141414;
 }
 
-.list-group-item:hover {  
+.list-group-item:hover {
   background-color: #052584;
 }
 
 .list-group-item-action:hover {
   color: #ffffff;
   background-color: #052584;
-  opacity: .8;
+  /* opacity: .8; */
 }
 
 .jumbotron {
   background-color: #02141f;
+}
+
+.table {
+  border-top: none;
+}
+
+.table-dark {
+  color: #fff;
+  background-color: #03202f;
+  /*-webkit-linear-gradient(left, #25c481, #25b7c4);*/
+  /*background: linear-gradient(to right, #052584, #03202f);*/
+  /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+  opacity: .8;
+  border: none;
+}
+
+.table-dark .table-striped tbody tr:nth-child(even) td {
+  background-color: #0c2340;
+  color: #fff;
+  opacity: .7;
+}
+
+.table-striped tbody tr:nth-child(odd) td {
+  background-color: #02141f;
+  opacity: .7;
+}
+
+.table thead th {
+  /* border: 1px solid #052584; */
+  border: none;
+  border-bottom: 1px solid rgb(83, 169, 255, 0.1);
+  background-color: rgba(12, 35, 64, 0.9);
+  color: #046ec8;
+  /* border-bottom: solid 1px #2090ff; */
+}
+
+.table tr, .table td {
+  /* border: 1px solid #052584; */
+  /* border-top: none; */
+  border-top: 1px solid rgb(83, 169, 255, 0.1);
+  opacity: .8;
+  /* border-bottom: solid 1px #2090ff; */
+}
+
+table.table-bordered > thead > tr > th {
+  border: none;
+  border-top: 1px solid #03202f;
+  /* background-color: rgba(255,255,255,0.3); */
+  /*background-color: #03202f;*/
+}
+
+table.table-bordered > tbody > tr > td {
+  /* border: 1px solid #052584; */
+  border-top: 1px solid #03202f;
+  /* border-bottom: solid 1px #2090ff; */
 }

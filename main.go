@@ -87,15 +87,13 @@ func initRouter() *mux.Router {
 
 	router := mux.NewRouter()
 
-	dir := fmt.Sprintf(".%s", APP_WWW)
-
 	router.PathPrefix(APP_WWW).Handler(http.StripPrefix(APP_WWW,
-		http.FileServer(http.Dir(dir))))
+		http.FileServer(http.Dir(fmt.Sprintf(".%s", APP_WWW)))))
 
 	router.HandleFunc("/", homeHandler)
-	router.HandleFunc("/games/{id:[0-9a-z.]+}", gameHandler)
-	router.HandleFunc("/players/{id:[0-9a-z.]+}", playerHandler)
-	router.HandleFunc("/teams/{id:[0-9a-z.]+}", teamHandler)
+	router.HandleFunc("/games", gameHandler)
+	router.HandleFunc("/players", playerHandler)
+	router.HandleFunc("/teams", teamHandler)
 
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 

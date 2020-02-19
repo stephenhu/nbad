@@ -2,160 +2,210 @@ extends layout
 
 block content
   div.container
-    div.row.mt-3
-      div.col
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col-6
         div.list-group.list-group-horizontal
-          div.list-group-item.active
-            div feb 12
+          div.list-group-item.rounded-left.active
+            small Feb 12
+            div PHI
+            div LAC
           div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
+            small 1st
+            div 23
+            div 25
           div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
+            small 2nd
+            div 32
+            div 23
           div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
+            small 3rd
+            div 23
+            div 25
           div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-          div.list-group-item
-            a.list-group-item-action[href=""]
-              div nyk
-                span.score 86
-              div bos
-                span.score 113
-    div.row.mt-3
-      div.col-lg-12
-        h3 tracked players
-          small last 5 games
-    div.row.mt-3    
-      div.col-lg-4
-        div.list-group
-          a.list-group-item.list-group-item-action[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&scale=crop"][width="132"]
-              div.media-body            
-                h5.mb-0.blue James Harden
-                div ppg
-                  span.score 28.7
-                div rpg
-                  span.score 8.0
-                div apg
-                  span.score 5.3
-                div spg
-                  span.score 2.2
-                div bpg
-                  span.score 0.8
-                div plus minus
-                  span.score +12
-      div.col-lg-4
-          a.list-group-item.list-group-item-action[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body            
-                h5.mb-0.blue Kawhi Leonard
-                div ppg
-                  span.score 23.5
-                div rpg
-                  span.score 7.6
-                div apg
-                  span.score 3.3
-                div spg
-                  span.score 2.1
-                div bpg
-                  span.score 1.2
-                div plus minus
-                  span.score +24            
-      div.col-lg-4
-          a.list-group-item.list-group-item-action[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body            
-                h5.mb-0.blue Jimmy Butler
-                div ppg
-                  span.score 19.2
-                div rpg
-                  span.score 7.8
-                div apg
-                  span.score 7.4
-                div spg
-                  span.score 1.3
-                div bpg
-                  span.score 1.0
-                div plus minus
-                  span.score +25           
-    div.row.mt-3
-      div.col-lg-12
-        h3 news          
-    div.row.mt-3
+            small 4th
+            div 28
+            div 35
+          div.list-group-item.rounded-right
+            small F
+            div 102
+            div 105
+      div.col-6
+        h3 Philadelphia 76ers at Los Angeles Clippers
+          small Feb 12
+    div.row.pt-5.pb-5
       div.col
-        div.list-group
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between              
-              h5.mb-1.blue Hawks Trade for Clint Capella
-              small 3h ago
-            p.mb-1 Four Teams, Twelve Players.
-            small Read more from ESPN.com          
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Trevor Ariza Traded to Portland
-              small 6h
-            p.mb-1 His 9th team in the last 15 years.
-            small Read more from NBA.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small 1d
-            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
-            small Listen to the podcast at Sweeper
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between              
-              h5.mb-1.blue Hawks Trade for Clint Capella
-              small 3h ago
-            p.mb-1 Four Teams, Twelve Players.
-            small Read more from ESPN.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Trevor Ariza Traded to Portland
-              small 6h
-            p.mb-1 His 9th team in the last 15 years.
-            small Read more from NBA.com
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.d-flex.w-100.justify-content-between 
-              h5.mb-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small 1d
-            p.mb-1 Long time friends, Russell and KAT are now finally reunited.
-            small Listen to the podcast at Sweeper
+        h3.blue summary
+        p leonard took 40% of the team's shots and was only 32% from the field.
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col
+        canvas.mt-3[id="home"]
+    div.row.pt-5
+      div.col
+        h3.blue top performers
+          small lac
+    div.row.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas.mt-3[id="lac.2"]
+      div.col-6
+        canvas.mt-3[id="lac.3"]
+    div.row.pt-5
+      div.col
+        h3.blue top performers
+          small phi
+    div.row.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas.mt-3[id="lac.4"]
+      div.col-6
+        canvas.mt-3[id="lac.5"]
+    div.row.pt-5
+      div.col
+        h3.blue shot distribution
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas[id="lac.1"]
+      div.col-6
+        canvas[id="lac.6"]
+    div.row.pt-5.pb-5
+      div.col
+        h3.mt-3.blue boxscore
+        table.table.table-hover.table-striped.table-dark.mt-3
+          thead
+            tr
+              th Name
+              th Points
+              th Min
+              th FG
+              th 3PT
+              th FT
+              th Oreb
+              th Dreb
+              th Treb
+              th Ast
+              th Stl
+              th Blk
+              th To
+              th Pf
+              th Plus/minus
+          tbody
+            tr
+              td Kawhi Leonard
+              td 36
+              td 33:25
+              td 12-23
+              td 3-8
+              td 5-6
+              td 2
+              td 8
+              td 10
+              td 5
+              td 2
+              td 1
+              td 3
+              td 4
+              td +12
+            tr
+              td Paul George
+              td 21
+              td 25:12
+              td 8-19
+              td 3-12
+              td 7-7
+              td 4
+              td 7
+              td 11
+              td 8
+              td 3
+              td 0
+              td 5
+              td 5
+              td +7
+            tr
+              td Paul George
+              td 21
+              td 25:12
+              td 8-19
+              td 3-12
+              td 7-7
+              td 4
+              td 7
+              td 11
+              td 8
+              td 3
+              td 0
+              td 5
+              td 5
+              td +7
+            tr
+              td Paul George
+              td 21
+              td 25:12
+              td 8-19
+              td 3-12
+              td 7-7
+              td 4
+              td 7
+              td 11
+              td 8
+              td 3
+              td 0
+              td 5
+              td 5
+              td +7
+            tr
+              td Paul George
+              td 21
+              td 25:12
+              td 8-19
+              td 3-12
+              td 7-7
+              td 4
+              td 7
+              td 11
+              td 8
+              td 3
+              td 0
+              td 5
+              td 5
+              td +7
   import indexbar
-  
+  script
+    var z = {
+      team: "LAC",
+      players: ["Leonard", "George", "Shamet", "Zubac", "Harrell", "Williams", "Green"],
+      shots: [29, 19, 11, 4, 12, 23, 5]
+    }
+
+    shotDistribution("lac.1", z);
+
+    var y = {
+      team: "PHI",
+      players: ["Simmons", "Embiid", "Harris", "Horford", "Smith", "Scott", "James"],
+      shots: [12, 23, 16, 8, 4, 4, 6]
+    }
+
+    shotDistribution("lac.6", y);
+
+    var a = {
+      name: "L. Williams",
+      stats: [12, 8, 4]
+    }
+
+    var b = {
+      name: "P. George",
+      stats: [24, 5, 7]
+    }
+
+    playerBasicStats("lac.2", a);
+    playerBasicStats("lac.3", b);
+
+    playerBasicStats("lac.4", b);
+    playerBasicStats("lac.5", a);
+
+    var d = {
+      away: "LAC",
+      awayStats: [46, 22, 22, 11, 29, 20, 52, 22, 10, 4, 15, 34],
+      home: "PHI",
+      homeStats: [60, 24, 21, 13, 32, 27, 60, 31, 12, 8, 15, 39]
+    }
+
+    teamComparison("home", d);
