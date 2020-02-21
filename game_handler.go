@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	//"github.com/gorilla/mux"
-	
+	"github.com/gorilla/mux"
+
 )
 
 
@@ -12,14 +12,25 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 
   switch r.Method {
 	case http.MethodPut:
-	case http.MethodGet:		
+	case http.MethodGet:
 
-		t := renderPage(PAGE_GAMES)
+		vars := mux.Vars(r)
 
-		if t == nil {			
+		date := vars["date"]
+		id 	 := vars["id"]
+
+		if id == "" || date == "" {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
-			t.Execute(w, nil)
+
+			t := renderPage(PAGE_GAMES)
+
+			if t == nil {
+				w.WriteHeader(http.StatusNotFound)
+			} else {
+				t.Execute(w, nil)
+			}
+
 		}
 
 	case http.MethodDelete:

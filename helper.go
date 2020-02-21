@@ -5,8 +5,10 @@ import (
 	"html/template"
 	"log"
 	//"strings"
+	"time"
 
 	"github.com/eknkc/amber"
+	"github.com/stephenhu/stats"
 )
 
 
@@ -21,7 +23,7 @@ func addr(s Service) string {
 
 
 func pathToTemplate(p string) string {
-	return fmt.Sprintf("%s/%s", APP_TEMPLATE, p)	
+	return fmt.Sprintf("%s/%s", APP_TEMPLATE, p)
 } // pathToTemplate
 
 
@@ -52,3 +54,15 @@ func renderPage(path string) *template.Template {
 } // renderPage
 
 
+func simpleDate(d string) string {
+
+	t, err := time.Parse(stats.DATE_FORMAT, d)
+
+	if err != nil {
+		logf("simpleDate", err.Error())
+		return d
+	} else {
+		return t.Format(SIMPLE_FORMAT)
+	}
+
+} // simpleDate

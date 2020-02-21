@@ -87,15 +87,15 @@ th {
 }
 
 .meter-sm {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .meter-m {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .meter-l {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* bootstrap */
@@ -109,11 +109,12 @@ th {
 }
 
 .list-group-item {
-  background-color: #06315B;
+  background-color: #0c2340;
   /*background-color: #0c2340; */
   /*background-color: #03202f; */
   /* opacity: .9; */
-  border: 1px solid #141414;
+  /*border: 1px solid #141414;*/
+  border: none;
 }
 
 .list-group-item:hover {

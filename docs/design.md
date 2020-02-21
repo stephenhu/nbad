@@ -1,6 +1,6 @@
 # design
 
-nbad includes a dashboard, storage, and engine for collecting/analyzing data.  
+nbad includes a dashboard, storage, and engine for collecting/analyzing data.
 data is pulled from a data source and persisted to json files on the filesystem.
 
 ## dashboard
@@ -21,13 +21,13 @@ data is pulled from a data source and persisted to json files on the filesystem.
 
 ## collector
 
-data needs to be collected, should i assume the dataset is pristine and delegate 
+data needs to be collected, should i assume the dataset is pristine and delegate
 this work elsewhere?  this will mostly rely on the stats package to collect and
-maintain this information
+maintain this information.  it will periodically poll data.
 
 ## storage
 
-want to hold a modern compendium of all statistics.  store the lowest 
+want to hold a modern compendium of all statistics.  store the lowest
 granularity, calculate the rest on the fly.  leverage redis for fast lookups
 and counters
 

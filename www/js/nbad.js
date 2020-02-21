@@ -49,6 +49,12 @@ const CHART_BAR       = "bar";
 const CHART_DOUGHNUT  = "doughnut";
 const CHART_2D        = "2d";
 
+const API                     = "http://127.0.0.1:9005/api";
+const PLAYERS_API             = API + "/players";
+const FAVORITE_PLAYERS_API    = API + "/players?favorite=true";
+
+const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
+
 
 function getColors(c, b) {
 
@@ -57,6 +63,19 @@ function getColors(c, b) {
   }
 
 } // getColors
+
+
+function mashName(s) {
+
+  if(s === null || s === "") {
+    console.log("Error: empty player name");
+  } else {
+    s.replace(" ", "");
+
+    return s;
+  }
+
+} // mashName
 
 
 function playerBasicStats(n, d) {
@@ -430,3 +449,124 @@ function shotDistribution(n, d) {
   });
 
 } // shotDistribution
+
+
+function favoriteStats(player) {
+
+  var listGroupH = document.createElement("div");
+  listGroupH.className = "list-group list-group-horizontal pt-3"
+
+  for(var key in FAV_STATS) {
+
+    var listGroup = document.createElement("div");
+    listGroup.className = "list-group-item text-center mr-2";
+
+    var num = document.createElement("div");
+    num.className = "meter-l";
+    num.innerText = player.averages[key]
+
+    var label = document.createElement("small");
+    label.className = "meter-sm";
+    label.innerText = FAV_STATS[key];
+
+    listGroup.appendChild(num);
+    listGroup.appendChild(label);
+    listGroupH.appendChild(listGroup);
+
+  }
+
+  return listGroupH
+
+} // favoriteStats
+
+
+function favoritePlayerCharts(games, id) {
+
+  var d = {points: [], rebounds: [], assists: [], teams: []};
+
+  console.log(games);
+  for(i = 0; i < games.length; i++) {
+
+    d.points.push(games[i].points);
+    d.rebounds.push(games[i].treb);
+    d.assists.push(games[i].assists);
+    d.teams.push(games[i].opponent);
+
+  }
+
+  playerLastGames(id, d);
+
+} // favoritePlayerCharts
+
+
+function renderFavoritePlayers(players) {
+
+  var id = document.getElementById("players");
+
+  var count = 0;
+
+  for(var key in players) {
+
+    var a           = document.createElement("a");
+
+    if(count === 0) {
+      a.className = "list-group-item list-group-item-action rounded mt-1";
+    } else {
+      a.className = "list-group-item list-group-item-action rounded mt-3";
+    }
+
+    a.setAttribute("href", "/players");
+
+    var media       = document.createElement("div");
+    media.className = "media";
+
+    var img         = document.createElement("img");
+    img.className = "mr-3";
+    img.setAttribute("src", players[key].icon);
+    img.setAttribute("width", "128");
+
+    var mediaBody   = document.createElement("div");
+    mediaBody.className = "media-body";
+
+    var h5          = document.createElement("h5");
+    h5.className = "mb-0 blue";
+    h5.innerText = key;
+
+    var lgh = favoriteStats(players[key]);
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "mt-3";
+    canvas.setAttribute("id", mashName(key));
+
+    mediaBody.appendChild(h5);
+    mediaBody.appendChild(lgh);
+    mediaBody.appendChild(canvas);
+
+    media.appendChild(img);
+    media.appendChild(mediaBody);
+
+    a.appendChild(media);
+
+    id.appendChild(a);
+
+    favoritePlayerCharts(players[key].games, mashName(key));
+
+    count = count + 1;
+
+  }
+
+} // renderFavoritePlayers
+
+
+function favoritePlayers() {
+
+  fetch(FAVORITE_PLAYERS_API, {
+    method: "GET"
+  }).then((res) => res.json())
+    .then(function(data) {
+      renderFavoritePlayers(data);
+    }).catch(function(err) {
+      console.log(err);
+    });
+
+} // favoritePlayers

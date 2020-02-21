@@ -4,74 +4,20 @@ block content
   div.container
     div.row.pt-3
       div.col
+        h5 #{Date}
+    div.row.pt-3
+      div.col
         div.list-group.list-group-horizontal
-          div.list-group-item.rounded.active
-            div.text-center feb
-            small 12
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 111
-                small.meter-sm DAL
-              div.float-right.text-center
-                div.meter-l 132
-                small.meter-sm MIL
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 100
-                small.meter-sm BKN
-              div.float-right.text-center
-                div.meter-l 83
-                small.meter-sm DET
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 100
-                small.meter-sm LAL
-              div.float-right.text-center
-                div.meter-l 104
-                small.meter-sm DEN
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 94
-                small.meter-sm HOU
-              div.float-right.text-center
-                div.meter-l 111
-                small.meter-sm OKC
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 105
-                small.meter-sm SAC
-              div.float-right.text-center
-                div.meter-l 92
-                small.meter-sm GSW
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 112
-                small.meter-sm POR
-              div.float-right.text-center
-                div.meter-l 97
-                small.meter-sm ORL
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 103
-                small.meter-sm ATL
-              div.float-right.text-center
-                div.meter-l 121
-                small.meter-sm SAS
-          div.list-group-item.ml-2.rounded
-            a.list-group-item-action[href=""]
-              div.float-right.pl-3.text-center
-                div.meter-l 113
-                small.meter-sm NYK
-              div.float-right.text-center
-                div.meter-l 99
-                small.meter-sm BOS
+          each $g in Games
+            div.list-group-item.ml-1.rounded
+              $lk = "/games/" + Date + "/" + $g.Away.Name + "." + $g.Home.Name
+              a.list-group-item-action[href=$lk]
+                div
+                  span.meter-sm.blue #{$g.Away.Name}
+                  span.meter-l.pl-2.float-right #{$g.Away.Score}
+                div
+                  span.meter-sm.blue #{$g.Home.Name}
+                  span.meter-l.pl-2 #{$g.Home.Score}
     div.row.pt-5
       div.col-lg-5
         h5 top headlines
@@ -95,122 +41,34 @@ block content
             div.mt-1.blue Common to Head the All-Star Event in Chicago
               small.score 3h
         h5.pt-5 followed teams
-        div.list-group.mt-3
+        div.list-group.mt-3[id="teams"]
           a.list-group-item.list-group-item-action.mt-3[href=""]
             div.media
               img.mr-3[src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png"][width="132"]
               div.media-body
                 h5.mb-0.blue LA Clippers
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.rounded.mr-1.text-center
+                div.list-group.list-group-horizontal.mt-2
+                  div.list-group-item.text-center.mr-2
                     div.meter-l 20.2
                     small.meter-sm PPG
-                  div.list-group-item.rounded.mr-1.text-center
+                  div.list-group-item.text-center.mr-2
                     div.meter-l 103.2
                     small.meter-sm OPPG
-                  div.list-group-item.rounded.mr-1.text-center
+                  div.list-group-item.text-center
                     div.meter-l 103.2
                     small.meter-sm RPG
                 div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.rounded.mr-1.text-center
+                  div.list-group-item.text-center
                     div.meter-l 103.2
                     small.meter-sm APG
-                  div.list-group-item.rounded.mr-1.text-center
+                  div.list-group-item.text-center
                     div.meter-l 103.2
                     small.meter-sm SPG
       div.col-lg-7
         h5 followed players
           small last 5 games
-        div.list-group.mt-3
-          a.list-group-item.list-group-item-action.rounded[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=80&w=110&scale=crop"][width="72"]
-              div.media-body
-                h5.mb-0.blue James Harden
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 20.2
-                    small.meter-sm PPG
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 5.2
-                    small.meter-sm RPG
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm APG
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm SPG
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm BPG
-                canvas.mt-3[id="harden"]
-          a.list-group-item.list-group-item-action.rounded.mt-3[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body
-                h5.mb-0.blue Kawhi Leonard
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 20.2
-                    small.meter-sm ppg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm rpg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm apg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm spg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm bpg
-          a.list-group-item.list-group-item-action.rounded.mt-3[href="/players/jimmy.butler"]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&h=80&w=110&scale=crop"][width="132"]
-              div.media-body
-                h5.mb-0.blue Jimmy Butler
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 20.2
-                    small.meter-sm ppg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm rpg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm apg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm spg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm bpg
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 20.2
-                    small.meter-sm ppg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm rpg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm apg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm spg
-                  div.list-group-item.mr-1.text-center
-                    div.meter-l 103.2
-                    small.meter-sm bpg
+        div.list-group.mt-3[id="players"]
+
   import indexbar
   script
-    //playerTrend("harden");
-
-    var a = {
-      teams: ["LAL", "POR", "NYK", "HOU", "SAC"],
-      points: [42, 30, 20, 17, 21],
-      rebounds: [7, 5, 8, 11, 6, 9],
-      assists: [3, 5, 8, 4, 3]
-    }
-
-    playerLastGames("harden", a);
+    favoritePlayers();

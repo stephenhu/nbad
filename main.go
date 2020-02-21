@@ -11,6 +11,7 @@ import (
 
 	"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/mux"
+	"github.com/stephenhu/stats"
 )
 
 type Service struct {
@@ -22,6 +23,9 @@ type Service struct {
 type Config struct {
 	Store						Service				`json:"redis"`
 	Dashboard       Service       `json:"dashboard"`
+	News            []string      `json:"news"`
+	Players         []string			`json:"players"`
+	Teams           []string      `json:"teams"`
 }
 
 var (
@@ -60,7 +64,7 @@ func parseConfig() {
 			if err != nil {
 				log.Fatal(err)
 			}
-	
+
 		}
 
 	}
@@ -91,11 +95,16 @@ func initRouter() *mux.Router {
 		http.FileServer(http.Dir(fmt.Sprintf(".%s", APP_WWW)))))
 
 	router.HandleFunc("/", homeHandler)
-	router.HandleFunc("/games", gameHandler)
+	router.HandleFunc("/games/{date:[0-9]+}/{id:[a-zA-Z.]+}", gameHandler)
 	router.HandleFunc("/players", playerHandler)
 	router.HandleFunc("/teams", teamHandler)
 
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
+
+	router.HandleFunc("/api/follows", followApiHandler)
+	router.HandleFunc("/api/players", playerApiHandler)
+	router.HandleFunc("/api/players/{name:[a-zA-Z]+}", playerApiHandler)
+	router.HandleFunc("/api/teams/{name:[a-zA-Z]+}", teamApiHandler)
 
 	return router
 
@@ -108,21 +117,21 @@ func main() {
 
 	parseConfig()
 
-
 	if *download {
 
 		log.Println(fmt.Sprintf("%s v%s downloading data...", APP_NAME,
 			APP_VERSION))
-		
+
 		downloadData()
 
 	} else {
 
+		stats.LoadCache()
 		//connectRedis()
 
 		log.Println(fmt.Sprintf("%s v%s starting on %s...", APP_NAME,
 			APP_VERSION, addr(config.Dashboard)))
-	
+
 		log.Fatal(http.ListenAndServe(addr(config.Dashboard), initRouter()))
 
 	}
