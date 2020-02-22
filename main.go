@@ -20,12 +20,18 @@ type Service struct {
 	Protocol				string				`json:"protocol"`
 }
 
+type Filter struct {
+	Like						[]string			`json:"like"`
+	Dislike					[]string			`json:"dislike"`
+}
+
 type Config struct {
 	Store						Service				`json:"redis"`
 	Dashboard       Service       `json:"dashboard"`
 	News            []string      `json:"news"`
 	Players         []string			`json:"players"`
 	Teams           []string      `json:"teams"`
+	Filters         Filter      	`json:"filters"`
 }
 
 var (
@@ -101,9 +107,11 @@ func initRouter() *mux.Router {
 
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
+	router.HandleFunc("/api/news", newsApiHandler)
 	router.HandleFunc("/api/follows", followApiHandler)
 	router.HandleFunc("/api/players", playerApiHandler)
 	router.HandleFunc("/api/players/{name:[a-zA-Z]+}", playerApiHandler)
+	router.HandleFunc("/api/teams", teamApiHandler)
 	router.HandleFunc("/api/teams/{name:[a-zA-Z]+}", teamApiHandler)
 
 	return router

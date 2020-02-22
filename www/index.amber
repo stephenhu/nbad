@@ -21,54 +21,15 @@ block content
     div.row.pt-5
       div.col-lg-5
         h5 top headlines
-        div.list-group.mt-3
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.blue Hawks Trade for Clint Capella
-              small.score 3h
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.mt-1.blue Trevor Ariza Traded to Portland
-              small.score 6h
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.mt-1.blue Russell Traded to Minnesota for Josh Okogie.
-              small.score 1d
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.mt-1.blue Freddie Jones Jr. Wins Slam Dunk Contest
-              small.score 3h
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.mt-1.blue Paul George Gets Fined for Comments on Referees
-              small.score 3h
-          a.list-group-item.list-group-item-action.rounded.mt-1[href=""]
-            div.mt-1.blue Common to Head the All-Star Event in Chicago
-              small.score 3h
+        div.list-group.mt-3[id="news"]
         h5.pt-5 followed teams
         div.list-group.mt-3[id="teams"]
-          a.list-group-item.list-group-item-action.mt-3[href=""]
-            div.media
-              img.mr-3[src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png"][width="132"]
-              div.media-body
-                h5.mb-0.blue LA Clippers
-                div.list-group.list-group-horizontal.mt-2
-                  div.list-group-item.text-center.mr-2
-                    div.meter-l 20.2
-                    small.meter-sm PPG
-                  div.list-group-item.text-center.mr-2
-                    div.meter-l 103.2
-                    small.meter-sm OPPG
-                  div.list-group-item.text-center
-                    div.meter-l 103.2
-                    small.meter-sm RPG
-                div.list-group.list-group-horizontal.mt-3
-                  div.list-group-item.text-center
-                    div.meter-l 103.2
-                    small.meter-sm APG
-                  div.list-group-item.text-center
-                    div.meter-l 103.2
-                    small.meter-sm SPG
       div.col-lg-7
         h5 followed players
           small last 5 games
         div.list-group.mt-3[id="players"]
-
   import indexbar
   script
     favoritePlayers();
+    favoriteTeams();
+    getNews();

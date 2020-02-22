@@ -52,6 +52,9 @@ const CHART_2D        = "2d";
 const API                     = "http://127.0.0.1:9005/api";
 const PLAYERS_API             = API + "/players";
 const FAVORITE_PLAYERS_API    = API + "/players?favorite=true";
+const TEAMS_API               = API + "/teams";
+const FAVORITE_TEAMS_API      = API + "/teams?favorite=true";
+const NEWS_API                = API + "/news";
 
 const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
 
@@ -484,7 +487,6 @@ function favoritePlayerCharts(games, id) {
 
   var d = {points: [], rebounds: [], assists: [], teams: []};
 
-  console.log(games);
   for(i = 0; i < games.length; i++) {
 
     d.points.push(games[i].points);
@@ -558,6 +560,102 @@ function renderFavoritePlayers(players) {
 } // renderFavoritePlayers
 
 
+function renderFavoriteTeams(teams) {
+
+  var id = document.getElementById("teams");
+
+  var count = 0;
+
+  for(var key in teams) {
+
+    var a           = document.createElement("a");
+
+    if(count === 0) {
+      a.className = "list-group-item list-group-item-action rounded mt-1";
+    } else {
+      a.className = "list-group-item list-group-item-action rounded mt-3";
+    }
+
+    a.setAttribute("href", "/players");
+
+    var media       = document.createElement("div");
+    media.className = "media";
+
+    var img         = document.createElement("img");
+    img.className = "mr-3";
+    img.setAttribute("src", teams[key].icon);
+    img.setAttribute("width", "128");
+
+    var mediaBody   = document.createElement("div");
+    mediaBody.className = "media-body";
+
+    var h5          = document.createElement("h5");
+    h5.className = "mb-0 blue";
+    h5.innerText = key;
+
+    var lgh = favoriteStats(teams[key]);
+
+    mediaBody.appendChild(h5);
+    mediaBody.appendChild(lgh);
+
+    media.appendChild(img);
+    media.appendChild(mediaBody);
+
+    a.appendChild(media);
+
+    id.appendChild(a);
+
+    count = count + 1;
+
+  }
+
+} // renderFavoriteTeams
+
+
+function renderNews(articles) {
+
+  var id = document.getElementById("news");
+
+  var count = 0;
+
+  for(var i = 0; i < articles.length; i++) {
+
+    var a = document.createElement("a");
+
+    if(count === 0) {
+      a.className = "list-group-item list-group-item-action rounded mt-1";
+    } else {
+      a.className = "list-group-item list-group-item-action rounded mt-3";
+    }
+
+    a.setAttribute("href", articles[i].link);
+
+    var div = document.createElement("div");
+    div.className = "blue";
+    div.innerText = articles[i].title;
+
+    var small = document.createElement("small");
+    small.innerText = articles[i].date;
+
+    /*
+    var img         = document.createElement("img");
+    img.className = "mr-3";
+    img.setAttribute("src", teams[key].icon);
+    img.setAttribute("width", "128");
+    */
+
+    a.appendChild(div);
+    a.appendChild(small);
+
+    id.appendChild(a);
+
+    count = count + 1;
+
+  }
+
+} // renderNews
+
+
 function favoritePlayers() {
 
   fetch(FAVORITE_PLAYERS_API, {
@@ -570,3 +668,31 @@ function favoritePlayers() {
     });
 
 } // favoritePlayers
+
+
+function favoriteTeams() {
+
+  fetch(FAVORITE_TEAMS_API, {
+    method: "GET"
+  })
+  .then((res) => res.json())
+  .then(function(data) {
+    renderFavoriteTeams(data);
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // favoriteTeams
+
+
+function getNews() {
+
+  fetch(NEWS_API)
+  .then((res) => res.json())
+  .then(function(data) {
+    renderNews(data);
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getNews

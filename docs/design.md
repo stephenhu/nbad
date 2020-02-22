@@ -46,6 +46,22 @@ year.month.day.team
 year.team
 ```
 
+## headlines
+
+customized set of words to ignore, other words to give more weight.
+
+should sort based on date, show score, provide score
+
+a way to store each link and give a score for analytics.
+
+can update these custom settings on the fly, persist to redis instead of config.
+
+provide a button to give user way to score articles.
+
+2 sets, likes, dislikes
+
+need a way to track when an article's been read
+
 ## analyses
 
 1. season leaders

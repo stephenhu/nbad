@@ -4,6 +4,7 @@ import (
 	//"fmt"
 	//"log"
 	"net/http"
+	//"sort"
 
 	"github.com/stephenhu/stats"
 )
@@ -21,15 +22,12 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
 
-			//getNews()
-
 			data := struct {
 				Date   string
 				Games  []stats.Game
-				News   []Article
 			}{
-				Date: simpleDate("20191028"),
-				Games: stats.GamesMap["20191118"],
+				Date: simpleDate("20200201"),
+				Games: stats.GamesMap["20200201"],
 			}
 
 			t.Execute(w, data)

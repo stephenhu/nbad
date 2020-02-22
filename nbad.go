@@ -31,6 +31,7 @@ const (
 
 const (
 	SIMPLE_FORMAT       = "Feb 02"
+	//PUB_FORMAT          = "Mon, 2 Jan 2006 15:04:05 MST" // RFC1123
 )
 
 const (
@@ -44,4 +45,9 @@ const (
 
 const (
 	LAST_GAME_COUNT						= 5
+)
+
+const (
+	DISLIKE_POINTS						= -30
+
 )

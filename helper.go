@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"strconv"
 	//"strings"
 	"time"
 
@@ -66,3 +67,23 @@ func simpleDate(d string) string {
 	}
 
 } // simpleDate
+
+
+func parseCount(s string) int {
+
+	if s == "" {
+		return LAST_GAME_COUNT
+	} else {
+
+		count, err := strconv.ParseInt(s, 10, 32)
+
+		if err != nil {
+			logf("parseCount", err.Error())
+			return LAST_GAME_COUNT
+		} else {
+			return int(count)
+		}
+
+	}
+
+} // parseCount

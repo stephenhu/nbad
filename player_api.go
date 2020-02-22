@@ -5,7 +5,6 @@ import (
 	"fmt"
 	//"log"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/stephenhu/stats"
@@ -20,26 +19,6 @@ type Player struct {
 }
 
 
-func parseCount(s string) int {
-
-	if s == "" {
-		return LAST_GAME_COUNT
-	} else {
-
-		count, err := strconv.ParseInt(s, 10, 32)
-
-		if err != nil {
-			logf("parseCount", err.Error())
-			return LAST_GAME_COUNT
-		} else {
-			return int(count)
-		}
-
-	}
-
-} // parseCount
-
-
 func getPlayerLast(n int) map[string]Player {
 
 	favorites := map[string]Player{}
@@ -48,13 +27,13 @@ func getPlayerLast(n int) map[string]Player {
 
 		last := stats.LastPlayedGames(n, p)
 
-		as := stats.Averages(last)
+		as := stats.PlayerAverages(last)
 
 		fp := Player{}
 
 		fp.Games 		= last
 		fp.Averages	= as
-		fp.Icon     = fmt.Sprintf(stats.ESPN_ICON_URL, stats.Icons[p])
+		fp.Icon     = fmt.Sprintf(stats.ESPN_PLAYER_ICON_URL, stats.Icons[p])
 
 		favorites[p] = fp
 
@@ -88,7 +67,7 @@ func playerApiHandler(w http.ResponseWriter, r *http.Request) {
 				j, err := json.Marshal(players)
 
 				if err != nil {
-					logf("playerHandler", err.Error())
+					logf("playerApiHandler", err.Error())
 					w.WriteHeader(http.StatusInternalServerError)
 				} else {
 					w.Header().Set("Content-Type", "application/json")
