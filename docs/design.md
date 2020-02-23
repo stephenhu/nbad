@@ -25,6 +25,12 @@ data needs to be collected, should i assume the dataset is pristine and delegate
 this work elsewhere?  this will mostly rely on the stats package to collect and
 maintain this information.  it will periodically poll data.
 
+news should be polled more frequently, like every hour or so?  or even during
+page refresh.  news should be cached also though for faster response time.
+
+download latest stats can happen daily
+
+
 ## storage
 
 want to hold a modern compendium of all statistics.  store the lowest
@@ -33,18 +39,33 @@ and counters
 
 key space analysis:
 
-28 teams, 16 players per team, 82 games (~36736 keys per season, not including playoffs)
+30 teams, 16 players per team, 82 games (~36736 keys per season, not including playoffs)
 
 _players rotate out of the league, free agency, and injuries_
 
-lowest granularity is a set of stats per player per game
+lowest granularity data to be stored is a set of game stats per team and player
 
-```
-year.month.day.first.last
-year.first.last
-year.month.day.team
-year.team
-```
+key | fields | redis structure | comments
+--- | --- | --- | ---
+20200211 | lalbos = json, clesas = json | redis hash map |
+lebronjames:2019 | 20200211 = lalbos, 20200210 = denlal | redis hash map | keys to games played
+lebronjames | 2019 = json, 2018 = json, 2017 = json | redis hash map | season stats
+lal:2019 | 20200211 = lalbos | redis hash map |
+lal | 2019 = json, 2018 = json | redis hash map |
+
+### ingest
+
+these are the things that need
+
+
+### redis
+
+since our golang structs are quite complicated, do we serialize to json and then store as a string value
+or do we take advantage of redis' hash fields?  the nature of nba data doesn't change, especially
+for completed game data.  live games are different, and counters like seasonal statistics are updated,
+but not that often.
+
+
 
 ## headlines
 

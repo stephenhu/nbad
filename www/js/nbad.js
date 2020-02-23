@@ -55,8 +55,11 @@ const FAVORITE_PLAYERS_API    = API + "/players?favorite=true";
 const TEAMS_API               = API + "/teams";
 const FAVORITE_TEAMS_API      = API + "/teams?favorite=true";
 const NEWS_API                = API + "/news";
+const SCORES_API              = API + "/scores";
 
 const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
+const FAV_STATS_R1 = {"ppg": "PPG", "rpg": "RPG", "apg": "APG"};
+const FAV_STATS_R2 = {"spg": "SPG", "bpg": "BPG"};
 
 
 function getColors(c, b) {
@@ -79,6 +82,11 @@ function mashName(s) {
   }
 
 } // mashName
+
+
+function gamekey(g) {
+  return "/games/" + g.date + "/" + g.away.name + "." + g.home.name;
+} // gamekey
 
 
 function playerBasicStats(n, d) {
@@ -454,6 +462,35 @@ function shotDistribution(n, d) {
 } // shotDistribution
 
 
+function favoriteStatsRows(player, stats) {
+
+  var listGroupH = document.createElement("div");
+  listGroupH.className = "list-group list-group-horizontal pt-3"
+
+  for(var key in stats) {
+
+    var listGroup = document.createElement("div");
+    listGroup.className = "list-group-item text-center mr-2";
+
+    var num = document.createElement("div");
+    num.className = "meter-l";
+    num.innerText = player.averages[key]
+
+    var label = document.createElement("small");
+    label.className = "meter-sm";
+    label.innerText = stats[key];
+
+    listGroup.appendChild(num);
+    listGroup.appendChild(label);
+    listGroupH.appendChild(listGroup);
+
+  }
+
+  return listGroupH
+
+} // favoriteStatsRows
+
+
 function favoriteStats(player) {
 
   var listGroupH = document.createElement("div");
@@ -499,6 +536,53 @@ function favoritePlayerCharts(games, id) {
   playerLastGames(id, d);
 
 } // favoritePlayerCharts
+
+
+function createScore(game, home) {
+
+  var team = null;
+
+  if(home) {
+    team = game.home;
+  } else {
+    team = game.away;
+  }
+
+  var div = document.createElement("div");
+
+  var span1 = document.createElement("span");
+  span1.className = "meter-sm blue";
+  span1.innerText = team.name;
+
+  var span2 = document.createElement("span");
+  span2.className = "meter-l pl-2 float-right";
+  span2.innerText = team.score;
+
+  div.appendChild(span1);
+  div.appendChild(span2);
+
+  return div;
+
+} // createScore
+
+
+function setDateHeader(g) {
+
+  if(g.date.length === 8) {
+
+    var fd = g.date.substring(0, 4) + "-" + g.date.substring(4, 6) + "-" + g.date.substring(6, 8);
+
+    var d = new Date(fd);
+
+    var id = document.getElementById("date");
+
+    id.innerText = d.toDateString();
+
+  } else {
+    console.log("Invalid date length: " + g.date.length);
+  }
+
+} // setDateHeader
 
 
 function renderFavoritePlayers(players) {
@@ -568,7 +652,7 @@ function renderFavoriteTeams(teams) {
 
   for(var key in teams) {
 
-    var a           = document.createElement("a");
+    var a = document.createElement("a");
 
     if(count === 0) {
       a.className = "list-group-item list-group-item-action rounded mt-1";
@@ -593,10 +677,12 @@ function renderFavoriteTeams(teams) {
     h5.className = "mb-0 blue";
     h5.innerText = key;
 
-    var lgh = favoriteStats(teams[key]);
+    var lgh1 = favoriteStatsRows(teams[key], FAV_STATS_R1);
+    var lgh2 = favoriteStatsRows(teams[key], FAV_STATS_R2);
 
     mediaBody.appendChild(h5);
-    mediaBody.appendChild(lgh);
+    mediaBody.appendChild(lgh1);
+    mediaBody.appendChild(lgh2);
 
     media.appendChild(img);
     media.appendChild(mediaBody);
@@ -656,25 +742,59 @@ function renderNews(articles) {
 } // renderNews
 
 
+function renderScores(games) {
+
+  if(games === null) {
+    return;
+  }
+
+  var id = document.getElementById("scores");
+
+  for(var i = 0; i < games.length; i++) {
+
+    if(i === 0) {
+      setDateHeader(games[i]);
+    }
+
+    var topDiv = document.createElement("div");
+    topDiv.className = "list-group-item rounded ml-1";
+
+    var a = document.createElement("a");
+
+    a.className = "list-group-item-action";
+    a.setAttribute("href", gamekey(games[i]));
+
+    var div1 = createScore(games[i], false);
+    var div2 = createScore(games[i], true);
+
+    a.appendChild(div1);
+    a.appendChild(div2);
+
+    topDiv.appendChild(a);
+
+    id.appendChild(topDiv);
+
+  }
+
+} // renderScores
+
+
 function favoritePlayers() {
 
-  fetch(FAVORITE_PLAYERS_API, {
-    method: "GET"
-  }).then((res) => res.json())
-    .then(function(data) {
-      renderFavoritePlayers(data);
-    }).catch(function(err) {
-      console.log(err);
-    });
+  fetch(FAVORITE_PLAYERS_API)
+  .then((res) => res.json())
+  .then(function(data) {
+    renderFavoritePlayers(data);
+  }).catch(function(err) {
+    console.log(err);
+  });
 
 } // favoritePlayers
 
 
 function favoriteTeams() {
 
-  fetch(FAVORITE_TEAMS_API, {
-    method: "GET"
-  })
+  fetch(FAVORITE_TEAMS_API)
   .then((res) => res.json())
   .then(function(data) {
     renderFavoriteTeams(data);
@@ -696,3 +816,16 @@ function getNews() {
   });
 
 } // getNews
+
+
+function getScores() {
+
+  fetch(SCORES_API)
+  .then((res) => res.json())
+  .then(function(data) {
+    renderScores(data);
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getScores

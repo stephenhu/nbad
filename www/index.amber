@@ -3,33 +3,25 @@ extends layout
 block content
   div.container
     div.row.pt-3
-      div.col
-        h5 #{Date}
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        small[id="date"]
     div.row.pt-3
-      div.col
-        div.list-group.list-group-horizontal
-          each $g in Games
-            div.list-group-item.ml-1.rounded
-              $lk = "/games/" + Date + "/" + $g.Away.Name + "." + $g.Home.Name
-              a.list-group-item-action[href=$lk]
-                div
-                  span.meter-sm.blue #{$g.Away.Name}
-                  span.meter-l.pl-2.float-right #{$g.Away.Score}
-                div
-                  span.meter-sm.blue #{$g.Home.Name}
-                  span.meter-l.pl-2 #{$g.Home.Score}
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div.list-group.list-group-horizontal[id="scores"]
     div.row.pt-5
-      div.col-lg-5
+      div.col-xl-5.col-lg-5.col-md-5.col-sm-5.col-xs-5
         h5 top headlines
         div.list-group.mt-3[id="news"]
         h5.pt-5 followed teams
+          small last 10 games
         div.list-group.mt-3[id="teams"]
-      div.col-lg-7
+      div.col.xl-7.col-lg-7.col-md-7.col-sm-7.col-xs-7
         h5 followed players
           small last 5 games
         div.list-group.mt-3[id="players"]
   import indexbar
   script
+    getNews();
     favoritePlayers();
     favoriteTeams();
-    getNews();
+    getScores();

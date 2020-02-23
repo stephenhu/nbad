@@ -49,8 +49,6 @@ func filter(t string) bool {
 
 func getSortedNews() []Article {
 
-	getNews()
-
 	news := []Article{}
 
 	for _, v := range NewsMap {

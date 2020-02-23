@@ -1,2 +1,2 @@
-nav.navbar.fixed-bottom.navbar-dark
-  a.navbar-brand.blue[href=""] NBAd
+nav.navbar.static-bottom.navbar-dark
+  a.navbar-brand.off-white[href=""] NBAd

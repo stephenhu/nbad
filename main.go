@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gomodule/redigo/redis"
+	//"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/mux"
 	"github.com/stephenhu/stats"
 )
@@ -40,7 +40,6 @@ var (
 )
 
 var config Config
-var red redis.Conn
 
 
 func parseConfig() {
@@ -78,21 +77,6 @@ func parseConfig() {
 } // parseConfig
 
 
-func connectRedis() {
-
-	c, err := redis.Dial(config.Store.Protocol, addr(config.Store))
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer c.Close()
-
-	red = c
-
-} // connectRedis
-
-
 func initRouter() *mux.Router {
 
 	router := mux.NewRouter()
@@ -107,10 +91,12 @@ func initRouter() *mux.Router {
 
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
-	router.HandleFunc("/api/news", newsApiHandler)
+
 	router.HandleFunc("/api/follows", followApiHandler)
+	router.HandleFunc("/api/news", newsApiHandler)
 	router.HandleFunc("/api/players", playerApiHandler)
 	router.HandleFunc("/api/players/{name:[a-zA-Z]+}", playerApiHandler)
+	router.HandleFunc("/api/scores", scoreApiHandler)
 	router.HandleFunc("/api/teams", teamApiHandler)
 	router.HandleFunc("/api/teams/{name:[a-zA-Z]+}", teamApiHandler)
 
@@ -134,8 +120,15 @@ func main() {
 
 	} else {
 
+		log.Println(fmt.Sprintf("%s v%s loading cache...", APP_NAME, APP_VERSION))
+
 		stats.LoadCache()
 		//connectRedis()
+
+		log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
+		getNews()
+
+		go checkDownloads()
 
 		log.Println(fmt.Sprintf("%s v%s starting on %s...", APP_NAME,
 			APP_VERSION, addr(config.Dashboard)))

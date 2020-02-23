@@ -7,7 +7,7 @@ import (
 
 
 func downloadData() {
-	
+
 	stats.NbaStoreAll("2015")
 	stats.NbaStoreAll("2016")
 	stats.NbaStoreAll("2017")
@@ -17,6 +17,10 @@ func downloadData() {
 } // downloadData
 
 
-func loadCache() {
+func checkDownloads() {
 
-} // loadCache
+	last := stats.LastDownload()
+
+	stats.NbaStoreFromDay(last)
+
+} // checkDownloads

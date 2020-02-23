@@ -17,24 +17,23 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  redis:
-    image: "redis"
-    restart: "unless-stopped"
-    volumes:
-      - "redata:/data"
+  #redis:
+    #image: "redis"
+    #restart: "unless-stopped"
+    #volumes:
+     # - "redata:/data"
   nbad:
     image: "nbad"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nbad.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.nbad.rule=PathPrefix(`/`, `/api`, `/games`, `/teams`, `players`)"
       - "traefik.http.routers.nbad.entrypoints=web"
     restart: "unless-stopped"
     volumes:
       - "./secrets:/run/secrets"
-      - "nbadata:/usr/local/nbad"
+      - "nbadata:/usr/local/nbad/nba"
     depends_on:
       - "redis"
 volumes:
   redata: {}
   nbadata: {}
-  

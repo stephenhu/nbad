@@ -1,12 +1,8 @@
 package main
 
 import (
-	//"fmt"
-	//"log"
 	"net/http"
-	//"sort"
 
-	"github.com/stephenhu/stats"
 )
 
 
@@ -21,17 +17,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		if t == nil {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
-
-			data := struct {
-				Date   string
-				Games  []stats.Game
-			}{
-				Date: simpleDate("20200201"),
-				Games: stats.GamesMap["20200201"],
-			}
-
-			t.Execute(w, data)
-
+			t.Execute(w, nil)
 		}
 
 	case http.MethodDelete:
