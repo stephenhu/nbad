@@ -11,6 +11,7 @@ FROM ubuntu
 WORKDIR /usr/local/nbad
 COPY --from=builder /nbad/nbad .
 COPY www ./www
+COPY nba ./nba
 RUN apt-get -y update && apt-get install -y \
     libc6 \
     libssl-dev

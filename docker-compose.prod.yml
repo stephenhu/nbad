@@ -32,8 +32,8 @@ services:
     volumes:
       - "./secrets:/run/secrets"
       - "nbadata:/usr/local/nbad/nba"
-    depends_on:
-      - "redis"
+    #depends_on:
+    #  - "redis"
 volumes:
-  redata: {}
+  #redata: {}
   nbadata: {}
