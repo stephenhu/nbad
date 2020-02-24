@@ -5,6 +5,7 @@ RUN go get github.com/eknkc/amber && \
     go get github.com/gomodule/redigo/redis && \
     go get github.com/gorilla/mux && \
     go get github.com/stephenhu/stats && \
+    go get github.com/mmcdole/gofeed && \
     go build
 
 FROM ubuntu

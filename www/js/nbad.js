@@ -31,19 +31,10 @@ const F1WHEEL         = [F1GREEN, F1BLUE4, F1WHITE, F1CHARCOAL,
 const FADE1           = "0.1";
 const FADE8           = "0.8";
 
-const PTS             = "pts";
-const FGA             = "fga";
-const FGM             = "fgm";
-const FG3A            = "fg3a";
-const FG3M            = "fg3m";
-const FTA             = "fta";
-const FTM             = "ftm";
-const REB             = "reb";
-const AST             = "ast";
-const ST              = "st";
-const BL              = "b";
-const TO              = "to";
-const PF              = "f";
+const COMPARISON_STATS = ["FGA", "FGM", "3PTA", "3PTM", "FTA", "FTM", "REB",
+  "AST", "ST", "BL", "TO", "F"];
+
+const COMPARISON_STATS_BASIC = ["PTS", "REB", "AST"];
 
 const CHART_BAR       = "bar";
 const CHART_DOUGHNUT  = "doughnut";
@@ -64,8 +55,100 @@ const FAV_STATS_R2 = {"spg": "SPG", "bpg": "BPG"};
 
 const PERIODS = ["1st", "2nd", "3rd", "4th", "OT"];
 
+const IMONTH = {
+  "01": "Jan",
+  "02": "Feb",
+  "03": "Mar",
+  "04": "Apr",
+  "05": "May",
+  "06": "Jun",
+  "07": "Jul",
+  "08": "Aug",
+  "09": "Sep",
+  "10": "Oct",
+  "11": "Nov",
+  "12": "Dec",
+};
+
+const NBA_TEAMS = {
+  "atl": "Atlanta Hawks",
+  "bkn": "Brooklyn Nets",
+  "bos": "Boston Celtics",
+  "cha": "Charlote Hornets",
+  "chi": "Chicago Bulls",
+  "cle": "Cleveland Cavaliers",
+  "dal": "Dallas Mavericks",
+  "den": "Denver Nuggets",
+  "det": "Detroit Pistons",
+  "gsw": "Golden State Warriors",
+  "hou": "Houston Rockets",
+  "ind": "Indiana Pacers",
+  "lac": "Los Angeles Clippers",
+  "lal": "Los Angeles Lakers",
+  "mem": "Memphis Grizzlies",
+  "mia": "Miami Heat",
+  "mil": "Milwaukee Bucks",
+  "min": "Minnesota Timberwolves",
+  "nop": "New Orleans Pelicans",
+  "nyk": "New York Knicks",
+  "okc": "Oklahoma City Thunder",
+  "orl": "Orlando Magic",
+  "phi": "Philadelphia 76ers",
+  "phx": "Phoenix Suns",
+  "por": "Portland Trailblazers",
+  "sac": "Sacramento Kings",
+  "sas": "San Antonio Spurs",
+  "tor": "Toronto Raptors",
+  "uta": "Utah Jazz",
+  "was": "Washington Wizards"
+};
+
 const MVP         = 1;
 const SMVP        = 2;
+
+const BAD         = -1;
+const NEUTRAL     = 0;
+const GOOD        = 1;
+
+const FGPCT = {
+  low: 0.40,
+  high: 0.46,
+  attempts: 7,
+};
+
+const FG3PCT = {
+  low: 0.33,
+  high: 0.36,
+  attempts: 4,
+};
+
+const FTPCT = {
+  low: 0.75,
+  high: 0.85,
+  attempts: 4,
+};
+
+
+
+function rate(m, a, s) {
+
+  if(a != 0 && a >= s.attempts) {
+
+    var pct = m/a;
+
+    if(pct < s.low) {
+      return BAD;
+    } else if(pct > s.high) {
+      return GOOD;
+    } else {
+      return NEUTRAL;
+    }
+
+  } else {
+    return NEUTRAL;
+  }
+
+} // rate
 
 
 function getColors(c, b) {
@@ -95,6 +178,17 @@ function gamekey(g) {
 } // gamekey
 
 
+function padInt(i) {
+
+  if(i < 10) {
+    return "0" + i;
+  } else {
+    return i;
+  }
+
+} // padInt
+
+
 function playerBasicStats(n, d) {
 
   var ctx = document.getElementById(n).getContext(CHART_2D);
@@ -102,7 +196,7 @@ function playerBasicStats(n, d) {
   var c = new Chart(ctx, {
     type: CHART_DOUGHNUT,
     data: {
-      labels: [PTS, REB, AST],
+      labels: COMPARISON_STATS_BASIC,
       datasets: [{
         data: d.stats,
         borderColor: [
@@ -241,7 +335,7 @@ function teamComparison(n, d) {
   var c = new Chart(ctx, {
     type: CHART_BAR,
     data: {
-      labels: [FGA, FGM, FG3A, FG3M, FTA, FTM, REB, AST, ST, BL, TO, PF],
+      labels: COMPARISON_STATS,
       datasets: [{
         label: d.away,
         data: d.awayStats,
@@ -572,6 +666,22 @@ function createScore(game, home) {
 } // createScore
 
 
+function niceDate(s) {
+
+  if(s.length === 8) {
+
+    var mon  = s.substring(4, 6);
+    var day  = s.substring(6, 8);
+
+    return IMONTH[mon] + " " + day;
+
+  } else {
+    return s;
+  }
+
+} // niceDate
+
+
 function setDateHeader(g) {
 
   if(g.date.length === 8) {
@@ -861,9 +971,10 @@ function renderComparisons(g) {
 
   var d = {
     away: g.away.name,
-    awayStats: [g.away.summary.fga, g.away.summary.fgm, g.away.summary.fg3a, g.away.summary.fg3m,
-      g.away.summary.fta, g.away.summary.ftm, g.away.summary.treb, g.away.summary.assists,
-      g.away.summary.steals, g.away.summary.blocks, g.away.summary.turnovers, g.away.summary.fouls],
+    awayStats: [g.away.summary.fga, g.away.summary.fgm, g.away.summary.fg3a,
+      g.away.summary.fg3m, g.away.summary.fta, g.away.summary.ftm, g.away.summary.treb,
+      g.away.summary.assists, g.away.summary.steals, g.away.summary.blocks, g.away.summary.turnovers,
+      g.away.summary.fouls],
     home: g.home.name,
     homeStats: [g.home.summary.fga, g.home.summary.fgm, g.home.summary.fg3a, g.home.summary.fg3m,
       g.home.summary.fta, g.home.summary.ftm, g.home.summary.treb, g.home.summary.assists,
@@ -924,7 +1035,6 @@ function renderBox(g, home) {
     team = g.away.players;
   }
 
-
   for(var i = 0; i < team.length; i++) {
 
     var tr = document.createElement("tr");
@@ -933,39 +1043,128 @@ function renderBox(g, home) {
     name.innerText = team[i].name;
 
     var min   = document.createElement("td");
-    min.innerText = team[i].minutes + ":" + team[i].seconds;
+    min.className = "text-right";
+    min.innerText = team[i].minutes + ":" + padInt(team[i].seconds);
 
     var pts   = document.createElement("td");
+
+    if(team[i].points > 18) {
+      pts.className = "text-right good";
+    } else {
+      pts.className = "text-right";
+    }
+
     pts.innerText = team[i].points;
 
     var fg = document.createElement("td");
-    fg.innerText = team[i].fgm + "-" + team[i].fga;
+
+    var p2m = team[i].fgm - team[i].fg3m;
+    var p2a = team[i].fga - team[i].fg3a;
+
+    var fgr = rate(p2m, p2a, FGPCT)
+
+    if(fgr === -1) {
+      fg.className = "text-right bad";
+    } else if(fgr === 1) {
+      fg.className = "text-right good";
+    } else {
+      fg.className = "text-right";
+    }
+
+    fg.innerText = p2m + "-" + p2a;
 
     var fg3 = document.createElement("td");
+
+    var fg3r = rate(team[i].fg3m, team[i].fg3a, FG3PCT)
+
+    if(fg3r === -1) {
+      fg3.className = "text-right bad";
+    } else if(fg3r === 1) {
+      fg3.className = "text-right good";
+    } else {
+      fg3.className = "text-right";
+    }
+
     fg3.innerText = team[i].fg3m + "-" + team[i].fg3a;
 
     var ft = document.createElement("td");
+
+    var ftr = rate(team[i].ftm, team[i].fta, FTPCT)
+
+    if(ftr === -1) {
+      ft.className = "text-right bad";
+    } else if(ftr === 1) {
+      ft.className = "text-right good";
+    } else {
+      ft.className = "text-right";
+    }
+
     ft.innerText = team[i].ftm + "-" + team[i].fta;
 
     var reb = document.createElement("td");
+
+    if(team[i].treb > 9) {
+      reb.className = "text-right good";
+    } else {
+      reb.className = "text-right";
+    }
+
     reb.innerText = team[i].treb;
 
     var ast = document.createElement("td");
+
+    if(team[i].assists > 4) {
+      ast.className = "text-right good";
+    } else {
+      ast.className = "text-right";
+    }
+
     ast.innerText = team[i].assists;
 
     var stl = document.createElement("td");
+
+    if(team[i].steals > 1) {
+      stl.className = "text-right good";
+    } else {
+      stl.className = "text-right";
+    }
+
     stl.innerText = team[i].steals;
 
     var bl = document.createElement("td");
+
+    if(team[i].blocks > 2) {
+      bl.className = "text-right good";
+    } else {
+      bl.className = "text-right";
+    }
+
     bl.innerText = team[i].blocks;
 
     var to = document.createElement("td");
+
+    if(team[i].turnovers > 2) {
+      to.className = "text-right bad";
+    } else {
+      to.className = "text-right";
+    }
+
     to.innerText = team[i].turnovers;
 
     var foul = document.createElement("td");
+    foul.className = "text-right";
     foul.innerText = team[i].fouls;
 
     var pm = document.createElement("td");
+
+    if(team[i].plusMinus < 0) {
+      pm.className = "text-right bad";
+    } else if(team[i].plusMinus > 5) {
+      pm.className = "text-right good";
+    } else {
+      pm.className = "text-right";
+    }
+
     pm.innerText = team[i].plusMinus;
 
     tr.appendChild(name);
@@ -997,7 +1196,7 @@ function renderPeriods(g) {
   div1.className = "list-group-item rounded-left active";
 
   var date  = document.createElement("small");
-  date.innerText = g.date;
+  date.innerText = niceDate(g.date);
 
   var awayN = document.createElement("div");
   awayN.innerText = g.away.name;
@@ -1072,10 +1271,10 @@ function renderGame(g) {
   renderBox(g, true);
 
   var names = document.getElementById("names");
-  names.innerText = g.away.name + " at " + g.home.name;
+  names.innerText = NBA_TEAMS[g.away.name.toLowerCase()] + " at " + NBA_TEAMS[g.home.name.toLowerCase()];
 
   var small = document.createElement("small");
-  small.innerText = g.date;
+  small.innerText = niceDate(g.date);
 
   names.appendChild(small);
 

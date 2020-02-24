@@ -43,39 +43,39 @@ block content
     div.row.pt-5.pb-5
       div.col
         h3.mt-3.blue boxscore
-        table.table.table-hover.table-striped.table-dark.mt-3
+        table.table.table-dark.table-hover.table-striped.mt-3
           thead
             tr
               th Name
-              th Min
-              th Points
-              th FG
-              th 3PT
-              th FT
-              th Reb
-              th Ast
-              th Stl
-              th Blk
-              th To
-              th Pf
-              th Plus/minus
+              th.text-right Min
+              th.text-right  Points
+              th.text-right  FG
+              th.text-right  3PT
+              th.text-right  FT
+              th.text-right  Reb
+              th.text-right  Ast
+              th.text-right  Stl
+              th.text-right  Blk
+              th.text-right  To
+              th.text-right  Pf
+              th.text-right  +/-
           tbody[id="awaybox"]
         table.table.table-hover.table-striped.table-dark.mt-3
           thead
             tr
               th Name
-              th Min
-              th Points
-              th FG
-              th 3PT
-              th FT
-              th Reb
-              th Ast
-              th Stl
-              th Blk
-              th To
-              th Pf
-              th Plus/minus
+              th.text-right  Min
+              th.text-right  Points
+              th.text-right  FG
+              th.text-right  3PT
+              th.text-right  FT
+              th.text-right  Reb
+              th.text-right  Ast
+              th.text-right  Stl
+              th.text-right  Blk
+              th.text-right  To
+              th.text-right  Pf
+              th.text-right  +/-
           tbody[id="homebox"]
   import indexbar
   script
