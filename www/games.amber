@@ -4,67 +4,42 @@ block content
   div.container
     div.row.pt-5.pb-5.border-bottom.border-secondary
       div.col-6
-        div.list-group.list-group-horizontal
-          div.list-group-item.rounded-left.active
-            small Feb 12
-            div PHI
-            div LAC
-          div.list-group-item
-            small 1st
-            div 23
-            div 25
-          div.list-group-item
-            small 2nd
-            div 32
-            div 23
-          div.list-group-item
-            small 3rd
-            div 23
-            div 25
-          div.list-group-item
-            small 4th
-            div 28
-            div 35
-          div.list-group-item.rounded-right
-            small F
-            div 102
-            div 105
+        div.list-group.list-group-horizontal[id="periods"]
       div.col-6
-        h3 Philadelphia 76ers at Los Angeles Clippers
-          small Feb 12
+        h3[id="names"]
     div.row.pt-5.pb-5
       div.col
         h3.blue summary
         p leonard took 40% of the team's shots and was only 32% from the field.
     div.row.pt-5.pb-5.border-bottom.border-secondary
       div.col
-        canvas.mt-3[id="home"]
+        canvas.mt-3[id="comparisons"]
     div.row.pt-5
       div.col
         h3.blue top performers
-          small lac
+          small[id="awaytopname"]
     div.row.pb-5.border-bottom.border-secondary
       div.col-6
-        canvas.mt-3[id="lac.2"]
+        canvas.mt-3[id="awaytop1"]
       div.col-6
-        canvas.mt-3[id="lac.3"]
+        canvas.mt-3[id="awaytop2"]
     div.row.pt-5
       div.col
         h3.blue top performers
-          small phi
+          small[id="hometopname"]
     div.row.pb-5.border-bottom.border-secondary
       div.col-6
-        canvas.mt-3[id="lac.4"]
+        canvas.mt-3[id="hometop1"]
       div.col-6
-        canvas.mt-3[id="lac.5"]
+        canvas.mt-3[id="hometop2"]
     div.row.pt-5
       div.col
         h3.blue shot distribution
     div.row.pt-5.pb-5.border-bottom.border-secondary
       div.col-6
-        canvas[id="lac.1"]
+        canvas[id="awayshots"]
       div.col-6
-        canvas[id="lac.6"]
+        canvas[id="homeshots"]
     div.row.pt-5.pb-5
       div.col
         h3.mt-3.blue boxscore
@@ -72,140 +47,36 @@ block content
           thead
             tr
               th Name
-              th Points
               th Min
+              th Points
               th FG
               th 3PT
               th FT
-              th Oreb
-              th Dreb
-              th Treb
+              th Reb
               th Ast
               th Stl
               th Blk
               th To
               th Pf
               th Plus/minus
-          tbody
+          tbody[id="awaybox"]
+        table.table.table-hover.table-striped.table-dark.mt-3
+          thead
             tr
-              td Kawhi Leonard
-              td 36
-              td 33:25
-              td 12-23
-              td 3-8
-              td 5-6
-              td 2
-              td 8
-              td 10
-              td 5
-              td 2
-              td 1
-              td 3
-              td 4
-              td +12
-            tr
-              td Paul George
-              td 21
-              td 25:12
-              td 8-19
-              td 3-12
-              td 7-7
-              td 4
-              td 7
-              td 11
-              td 8
-              td 3
-              td 0
-              td 5
-              td 5
-              td +7
-            tr
-              td Paul George
-              td 21
-              td 25:12
-              td 8-19
-              td 3-12
-              td 7-7
-              td 4
-              td 7
-              td 11
-              td 8
-              td 3
-              td 0
-              td 5
-              td 5
-              td +7
-            tr
-              td Paul George
-              td 21
-              td 25:12
-              td 8-19
-              td 3-12
-              td 7-7
-              td 4
-              td 7
-              td 11
-              td 8
-              td 3
-              td 0
-              td 5
-              td 5
-              td +7
-            tr
-              td Paul George
-              td 21
-              td 25:12
-              td 8-19
-              td 3-12
-              td 7-7
-              td 4
-              td 7
-              td 11
-              td 8
-              td 3
-              td 0
-              td 5
-              td 5
-              td +7
+              th Name
+              th Min
+              th Points
+              th FG
+              th 3PT
+              th FT
+              th Reb
+              th Ast
+              th Stl
+              th Blk
+              th To
+              th Pf
+              th Plus/minus
+          tbody[id="homebox"]
   import indexbar
   script
-    var z = {
-      team: "LAC",
-      players: ["Leonard", "George", "Shamet", "Zubac", "Harrell", "Williams", "Green"],
-      shots: [29, 19, 11, 4, 12, 23, 5]
-    }
-
-    shotDistribution("lac.1", z);
-
-    var y = {
-      team: "PHI",
-      players: ["Simmons", "Embiid", "Harris", "Horford", "Smith", "Scott", "James"],
-      shots: [12, 23, 16, 8, 4, 4, 6]
-    }
-
-    shotDistribution("lac.6", y);
-
-    var a = {
-      name: "L. Williams",
-      stats: [12, 8, 4]
-    }
-
-    var b = {
-      name: "P. George",
-      stats: [24, 5, 7]
-    }
-
-    playerBasicStats("lac.2", a);
-    playerBasicStats("lac.3", b);
-
-    playerBasicStats("lac.4", b);
-    playerBasicStats("lac.5", a);
-
-    var d = {
-      away: "LAC",
-      awayStats: [46, 22, 22, 11, 29, 20, 52, 22, 10, 4, 15, 34],
-      home: "PHI",
-      homeStats: [60, 24, 21, 13, 32, 27, 60, 31, 12, 8, 15, 39]
-    }
-
-    teamComparison("home", d);
+    getGame();

@@ -93,6 +93,7 @@ func initRouter() *mux.Router {
 
 
 	router.HandleFunc("/api/follows", followApiHandler)
+	router.HandleFunc("/api/games/{date:[0-9]+}/teams/{id:[a-z]+}", gameApiHandler)
 	router.HandleFunc("/api/news", newsApiHandler)
 	router.HandleFunc("/api/players", playerApiHandler)
 	router.HandleFunc("/api/players/{name:[a-zA-Z]+}", playerApiHandler)

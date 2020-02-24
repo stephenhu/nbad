@@ -56,10 +56,16 @@ const TEAMS_API               = API + "/teams";
 const FAVORITE_TEAMS_API      = API + "/teams?favorite=true";
 const NEWS_API                = API + "/news";
 const SCORES_API              = API + "/scores";
+const GAMES_API               = API + "/games";
 
 const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
 const FAV_STATS_R1 = {"ppg": "PPG", "rpg": "RPG", "apg": "APG"};
 const FAV_STATS_R2 = {"spg": "SPG", "bpg": "BPG"};
+
+const PERIODS = ["1st", "2nd", "3rd", "4th", "OT"];
+
+const MVP         = 1;
+const SMVP        = 2;
 
 
 function getColors(c, b) {
@@ -85,7 +91,7 @@ function mashName(s) {
 
 
 function gamekey(g) {
-  return "/games/" + g.date + "/" + g.away.name + "." + g.home.name;
+  return "/games/" + g.date + "/" + g.away.name + g.home.name;
 } // gamekey
 
 
@@ -445,7 +451,7 @@ function shotDistribution(n, d) {
     },
     options: {
       title: {
-        text: d.team + " shot distribution",
+        text: d.team,
         display: true
       },
       scales: {
@@ -583,6 +589,78 @@ function setDateHeader(g) {
   }
 
 } // setDateHeader
+
+
+function getTopPlayer(p) {
+
+  var mvp  = {
+    name: "",
+    stats: []
+  };
+
+  var ap = 0;
+
+  for(var i = 0; i < p.length; i++) {
+
+    if(p[i].points >= ap) {
+
+      mvp.name  = p[i].name;
+      mvp.stats = [p[i].points, p[i].treb, p[i].assists];
+      ap = p[i].points;
+    }
+
+  }
+
+  return mvp;
+
+} // getTopPlayer
+
+
+function getSecondPlayer(p, t) {
+
+  var second  = {
+    name: "",
+    stats: []
+  };
+
+  var ap = 0;
+
+  for(var i = 0; i < p.length; i++) {
+
+    if(p[i].name === t.name) {
+      continue
+    }
+
+    if(p[i].points >= ap) {
+
+      second.name = p[i].name;
+      second.stats = [p[i].points, p[i].treb, p[i].assists];
+      ap = p[i].points;
+    }
+
+  }
+
+  return second;
+
+} // getSecondPlayer
+
+
+function getShots(p) {
+
+  var ret = {
+    team: "",
+    players: [],
+    shots: []
+  }
+
+  for(var i = 0; i < p.length; i++) {
+    ret.players.push(p[i].name);
+    ret.shots.push(p[i].fga);
+  }
+
+  return ret;
+
+} // getShots
 
 
 function renderFavoritePlayers(players) {
@@ -779,6 +857,231 @@ function renderScores(games) {
 } // renderScores
 
 
+function renderComparisons(g) {
+
+  var d = {
+    away: g.away.name,
+    awayStats: [g.away.summary.fga, g.away.summary.fgm, g.away.summary.fg3a, g.away.summary.fg3m,
+      g.away.summary.fta, g.away.summary.ftm, g.away.summary.treb, g.away.summary.assists,
+      g.away.summary.steals, g.away.summary.blocks, g.away.summary.turnovers, g.away.summary.fouls],
+    home: g.home.name,
+    homeStats: [g.home.summary.fga, g.home.summary.fgm, g.home.summary.fg3a, g.home.summary.fg3m,
+      g.home.summary.fta, g.home.summary.ftm, g.home.summary.treb, g.home.summary.assists,
+      g.home.summary.steals, g.home.summary.blocks, g.home.summary.turnovers, g.home.summary.fouls]
+  }
+
+  teamComparison("comparisons", d);
+
+} // renderComparisons
+
+
+function renderTop(g) {
+
+  var an = document.getElementById("awaytopname");
+  var hn = document.getElementById("hometopname");
+
+  an.innerText = g.away.name;
+  hn.innerText = g.home.name;
+
+  var amvp  = getTopPlayer(g.away.players);
+  var asmvp = getSecondPlayer(g.away.players, amvp);
+
+  var hmvp  = getTopPlayer(g.home.players);
+  var hsmvp = getSecondPlayer(g.home.players, hmvp);
+
+  playerBasicStats("awaytop1", amvp);
+  playerBasicStats("awaytop2", asmvp);
+  playerBasicStats("hometop1", hmvp);
+  playerBasicStats("hometop2", hsmvp);
+
+} // renderTop
+
+
+function renderShots(g) {
+
+  var as = getShots(g.away.players);
+  as.team = g.away.name;
+
+  var hs = getShots(g.home.players);
+  hs.team = g.home.name;
+
+  shotDistribution("awayshots", as);
+  shotDistribution("homeshots", hs);
+
+} // renderShots
+
+
+function renderBox(g, home) {
+
+  var box   = null;
+  var team  = null;
+
+  if(home) {
+    box = document.getElementById("homebox");
+    team = g.home.players;
+  } else {
+    box = document.getElementById("awaybox");
+    team = g.away.players;
+  }
+
+
+  for(var i = 0; i < team.length; i++) {
+
+    var tr = document.createElement("tr");
+
+    var name  = document.createElement("td");
+    name.innerText = team[i].name;
+
+    var min   = document.createElement("td");
+    min.innerText = team[i].minutes + ":" + team[i].seconds;
+
+    var pts   = document.createElement("td");
+    pts.innerText = team[i].points;
+
+    var fg = document.createElement("td");
+    fg.innerText = team[i].fgm + "-" + team[i].fga;
+
+    var fg3 = document.createElement("td");
+    fg3.innerText = team[i].fg3m + "-" + team[i].fg3a;
+
+    var ft = document.createElement("td");
+    ft.innerText = team[i].ftm + "-" + team[i].fta;
+
+    var reb = document.createElement("td");
+    reb.innerText = team[i].treb;
+
+    var ast = document.createElement("td");
+    ast.innerText = team[i].assists;
+
+    var stl = document.createElement("td");
+    stl.innerText = team[i].steals;
+
+    var bl = document.createElement("td");
+    bl.innerText = team[i].blocks;
+
+    var to = document.createElement("td");
+    to.innerText = team[i].turnovers;
+
+    var foul = document.createElement("td");
+    foul.innerText = team[i].fouls;
+
+    var pm = document.createElement("td");
+    pm.innerText = team[i].plusMinus;
+
+    tr.appendChild(name);
+    tr.appendChild(min);
+    tr.appendChild(pts);
+    tr.appendChild(fg);
+    tr.appendChild(fg3);
+    tr.appendChild(ft);
+    tr.appendChild(reb);
+    tr.appendChild(ast);
+    tr.appendChild(stl);
+    tr.appendChild(bl);
+    tr.appendChild(to);
+    tr.appendChild(foul);
+    tr.appendChild(pm);
+
+    box.appendChild(tr);
+
+  }
+
+} // renderBox
+
+
+function renderPeriods(g) {
+
+  var id = document.getElementById("periods");
+
+  var div1  = document.createElement("div");
+  div1.className = "list-group-item rounded-left active";
+
+  var date  = document.createElement("small");
+  date.innerText = g.date;
+
+  var awayN = document.createElement("div");
+  awayN.innerText = g.away.name;
+
+  var homeN = document.createElement("div");
+  homeN.innerText = g.home.name;
+
+  div1.appendChild(date);
+  div1.appendChild(awayN);
+  div1.appendChild(homeN);
+
+  id.appendChild(div1);
+
+  for(i = 0; i < g.away.periods.length; i++) {
+
+    var div  = document.createElement("div");
+    div.className = "list-group-item";
+
+    var small = document.createElement("small");
+
+    if(i < 4) {
+      small.innerText = PERIODS[i];
+    } else {
+      small.innerText = PERIODS[4] + (i - 3);
+    }
+
+    var away = document.createElement("div");
+    away.innerText = g.away.periods[i];
+
+    var home = document.createElement("div");
+    home.innerText = g.home.periods[i];
+
+    div.appendChild(small);
+    div.appendChild(away);
+    div.appendChild(home);
+    id.appendChild(div);
+
+  }
+
+  var divf  = document.createElement("div");
+  divf.className = "list-group-item";
+
+  var smallf = document.createElement("small");
+  smallf.innerText = "F";
+
+  var awayf = document.createElement("div");
+  awayf.innerText = g.away.score;
+
+  var homef = document.createElement("div");
+  homef.innerText = g.home.score;
+
+  divf.appendChild(smallf);
+  divf.appendChild(awayf);
+  divf.appendChild(homef);
+
+  id.appendChild(divf);
+
+} // renderPeriods
+
+
+function renderGame(g) {
+
+  if(g === null) {
+    return;
+  }
+
+  renderPeriods(g);
+  renderComparisons(g);
+  renderTop(g);
+  renderShots(g);
+  renderBox(g, false);
+  renderBox(g, true);
+
+  var names = document.getElementById("names");
+  names.innerText = g.away.name + " at " + g.home.name;
+
+  var small = document.createElement("small");
+  small.innerText = g.date;
+
+  names.appendChild(small);
+
+} // renderGame
+
+
 function favoritePlayers() {
 
   fetch(FAVORITE_PLAYERS_API)
@@ -829,3 +1132,23 @@ function getScores() {
   });
 
 } // getScores
+
+
+function getGame() {
+
+  var toks = location.pathname.split("/");
+
+  var team = toks[toks.length - 1];
+  var date = toks[toks.length - 2];
+
+  var url = GAMES_API + "/" + date + "/teams/" + team;
+
+  fetch(url)
+  .then((res) => res.json())
+  .then(function(data) {
+    renderGame(data);
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getGame
