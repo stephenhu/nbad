@@ -252,7 +252,7 @@ function playerLastGames(n, d) {
     data: {
       labels: d.teams,
       datasets: [{
-        label: PTS,
+        label: "PTS",
         data: d.points,
         borderColor: [
           F8GREEN,
@@ -272,7 +272,7 @@ function playerLastGames(n, d) {
         fill: true
       },
       {
-        label: REB,
+        label: "REB",
         data: d.rebounds,
         borderColor: [
           F8BLUE4,
@@ -292,7 +292,7 @@ function playerLastGames(n, d) {
         fill: true
       },
       {
-        label: AST,
+        label: "AST",
         data: d.assists,
         borderColor: [
           F8WHITE,
@@ -781,7 +781,7 @@ function renderFavoritePlayers(players) {
 
   for(var key in players) {
 
-    var a           = document.createElement("a");
+    var a = document.createElement("a");
 
     if(count === 0) {
       a.className = "list-group-item list-group-item-action rounded mt-1";
@@ -1286,6 +1286,7 @@ function favoritePlayers() {
   fetch(FAVORITE_PLAYERS_API)
   .then((res) => res.json())
   .then(function(data) {
+    console.log(data);
     renderFavoritePlayers(data);
   }).catch(function(err) {
     console.log(err);
