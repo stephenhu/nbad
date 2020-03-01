@@ -34,7 +34,14 @@ func getTeamLast(n int) map[string]Team {
 
 		ft.Games 		= last
 		ft.Averages	= as
-		ft.Icon     = fmt.Sprintf(stats.ESPN_TEAM_ICON_URL, strings.ToLower(t))
+
+		if strings.ToLower(t) == "nop" {
+			ft.Icon     = fmt.Sprintf(stats.ESPN_TEAM_ICON_URL, "no")
+		} else {
+			ft.Icon     = fmt.Sprintf(stats.ESPN_TEAM_ICON_URL, strings.ToLower(t))
+		}
+
+
 
 		favorites[t] = ft
 

@@ -14,12 +14,19 @@ import (
 
 func findGame(d string, id string) *stats.Game {
 
-	for _, g := range stats.GamesMap[d] {
+	games, ok := stats.GamesMap[d]
 
-		f := fmt.Sprintf("%s%s", strings.ToLower(g.Away.Name), strings.ToLower(g.Home.Name))
+	if ok {
 
-		if f == id {
-			return &g
+		for _, game := range games {
+
+			f := fmt.Sprintf("%s%s", strings.ToLower(game.Away.Name),
+			  strings.ToLower(game.Home.Name))
+
+			if f == id {
+				return &game
+			}
+
 		}
 
 	}
@@ -41,7 +48,24 @@ func gameApiHandler(w http.ResponseWriter, r *http.Request) {
 		id 		:= vars["id"]
 
 		if date == "" || id == "" {
-			w.WriteHeader(http.StatusNotFound)
+
+			if len(LiveMap) == 0 {
+				w.WriteHeader(http.StatusNotFound)
+			} else {
+
+				j, err := json.Marshal(LiveMap)
+
+				if err != nil {
+					logf("gameApiHandler", err.Error())
+					w.WriteHeader(http.StatusInternalServerError)
+				} else {
+					w.Header().Set("Content-Type", "application/json")
+					w.Write(j)
+				}
+
+			}
+
+
 		} else {
 
 			g := findGame(date, id)
@@ -58,6 +82,8 @@ func gameApiHandler(w http.ResponseWriter, r *http.Request) {
 					w.Write(j)
 				}
 
+			} else {
+				w.WriteHeader(http.StatusNotFound)
 			}
 
 		}

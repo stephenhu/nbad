@@ -25,13 +25,20 @@ type Filter struct {
 	Dislike					[]string			`json:"dislike"`
 }
 
+type Collectors struct {
+	GameSchedule   	string        `json:"gameSchedule"`
+	NewsSchedule		string				`json:"newsSchedule"`
+	RealSchedule		string				`json:"realSchedule"`
+}
+
 type Config struct {
 	Store						Service				`json:"redis"`
 	Dashboard       Service       `json:"dashboard"`
 	News            []string      `json:"news"`
 	Players         []string			`json:"players"`
 	Teams           []string      `json:"teams"`
-	Filters         Filter      	`json:"filters"`
+	Filters					Filter      	`json:"filters"`
+	Collectors    `json:"collectors"`
 }
 
 var (
@@ -40,6 +47,9 @@ var (
 )
 
 var config Config
+
+var chanNews 	= make(chan bool)
+var chanRtg 	= make(chan bool)
 
 
 func parseConfig() {
@@ -93,6 +103,7 @@ func initRouter() *mux.Router {
 
 
 	router.HandleFunc("/api/follows", followApiHandler)
+	router.HandleFunc("/api/games", gameApiHandler)
 	router.HandleFunc("/api/games/{date:[0-9]+}/teams/{id:[a-z]+}", gameApiHandler)
 	router.HandleFunc("/api/news", newsApiHandler)
 	router.HandleFunc("/api/players", playerApiHandler)
@@ -104,6 +115,31 @@ func initRouter() *mux.Router {
 	return router
 
 } // initRoutes
+
+
+func startJobs() {
+
+	log.Println(fmt.Sprintf("%s v%s downloading latest games...", APP_NAME, APP_VERSION))
+	go checkDownloads()
+
+	log.Println(fmt.Sprintf("%s v%s loading cache...", APP_NAME, APP_VERSION))
+	stats.LoadCache()
+	//connectRedis()
+
+	log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
+	getNews()
+
+	go checkRtg()
+
+	// TODO: check interval boundaries
+
+	go newsJob()
+
+	go rtgJob()
+
+	go gameJob()
+
+} // startJobs
 
 
 func main() {
@@ -121,15 +157,7 @@ func main() {
 
 	} else {
 
-		log.Println(fmt.Sprintf("%s v%s loading cache...", APP_NAME, APP_VERSION))
-
-		stats.LoadCache()
-		//connectRedis()
-
-		log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
-		getNews()
-
-		go checkDownloads()
+		startJobs()
 
 		log.Println(fmt.Sprintf("%s v%s starting on %s...", APP_NAME,
 			APP_VERSION, addr(config.Dashboard)))

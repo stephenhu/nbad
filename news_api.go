@@ -26,6 +26,37 @@ type Article struct {
 var NewsMap = make(map[string]Article)
 
 
+func newsJob() {
+
+	var ticker *time.Ticker
+
+	d, err := time.ParseDuration(config.NewsSchedule)
+
+	if err != nil {
+		logf("newsJob", err.Error())
+		ticker = time.NewTicker(1 * time.Hour)
+	} else {
+		ticker = time.NewTicker(d)
+	}
+
+	for {
+
+		select {
+		case <-chanNews:
+			return
+		case <-ticker.C:
+
+			logf("INFO", "checking news")
+
+			getNews()
+
+		}
+
+	}
+
+} // newsJob
+
+
 func filter(t string) bool {
 
 	if t == "" {
@@ -82,7 +113,7 @@ func getNews() {
 
 					var pt time.Time
 
-					t, err := time.Parse(time.RFC1123, item.Published)
+					t, err := time.Parse(RFC1123P, item.Published)
 
 					if err != nil {
 						logf("getNews", err.Error())

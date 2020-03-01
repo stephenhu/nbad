@@ -7,6 +7,12 @@ const F8BLUE2         = "rgba(23, 64, 139, 0.8)";
 const F8BLUE3         = "rgba(3, 145, 198, 0.8)";
 const F8BLUE4         = "rgba(8, 114, 225, 0.8)";
 const F8BLUE5         = "rgba(1, 247, 247, 0.8)";
+const F8BLUE6         = "rgba(26, 55, 79, 0.8)";
+const F8BLUE7         = "rgba(1, 33, 60, 0.8)";
+const F8BLUE8         = "rgba(4, 110, 200, 0.8)";
+const F8GRAY1         = "rgba(94, 115, 131, 0.8)";
+const F8GRAY2         = "rgba(56, 69, 78, 0.8)";
+const F8GRAY3         = "rgba(28, 34, 39, 0.8)";
 const F8GREEN         = "rgba(0, 255, 0, 0.8)";
 const F8RED           = "rgba(201, 8, 42, 0.8)";
 const F8WHITE         = "rgba(255, 255, 255, 0.8)";
@@ -18,6 +24,12 @@ const F1BLUE2         = "rgba(23, 64, 139, 0.1)";
 const F1BLUE3         = "rgba(3, 145, 198, 0.1)";
 const F1BLUE4         = "rgba(8, 114, 225, 0.1)";
 const F1BLUE5         = "rgba(1, 247, 247, 0.1)";
+const F1BLUE6         = "rgba(26, 55, 79, 0.1)";
+const F1BLUE7         = "rgba(1, 33, 60, 0.1)";
+const F1BLUE8         = "rgba(4, 110, 200, 0.1)";
+const F1GRAY1         = "rgba(94, 115, 131, 0.1)";
+const F1GRAY2         = "rgba(56, 69, 78, 0.1)";
+const F1GRAY3         = "rgba(28, 34, 39, 0.1)";
 const F1GREEN         = "rgba(0, 255, 0, 0.1)";
 const F1RED           = "rgba(201, 8, 42, 0.1)";
 const F1WHITE         = "rgba(255, 255, 255, 0.1)";
@@ -35,6 +47,8 @@ const COMPARISON_STATS = ["FGA", "FGM", "3PTA", "3PTM", "FTA", "FTM", "REB",
   "AST", "ST", "BL", "TO", "F"];
 
 const COMPARISON_STATS_BASIC = ["PTS", "REB", "AST"];
+
+const BOXSCORE_FIELDS = ["Player", "Min", "Points", "FG", "3PT", "FT", "Reb", "Ast", "Stl", "Blk", "To", "Pf", "+/-"];
 
 const CHART_BAR       = "bar";
 const CHART_DOUGHNUT  = "doughnut";
@@ -119,13 +133,13 @@ const FGPCT = {
 const FG3PCT = {
   low: 0.33,
   high: 0.36,
-  attempts: 4,
+  attempts: 3,
 };
 
 const FTPCT = {
   low: 0.75,
   high: 0.85,
-  attempts: 4,
+  attempts: 3,
 };
 
 
@@ -510,6 +524,10 @@ function shotDistribution(n, d) {
           F1BLUE2,
           F1BLUE3,
           F1BLUE5,
+          F1GRAY1,
+          F1BLUE1,
+          F1GRAY2,
+          F1BLUE8,
           F1WHITE
         ],
         borderColor: [
@@ -519,6 +537,10 @@ function shotDistribution(n, d) {
           F8BLUE2,
           F8BLUE3,
           F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
           F8WHITE
         ],
         hoverBackgroundColor: [
@@ -528,6 +550,10 @@ function shotDistribution(n, d) {
           F8BLUE2,
           F8BLUE3,
           F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
           F8WHITE
         ],
         hoverBorderColor: [
@@ -537,6 +563,10 @@ function shotDistribution(n, d) {
           F8BLUE2,
           F8BLUE3,
           F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
           F8WHITE
         ],
         fill: false
@@ -773,6 +803,25 @@ function getShots(p) {
 } // getShots
 
 
+function setScore(div, g) {
+
+  if(g === null || g === undefined) {
+    div.className = "invisible";
+  } else {
+
+    div.children[0].setAttribute("href", gamekey(g));
+
+    div.children[0].children[0].children[0].innerText = g.away.name;
+    div.children[0].children[0].children[1].innerText = g.away.score;
+
+    div.children[0].children[1].children[0].innerText = g.home.name;
+    div.children[0].children[1].children[1].innerText = g.home.score;
+
+  }
+
+} // setScore
+
+
 function renderFavoritePlayers(players) {
 
   var id = document.getElementById("players");
@@ -930,7 +979,66 @@ function renderNews(articles) {
 } // renderNews
 
 
+function renderLiveScores(games) {
+
+  if(games === null) {
+    return;
+  }
+
+  var id = document.getElementById("scores");
+
+  var index = 0;
+
+  for(var key in games) {
+
+    if(index < id.children.length) {
+      setScore(id.children[index], games[key]);
+    }
+
+    index += 1;
+
+  }
+
+  /*
+  for(var i = 0; i < id.children.length; i++) {
+
+    if(i > Object.keys(games).length) {
+      setScore(id.children[i], null);
+    } else {
+      setScore(id.children[i], games);
+    }
+
+  }*/
+
+
+} // renderLiveScores
+
+
 function renderScores(games) {
+
+  if(games === null) {
+    return;
+  }
+
+  console.log(games.length);
+
+  var id = document.getElementById("scores");
+
+  for(var i = 0; i < id.children.length; i++) {
+
+    if(i > games.length) {
+      setScore(id.children[i], null);
+    } else {
+      setScore(id.children[i], games[i]);
+    }
+
+  }
+
+
+} // renderScores
+
+
+function renderScores2(games) {
 
   if(games === null) {
     return;
@@ -1022,164 +1130,252 @@ function renderShots(g) {
 } // renderShots
 
 
-function renderBox(g, home) {
+function renderBox(g, home, summary) {
 
-  var box   = null;
-  var team  = null;
+  var average = "text-right";
+  var good    = average + " good";
+  var bad     = average + " bad";
+
+  var box       = null;
+  var players   = null;
 
   if(home) {
     box = document.getElementById("homebox");
-    team = g.home.players;
+
+    if(summary) {
+      players = [g.home.summary];
+    } else {
+      players = g.home.players;
+    }
+
   } else {
     box = document.getElementById("awaybox");
-    team = g.away.players;
+
+    if(summary) {
+      players = [g.away.summary];
+    } else {
+      players = g.away.players;
+    }
+
   }
 
-  for(var i = 0; i < team.length; i++) {
+  for(var i = 0; i < players.length; i++) {
 
     var tr = document.createElement("tr");
 
-    var name  = document.createElement("td");
-    name.innerText = team[i].name;
+    for(var j = 0; j < BOXSCORE_FIELDS.length; j++) {
 
-    var min   = document.createElement("td");
-    min.className = "text-right";
-    min.innerText = team[i].minutes + ":" + padInt(team[i].seconds);
+      var td = document.createElement("td");
 
-    var pts   = document.createElement("td");
+      var f = BOXSCORE_FIELDS[j];
 
-    if(team[i].points > 18) {
-      pts.className = "text-right good";
-    } else {
-      pts.className = "text-right";
+      if(f === "Min") {
+
+        td.className = average;
+
+        if(summary) {
+          td.innerText = "-";
+        } else {
+          td.innerText = players[i].minutes + ":" + padInt(players[i].seconds);
+        }
+
+      } else if(f === "Points") {
+
+        if(players[i].points > 17) {
+          td.className = good;
+        } else {
+          td.className = average;
+        }
+
+        td.innerText = players[i].points;
+
+      } else if(f === "FG") {
+
+        var p2m = players[i].fgm - players[i].fg3m;
+        var p2a = players[i].fga - players[i].fg3a;
+
+        var r = rate(p2m, p2a, FGPCT)
+
+        if(r === GOOD) {
+          td.className = good;
+        } else if(r === BAD) {
+          td.className = bad;
+        } else {
+          td.className = average;
+        }
+
+        td.innerText = p2m + "-" + p2a;
+
+      } else if(f === "3PT") {
+
+        var r = rate(players[i].fg3m, players[i].fg3a, FG3PCT);
+
+        if(r === GOOD) {
+          td.className = good;
+        } else if(r === BAD) {
+          td.className = bad;
+        } else {
+          td.className = average;
+        }
+
+        td.innerText = players[i].fg3m + "-" + players[i].fg3a;
+
+      } else if(f === "FT") {
+
+        var r = rate(players[i].ftm, players[i].fta, FTPCT);
+
+        if(r === GOOD) {
+          td.className = good;
+        } else if(r === BAD) {
+          td.className = bad;
+        } else {
+          td.className = average;
+        }
+
+        td.innerText = players[i].ftm + "-" + players[i].fta;
+
+      } else if(f === "Reb") {
+
+        if(summary) {
+
+          if(players[i].treb > 40) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        } else {
+
+          if(players[i].treb > 9) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        }
+
+        td.innerText = players[i].treb;
+
+      } else if(f === "Ast") {
+
+        if(summary) {
+
+          if(players[i].assists > 24) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        } else {
+
+          if(players[i].assists > 3) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        }
+
+        td.innerText = players[i].assists;
+
+      } else if(f === "Stl") {
+
+        if(summary) {
+
+          if(players[i].steals > 7) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        } else {
+
+          if(players[i].steals > 1) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        }
+
+        td.innerText = players[i].steals;
+
+      } else if(f === "Blk") {
+
+        if(summary) {
+
+          if(players[i].blocks > 7) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        } else {
+
+          if(players[i].blocks > 2) {
+            td.className = good;
+          } else {
+            td.className = average;
+          }
+
+        }
+
+        td.innerText = players[i].blocks;
+
+      } else if(f === "To") {
+
+        td.className = average;
+
+        if(summary) {
+
+          if(players[i].turnovers > 8) {
+            td.className = bad;
+          } else {
+            td.className = average;
+          }
+
+        } else {
+
+          if(players[i].turnovers > 2) {
+            td.className = bad;
+          } else {
+            td.className = average;
+          }
+
+        }
+
+        td.innerText = players[i].turnovers;
+
+      } else if(f === "Pf") {
+
+        td.className = average;
+        td.innerText = players[i].fouls;
+
+      } else if(f === "+/-") {
+
+        if(players[i].plusMinus > 5) {
+          td.className = good;
+        } else if(players[i].plusMinus < 0) {
+          td.className = bad;
+        } else {
+          td.className = average;
+        }
+
+        td.innerText = players[i].plusMinus;
+
+      } else if(f === "Player") {
+
+        if(summary) {
+          td.innerText = "Total";
+        } else {
+          td.innerText = players[i].name;
+        }
+
+      }
+
+      tr.appendChild(td);
+
     }
-
-    pts.innerText = team[i].points;
-
-    var fg = document.createElement("td");
-
-    var p2m = team[i].fgm - team[i].fg3m;
-    var p2a = team[i].fga - team[i].fg3a;
-
-    var fgr = rate(p2m, p2a, FGPCT)
-
-    if(fgr === -1) {
-      fg.className = "text-right bad";
-    } else if(fgr === 1) {
-      fg.className = "text-right good";
-    } else {
-      fg.className = "text-right";
-    }
-
-    fg.innerText = p2m + "-" + p2a;
-
-    var fg3 = document.createElement("td");
-
-    var fg3r = rate(team[i].fg3m, team[i].fg3a, FG3PCT)
-
-    if(fg3r === -1) {
-      fg3.className = "text-right bad";
-    } else if(fg3r === 1) {
-      fg3.className = "text-right good";
-    } else {
-      fg3.className = "text-right";
-    }
-
-    fg3.innerText = team[i].fg3m + "-" + team[i].fg3a;
-
-    var ft = document.createElement("td");
-
-    var ftr = rate(team[i].ftm, team[i].fta, FTPCT)
-
-    if(ftr === -1) {
-      ft.className = "text-right bad";
-    } else if(ftr === 1) {
-      ft.className = "text-right good";
-    } else {
-      ft.className = "text-right";
-    }
-
-    ft.innerText = team[i].ftm + "-" + team[i].fta;
-
-    var reb = document.createElement("td");
-
-    if(team[i].treb > 9) {
-      reb.className = "text-right good";
-    } else {
-      reb.className = "text-right";
-    }
-
-    reb.innerText = team[i].treb;
-
-    var ast = document.createElement("td");
-
-    if(team[i].assists > 4) {
-      ast.className = "text-right good";
-    } else {
-      ast.className = "text-right";
-    }
-
-    ast.innerText = team[i].assists;
-
-    var stl = document.createElement("td");
-
-    if(team[i].steals > 1) {
-      stl.className = "text-right good";
-    } else {
-      stl.className = "text-right";
-    }
-
-    stl.innerText = team[i].steals;
-
-    var bl = document.createElement("td");
-
-    if(team[i].blocks > 2) {
-      bl.className = "text-right good";
-    } else {
-      bl.className = "text-right";
-    }
-
-    bl.innerText = team[i].blocks;
-
-    var to = document.createElement("td");
-
-    if(team[i].turnovers > 2) {
-      to.className = "text-right bad";
-    } else {
-      to.className = "text-right";
-    }
-
-    to.innerText = team[i].turnovers;
-
-    var foul = document.createElement("td");
-    foul.className = "text-right";
-    foul.innerText = team[i].fouls;
-
-    var pm = document.createElement("td");
-
-    if(team[i].plusMinus < 0) {
-      pm.className = "text-right bad";
-    } else if(team[i].plusMinus > 5) {
-      pm.className = "text-right good";
-    } else {
-      pm.className = "text-right";
-    }
-
-    pm.innerText = team[i].plusMinus;
-
-    tr.appendChild(name);
-    tr.appendChild(min);
-    tr.appendChild(pts);
-    tr.appendChild(fg);
-    tr.appendChild(fg3);
-    tr.appendChild(ft);
-    tr.appendChild(reb);
-    tr.appendChild(ast);
-    tr.appendChild(stl);
-    tr.appendChild(bl);
-    tr.appendChild(to);
-    tr.appendChild(foul);
-    tr.appendChild(pm);
 
     box.appendChild(tr);
 
@@ -1257,6 +1453,15 @@ function renderPeriods(g) {
 } // renderPeriods
 
 
+function renderSummary(g) {
+
+  var summary = document.getElementById("summary");
+
+  summary.innerText = generateSummary(g);
+
+} // renderSummary
+
+
 function renderGame(g) {
 
   if(g === null) {
@@ -1264,16 +1469,20 @@ function renderGame(g) {
   }
 
   renderPeriods(g);
+  renderSummary(g);
   renderComparisons(g);
   renderTop(g);
   renderShots(g);
-  renderBox(g, false);
-  renderBox(g, true);
+  renderBox(g, false, false);
+  renderBox(g, true, false);
+  renderBox(g, false, true);
+  renderBox(g, true, true);
 
   var names = document.getElementById("names");
   names.innerText = NBA_TEAMS[g.away.name.toLowerCase()] + " at " + NBA_TEAMS[g.home.name.toLowerCase()];
 
   var small = document.createElement("small");
+  small.className = "pl-2";
   small.innerText = niceDate(g.date);
 
   names.appendChild(small);
@@ -1286,7 +1495,6 @@ function favoritePlayers() {
   fetch(FAVORITE_PLAYERS_API)
   .then((res) => res.json())
   .then(function(data) {
-    console.log(data);
     renderFavoritePlayers(data);
   }).catch(function(err) {
     console.log(err);
@@ -1306,6 +1514,94 @@ function favoriteTeams() {
   });
 
 } // favoriteTeams
+
+
+function getLiveScores() {
+
+  var url = GAMES_API;
+
+  fetch(url)
+  .then((res) => res.json())
+  .then(function(data) {
+    renderLiveScores(data);
+  }).catch(function(err) {
+    console.log(err);
+    getScores();
+  });
+
+} // getLiveScores
+
+
+function analyzePlayers(p) {
+
+  var ret = {
+    scoring: null,
+    rebounding: null,
+    double: null,
+    triple: null
+  };
+
+  if(p === null) {
+    return null;
+  }
+
+  s = p
+  s.sort(function(a, b) {
+    return b.points - a.points;
+  });
+
+  ret.scoring = s;
+/*
+  r = p
+  p.sort(function(a, b) {
+    return a.treb - b.treb;
+  })
+
+  console.log(p.reverse());
+
+  ret.rebounding = p.reverse();
+*/
+  //for(var i = 0; i < p.length; i++) {
+  //}
+
+  return ret;
+
+} // analyzePlayers
+
+
+function generateSummary(g) {
+
+  // TODO: comeback, down by
+  // TODO: lead changes
+  // TODO: top scorers
+  // TODO: rebounds, assists
+  // TODO: by quarter breakdown
+  // TODO: playoff hopes
+  // all starters double figures, without stars, double double, triple double
+
+  var sum = "";
+
+  var pa = analyzePlayers(g.home.players);
+  // analyzePlayers (offense/defense, best/worst)
+  // analyzeTeam
+  // gameAnalysis
+  // gameSignificance standings, rankings, playoff spot, trends in terms of L10, home vs away, streaks
+
+  console.log(g);
+
+  if(g.home.score > g.away.score) {
+    sum += "A hot shooting " + NBA_TEAMS[g.home.name] + " team shot a scorching " + (g.home.summary.fgm/g.home.summary.fga * 100).toFixed(1) + "% from the field and beat the " + NBA_TEAMS[g.away.name] + " at home.";
+    sum += "  " + pa.scoring[0].name + " led the team with " + pa.scoring[0].points + " points shooting " + pa.scoring[0].fg3m + " for " + pa.scoring[0].fg3a + " (" + parseFloat(pa.scoring[0].fg3m/pa.scoring[0].fg3a*100).toFixed(1) + "%) from three point range.";
+    //for(var i = 0; i < g.home.)
+  } else {
+    sum += "The " + NBA_TEAMS[g.away.name] + " shot " + parseFloat(g.away.summary.fgm/g.away.summary.fga * 100).toFixed(1) + "% from the field and beat the " + NBA_TEAMS[g.home.name] + " on the road.";
+  }
+
+
+
+  return sum
+
+} // generateSummary
 
 
 function getNews() {
@@ -1352,3 +1648,25 @@ function getGame() {
   });
 
 } // getGame
+
+
+function checkLiveScores() {
+
+  var url = GAMES_API;
+
+  fetch(url)
+  .then((res) => res.json())
+  .then(function(data) {
+
+    getLiveScores();
+
+    setInterval(function() {
+      getLiveScores();
+    }, 30000);
+
+  }).catch(function(err) {
+    console.log(err);
+    getScores();
+  });
+
+} // checkLiveScores

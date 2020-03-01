@@ -1,6 +1,17 @@
 # collector
 
-collect data from different sources, persist data and load memory
+collect data from different sources, persist data and load into memory.
+
+games and stats information are collected and persisted onto the filesystem as json files.
+
+this information is read into memory during startup.  additional data is retrieved
+in realtime and stored in memory.  a background task gets the actual data.
+
+## design
+
+1.  initial data for a season should be bulk downloaded as a 1 time operation before starting nbad
+1.  subsequent information should be downloaded periodically to disk and then loaded into memory
+1.  current games should have a different mechanism for traking
 
 ## interface
 

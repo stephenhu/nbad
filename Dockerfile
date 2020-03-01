@@ -15,6 +15,7 @@ COPY www ./www
 COPY nba ./nba
 RUN apt-get -y update && apt-get install -y \
     libc6 \
-    libssl-dev
+    libssl-dev \
+    tzdata
 EXPOSE 9005
 CMD /usr/local/nbad/nbad

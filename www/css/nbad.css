@@ -13,7 +13,7 @@ body {
   /* background-color: #161616; */
   /* background-color: #ff0000; */
   /* background-color: #052A51; */
-  background-color: #181818;
+  background-color: #101010;
   color: #e1e4e6;
 }
 
@@ -113,11 +113,14 @@ th {
 }
 
 .navbar-dark .navbar-brand {
-  color: #052584;
+  /*color: #052584; */
+  color: #ff0000;
 }
 
 .list-group-item {
-  background-color: #0c2340;
+  /*background-color: #0c2340;*/
+  /*background-color: #000b14; */
+  background-color: #0d0d0d;
   /*background-color: #0c2340; */
   /*background-color: #03202f; */
   /* opacity: .9; */

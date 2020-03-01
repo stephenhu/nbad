@@ -10,7 +10,7 @@ block content
     div.row.pt-5.pb-5
       div.col
         h3.blue summary
-        p leonard took 40% of the team's shots and was only 32% from the field.
+        p[id="summary"] leonard took 40% of the team's shots and was only 32% from the field.
     div.row.pt-5.pb-5.border-bottom.border-secondary
       div.col
         canvas.mt-3[id="comparisons"]
@@ -46,7 +46,7 @@ block content
         table.table.table-dark.table-hover.table-striped.mt-3
           thead
             tr
-              th Name
+              th Player
               th.text-right Min
               th.text-right  Points
               th.text-right  FG
@@ -63,7 +63,7 @@ block content
         table.table.table-hover.table-striped.table-dark.mt-3
           thead
             tr
-              th Name
+              th Player
               th.text-right  Min
               th.text-right  Points
               th.text-right  FG

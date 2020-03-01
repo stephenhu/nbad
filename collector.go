@@ -1,9 +1,45 @@
 package main
 
 import (
+	"time"
 
   "github.com/stephenhu/stats"
 )
+
+
+func gameJob() {
+
+	var ticker *time.Ticker
+
+	d, err := time.ParseDuration(config.GameSchedule)
+
+	if err != nil {
+		logf("gameJob", err.Error())
+		ticker = time.NewTicker(12 * time.Hour)
+	} else {
+		ticker = time.NewTicker(d)
+	}
+
+	for {
+
+		select {
+		case <-ticker.C:
+
+			logf("INFO", "checking last game download")
+
+			if !checkLiveMap() {
+
+				checkDownloads()
+
+				//clearLiveMap()
+
+			}
+
+		}
+
+	}
+
+} // gameJob
 
 
 func downloadData() {
@@ -15,8 +51,12 @@ func downloadData() {
 
 func checkDownloads() {
 
-	last := stats.LastDownload()
+	if len(RtgMap) == 0 {
 
-	stats.NbaStoreFromDay(last)
+		last := stats.LastDownload()
+
+		stats.NbaStoreFromDay(last)
+
+	}
 
 } // checkDownloads
