@@ -76,6 +76,18 @@ th {
   color: #e1e4e6;
 }
 
+.bg-serene-blue {
+  background-color: #052584;
+}
+
+.bg-gray-black {
+  background-color: #0d0d0d;
+}
+
+.bg-darker-blue {
+  background-color: #03202f;
+}
+
 .bad {
   color: #ff0000;
 }
@@ -106,6 +118,18 @@ th {
   font-size: 16px;
 }
 
+.meter-xl {
+  font-size: 24px;
+}
+
+.meter-xl {
+  font-size: 32px;
+}
+
+.meter-xxl {
+  font-size: 64px;
+}
+
 /* bootstrap */
 
 .nav {
@@ -114,13 +138,13 @@ th {
 
 .navbar-dark .navbar-brand {
   /*color: #052584; */
-  color: #ff0000;
+  color: #dd0000;
 }
 
 .list-group-item {
   /*background-color: #0c2340;*/
   /*background-color: #000b14; */
-  background-color: #0d0d0d;
+  /*background-color: #0d0d0d;*/
   /*background-color: #0c2340; */
   /*background-color: #03202f; */
   /* opacity: .9; */
@@ -129,7 +153,8 @@ th {
 }
 
 .list-group-item:hover {
-  background-color: #052584;
+  /*background-color: #052584;*/
+  background-color: #03202f;
 }
 
 .list-group-item-action:hover {

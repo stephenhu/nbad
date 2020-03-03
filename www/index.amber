@@ -8,7 +8,7 @@ block content
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         div.list-group.list-group-horizontal[id="scores"]
-          div.list-group-item.ml-1.rounded[id="s1"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s1"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -16,7 +16,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s2"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s2"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -24,7 +24,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s3"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s3"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -32,7 +32,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s4"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s4"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -40,7 +40,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s5"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s5"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -48,7 +48,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s6"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s6"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -56,7 +56,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s7"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s7"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -64,7 +64,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s8"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s8"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -72,7 +72,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s9"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s9"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -80,7 +80,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s10"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s10"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -88,7 +88,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s11"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s11"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue
@@ -96,7 +96,7 @@ block content
                 div
                   span.meter-sm.blue
                   span.meter-l.pl-2.float-right
-          div.list-group-item.ml-1.rounded[id="s12"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s12"]
               a.list-group-item-action[href=""]
                 div
                   span.meter-sm.blue

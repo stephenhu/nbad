@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	//"github.com/gorilla/mux"
-	
+	"github.com/gorilla/mux"
+	"github.com/stephenhu/stats"
 )
 
 
@@ -12,14 +12,32 @@ func teamHandler(w http.ResponseWriter, r *http.Request) {
 
   switch r.Method {
 	case http.MethodPut:
-	case http.MethodGet:		
+	case http.MethodGet:
 
-		t := renderPage(PAGE_TEAMS)
+		vars := mux.Vars(r)
 
-		if t == nil {
+		id := vars["id"]
+
+		if id == "" {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
-			t.Execute(w, nil)
+
+			_, ok := stats.TeamsMap[id]
+
+			if ok {
+
+				t := renderPage(PAGE_TEAMS)
+
+				if t == nil {
+					w.WriteHeader(http.StatusNotFound)
+				} else {
+					t.Execute(w, nil)
+				}
+
+			} else {
+				w.WriteHeader(http.StatusNotFound)
+			}
+
 		}
 
 	case http.MethodDelete:

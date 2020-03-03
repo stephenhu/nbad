@@ -57,6 +57,8 @@ func checkDownloads() {
 
 		stats.NbaStoreFromDay(last)
 
+		//stats.NbaStoreTeamRank()
+
 	}
 
 } // checkDownloads

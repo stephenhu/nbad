@@ -47,11 +47,16 @@ lowest granularity data to be stored is a set of game stats per team and player
 
 key | fields | redis structure | comments
 --- | --- | --- | ---
+2019 | 20201024 = regular, 20200601 = playoff | redis hash map |
 20200211 | lalbos = json, clesas = json | redis hash map |
-lebronjames:2019 | 20200211 = lalbos, 20200210 = denlal | redis hash map | keys to games played
-lebronjames | 2019 = json, 2018 = json, 2017 = json | redis hash map | season stats
-lal:2019 | 20200211 = lalbos | redis hash map |
-lal | 2019 = json, 2018 = json | redis hash map |
+2019:lebronjames:stats | 20200211 = lalbos, 20200210 = denlal | redis hash map | player games played keys
+lebronjames | info = json, 2019 = json, 2018 = json, 2017 = json | redis hash map | player season stats
+2019:lal | 20200211 = lalbos | redis hash map | season games
+lal | 2019 = json, 2018 = json | redis hash map | team stats
+2019:lal:stats | points, rebounds, assists, ... | redis counters |
+2019:teams | name = json, ... | redis hash map | team info
+2019:players | name = json, ... | redis hash map | player info
+conf | teams = json, players = json, like = json, dislike = json | redis hash map | settings
 
 ### ingest
 
@@ -65,6 +70,16 @@ or do we take advantage of redis' hash fields?  the nature of nba data doesn't c
 for completed game data.  live games are different, and counters like seasonal statistics are updated,
 but not that often.
 
+
+## sync
+
+a deep check for redis data requires looking at every game day and counting the number of games.  a
+simple check could be to check for the day itself only, but this might miss some games that are missing
+within the day.
+
+each game download is a separate download, many games could require a long sync time so there needs to
+be a mechanism to query the status of all the downloads.  what detail does the user require in terms of
+sync progress?  maybe the day being downloaded and a simple bool for completed or not?
 
 
 ## headlines

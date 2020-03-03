@@ -95,13 +95,16 @@ func initRouter() *mux.Router {
 		http.FileServer(http.Dir(fmt.Sprintf(".%s", APP_WWW)))))
 
 	router.HandleFunc("/", homeHandler)
+	router.HandleFunc("/console", consoleHandler)
+	router.HandleFunc("/downloads", downloadHandler)
 	router.HandleFunc("/games/{date:[0-9]+}/{id:[a-zA-Z.]+}", gameHandler)
-	router.HandleFunc("/players", playerHandler)
-	router.HandleFunc("/teams", teamHandler)
+	router.HandleFunc("/players/{id:[a-zA-Z.-]+}", playerHandler)
+	router.HandleFunc("/teams/{id:[a-zA-Z]+}", teamHandler)
 
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
-
+	router.HandleFunc("/api/downloads", downloadApiHandler)
+	router.HandleFunc("/api/downloads/{id:[0-9]+}", downloadApiHandler)
 	router.HandleFunc("/api/follows", followApiHandler)
 	router.HandleFunc("/api/games", gameApiHandler)
 	router.HandleFunc("/api/games/{date:[0-9]+}/teams/{id:[a-z]+}", gameApiHandler)
@@ -119,12 +122,12 @@ func initRouter() *mux.Router {
 
 func startJobs() {
 
-	log.Println(fmt.Sprintf("%s v%s downloading latest games...", APP_NAME, APP_VERSION))
-	go checkDownloads()
+	//log.Println(fmt.Sprintf("%s v%s downloading latest games...", APP_NAME, APP_VERSION))
+	//go checkDownloads()
 
-	log.Println(fmt.Sprintf("%s v%s loading cache...", APP_NAME, APP_VERSION))
-	stats.LoadCache()
-	//connectRedis()
+	log.Println(fmt.Sprintf("%s v%s connecting to redis...", APP_NAME, APP_VERSION))
+	//stats.LoadCache()
+	stats.ConnectRedis(config.Store.Protocol, addr(config.Store))
 
 	log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
 	getNews()

@@ -16,9 +16,13 @@ func scoreApiHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPut:
 	case http.MethodGet:
 
-		d := stats.LastDownload()
+		//d := stats.LastDownload()
 
-		j, err := json.Marshal(stats.GamesMap[d])
+		d := stats.RedisLastGame()
+
+		games := stats.RedisGetDay(d)
+
+		j, err := json.Marshal(games)
 
 		if err != nil {
 			logf("scoreApiHandler", err.Error())

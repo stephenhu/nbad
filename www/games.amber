@@ -48,34 +48,34 @@ block content
             tr
               th Player
               th.text-right Min
-              th.text-right  Points
-              th.text-right  FG
-              th.text-right  3PT
-              th.text-right  FT
-              th.text-right  Reb
-              th.text-right  Ast
-              th.text-right  Stl
-              th.text-right  Blk
-              th.text-right  To
-              th.text-right  Pf
-              th.text-right  +/-
+              th.text-right Points
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right Pf
+              th.text-right +/-
           tbody[id="awaybox"]
         table.table.table-hover.table-striped.table-dark.mt-3
           thead
             tr
               th Player
-              th.text-right  Min
-              th.text-right  Points
-              th.text-right  FG
-              th.text-right  3PT
-              th.text-right  FT
-              th.text-right  Reb
-              th.text-right  Ast
-              th.text-right  Stl
-              th.text-right  Blk
-              th.text-right  To
-              th.text-right  Pf
-              th.text-right  +/-
+              th.text-right Min
+              th.text-right Points
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right Pf
+              th.text-right +/-
           tbody[id="homebox"]
   import indexbar
   script

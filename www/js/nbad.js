@@ -55,13 +55,14 @@ const CHART_DOUGHNUT  = "doughnut";
 const CHART_2D        = "2d";
 
 const API                     = "http://127.0.0.1:9005/api";
+const DOWNLOADS_API           = API + "/downloads";
+const GAMES_API               = API + "/games";
+const NEWS_API                = API + "/news";
 const PLAYERS_API             = API + "/players";
 const FAVORITE_PLAYERS_API    = API + "/players?favorite=true";
 const TEAMS_API               = API + "/teams";
 const FAVORITE_TEAMS_API      = API + "/teams?favorite=true";
-const NEWS_API                = API + "/news";
 const SCORES_API              = API + "/scores";
-const GAMES_API               = API + "/games";
 
 const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
 const FAV_STATS_R1 = {"ppg": "PPG", "rpg": "RPG", "apg": "APG"};
@@ -600,7 +601,7 @@ function favoriteStatsRows(player, stats) {
   for(var key in stats) {
 
     var listGroup = document.createElement("div");
-    listGroup.className = "list-group-item text-center mr-2";
+    listGroup.className = "list-group-item text-center bg-gray-black mr-2";
 
     var num = document.createElement("div");
     num.className = "meter-l";
@@ -629,7 +630,7 @@ function favoriteStats(player) {
   for(var key in FAV_STATS) {
 
     var listGroup = document.createElement("div");
-    listGroup.className = "list-group-item text-center mr-2";
+    listGroup.className = "list-group-item rounded text-center bg-gray-black mr-2";
 
     var num = document.createElement("div");
     num.className = "meter-l";
@@ -833,9 +834,9 @@ function renderFavoritePlayers(players) {
     var a = document.createElement("a");
 
     if(count === 0) {
-      a.className = "list-group-item list-group-item-action rounded mt-1";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-1";
     } else {
-      a.className = "list-group-item list-group-item-action rounded mt-3";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-3";
     }
 
     a.setAttribute("href", "/players");
@@ -892,9 +893,9 @@ function renderFavoriteTeams(teams) {
     var a = document.createElement("a");
 
     if(count === 0) {
-      a.className = "list-group-item list-group-item-action rounded mt-1";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-1";
     } else {
-      a.className = "list-group-item list-group-item-action rounded mt-3";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-3";
     }
 
     a.setAttribute("href", "/players");
@@ -946,9 +947,9 @@ function renderNews(articles) {
     var a = document.createElement("a");
 
     if(count === 0) {
-      a.className = "list-group-item list-group-item-action rounded mt-1";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-1";
     } else {
-      a.className = "list-group-item list-group-item-action rounded mt-3";
+      a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-3";
     }
 
     a.setAttribute("href", articles[i].link);
@@ -998,18 +999,6 @@ function renderLiveScores(games) {
     index += 1;
 
   }
-
-  /*
-  for(var i = 0; i < id.children.length; i++) {
-
-    if(i > Object.keys(games).length) {
-      setScore(id.children[i], null);
-    } else {
-      setScore(id.children[i], games);
-    }
-
-  }*/
-
 
 } // renderLiveScores
 
@@ -1409,7 +1398,7 @@ function renderPeriods(g) {
   for(i = 0; i < g.away.periods.length; i++) {
 
     var div  = document.createElement("div");
-    div.className = "list-group-item";
+    div.className = "list-group-item bg-gray-black";
 
     var small = document.createElement("small");
 
@@ -1433,7 +1422,7 @@ function renderPeriods(g) {
   }
 
   var divf  = document.createElement("div");
-  divf.className = "list-group-item";
+  divf.className = "list-group-item bg-gray-black";
 
   var smallf = document.createElement("small");
   smallf.innerText = "F";
@@ -1460,6 +1449,23 @@ function renderSummary(g) {
   summary.innerText = generateSummary(g);
 
 } // renderSummary
+
+
+function renderTeam(t) {
+
+  console.log(t);
+
+  var logo = document.getElementById("logo");
+
+  var bigStats = document.getElementById("bigstats");
+
+  var smallStats = document.getElementById("smallstats");
+
+  var players = document.getElementById("players");
+
+  var l10 = document.getElementById("last10");
+
+} // renderTeam
 
 
 function renderGame(g) {
@@ -1670,3 +1676,66 @@ function checkLiveScores() {
   });
 
 } // checkLiveScores
+
+
+function getTeam() {
+
+  var toks = location.pathname.split("/");
+
+  var team = toks[toks.length - 1];
+
+  fetch(TEAMS_API + "/" + team)
+  .then((res) => res.json())
+  .then(function(data) {
+
+    if(data === null) {
+      //window.location = "/notfound";
+    } else {
+      renderTeam(data);
+    }
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getTeam
+
+
+function getDownloads() {
+
+  fetch(DOWNLOADS_API)
+  .then((res) => res.json())
+  .then(function(data) {
+
+    if(data === null) {
+      //window.location = "/notfound";
+    } else {
+      renderTeam(data);
+    }
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getDownloads
+
+
+function syncSeason(s) {
+
+  fetch(DOWNLOADS_API + "/" + s, {
+    method: "PUT"
+  })
+  .then((res) => res.json())
+  .then(function(data) {
+
+    if(data === null) {
+      //window.location = "/notfound";
+    } else {
+      renderTeam(data);
+    }
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // syncSeason

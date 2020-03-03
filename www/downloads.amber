@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  div.container
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        h1 storage
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div.list-group.mt-3
+          each $y, $s in Seasons
+            div.list-group-item.bg-darker-blue.mt-3.pb-3
+              div.media
+                h3.mr-5 #{$y}
+                div.media-body
+                  div.list-group.list-group-horizontal
+                    div.list-group-item.bg-darker-blue
+                      h5.badge.badge-primary Last
+                      small.mr-3 20200301
+                    div.list-group-item.bg-darker-blue
+                      h5.badge.badge-info Regular
+                      small.mr-3 20191024 - 20200424
+                    div.list-group-item.bg-darker-blue
+                      h5.badge.badge-secondary Playoff
+                      small.mr-3 20200425 - 20200615
+                  $pct = $s.Pct
+                  $w = "width: " + $pct + "%"
+                  div.progress.mt-3
+                    div.progress-bar.bg-primary[style=$w]
+                  $f = "syncSeason('" + $y + "'); return true;"
+                  button.button.btn-xl.btn-primary.rounded.mt-3[onclick=$f] Sync games
+    div.row.pt-5
+      div.col-xl-5.col-lg-5.col-md-5.col-sm-5.col-xs-5
+  import indexbar

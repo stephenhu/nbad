@@ -14,6 +14,8 @@ const (
 )
 
 const (
+	PAGE_CONSOLE        = "console.amber"
+	PAGE_DOWNLOADS			= "downloads.amber"
 	PAGE_HOME						= "index.amber"
 	PAGE_GAMES					= "games.amber"
 	PAGE_PLAYERS				= "players.amber"

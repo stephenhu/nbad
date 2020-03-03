@@ -43,7 +43,7 @@ func nextGames(t time.Time) *stats.NbaScoreboard {
 
 		if !ok {
 
-			if s[stats.SEASON_INDEX_PLAYOFFS_END] < d {
+			if s[stats.SEASON_PLAYOFFS_END] < d {
 				return nil
 			} else {
 

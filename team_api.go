@@ -66,24 +66,42 @@ func teamApiHandler(w http.ResponseWriter, r *http.Request) {
 
 			f := r.FormValue(QUERY_PARAM_FAVORITE)
 
-			c := parseCount(r.FormValue(QUERY_PARAM_COUNT))
-
-			if f == STRING_TRUE {
-
-				teams := getTeamLast(c)
-
-				j, err := json.Marshal(teams)
-
-				if err != nil {
-					logf("teamApiHandlerHandler", err.Error())
-					w.WriteHeader(http.StatusInternalServerError)
-				} else {
-					w.Header().Set("Content-Type", "application/json")
-					w.Write(j)
-				}
-
+			if f == "" {
+				w.WriteHeader(http.StatusBadRequest)
 			} else {
 
+				c := parseCount(r.FormValue(QUERY_PARAM_COUNT))
+
+				if f == STRING_TRUE {
+
+					teams := getTeamLast(c)
+
+					j, err := json.Marshal(teams)
+
+					if err != nil {
+						logf("teamApiHandlerHandler", err.Error())
+						w.WriteHeader(http.StatusInternalServerError)
+					} else {
+						w.Header().Set("Content-Type", "application/json")
+						w.Write(j)
+					}
+
+				}
+
+			}
+
+		} else {
+
+			team := stats.TeamsMap[strings.ToLower(name)]
+
+			j, err := json.Marshal(team)
+
+			if err != nil {
+				logf("teamApiHandlerHandler", err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+			} else {
+				w.Header().Set("Content-Type", "application/json")
+				w.Write(j)
 			}
 
 		}
