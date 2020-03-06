@@ -11,6 +11,7 @@ import (
 
 type SeasonGames struct {
 	Games					[]string
+	Count         string
 	Pct						string
 }
 
@@ -30,10 +31,11 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
 
 			data := struct {
 				Seasons map[string]SeasonGames
+				Count int
 			}{
 				Seasons: make(map[string]SeasonGames),
+				Count: len(seasons),
 			}
-
 
 			for _, s := range seasons {
 
@@ -42,11 +44,13 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
 				data.Seasons[s] = SeasonGames{
 					Games: keys,
 					Pct: fmt.Sprintf("%1.f", (float32(len(keys))/float32(41*30)*100)),
+					Count: fmt.Sprintf("%d of %d", len(keys), (41*30)),
 				}
 
 			}
 
 			t.Execute(w, &data)
+
 		}
 
 	case http.MethodDelete:

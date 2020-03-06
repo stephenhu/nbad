@@ -2,38 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	//"log"
 	"net/http"
-	"strings"
+	//"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/stephenhu/stats"
 )
-
-
-func findGame(d string, id string) *stats.Game {
-
-	games, ok := stats.GamesMap[d]
-
-	if ok {
-
-		for _, game := range games {
-
-			f := fmt.Sprintf("%s%s", strings.ToLower(game.Away.Name),
-			  strings.ToLower(game.Home.Name))
-
-			if f == id {
-				return &game
-			}
-
-		}
-
-	}
-
-	return nil
-
-} // findGame
 
 
 func gameApiHandler(w http.ResponseWriter, r *http.Request) {
@@ -68,7 +44,7 @@ func gameApiHandler(w http.ResponseWriter, r *http.Request) {
 
 		} else {
 
-			g := findGame(date, id)
+			g := stats.RedisGetGame(date, id)
 
 			if g != nil {
 

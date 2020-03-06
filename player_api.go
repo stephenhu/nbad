@@ -25,7 +25,7 @@ func getPlayerLast(n int) map[string]Player {
 
 	for _, p := range config.Players {
 
-		last := stats.LastPlayedGames(n, p)
+		last := stats.LastGamesPlayer(n, stats.CurrentSeason(), p)
 
 		as := stats.PlayerAverages(last)
 

@@ -1722,20 +1722,74 @@ function getDownloads() {
 
 function syncSeason(s) {
 
+  console.log("triggering download");
   fetch(DOWNLOADS_API + "/" + s, {
     method: "PUT"
   })
   .then((res) => res.json())
   .then(function(data) {
 
-    if(data === null) {
-      //window.location = "/notfound";
-    } else {
-      renderTeam(data);
-    }
-
   }).catch(function(err) {
     console.log(err);
   });
 
 } // syncSeason
+
+
+function showDownloads(days) {
+
+  var id = document.getElementById("downloads");
+
+  var str = "";
+
+  for(var day in days) {
+    str += day + " ";
+  }
+
+  id.innerText = str;
+
+} // showDownloads
+
+
+function checkDownloads() {
+
+  fetch(DOWNLOADS_API)
+  .then((res) => res.json())
+  .then(function(data) {
+
+    var id = document.getElementById("remaining");
+
+    var count = 0;
+
+    for(var year in data) {
+
+      count += Object.keys(data[year]).length;
+
+    }
+
+    id.innerText = count + " days in download queue.";
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+
+
+} // checkDownloads
+
+
+function downloadSeason() {
+
+  fetch(DOWNLOADS_API, {
+    method: "PUT"
+  })
+  .then((res) => res.json())
+  .then(function(data) {
+
+    //showDownloads(data);
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // downloadSeason

@@ -210,10 +210,11 @@ func rtgPoll(rtg RealTimeGame) {
 
 					delete(RtgMap, box.ID)
 
-					logf("rtgPoll", fmt.Sprintf("Game ended: %s at %s", game.Away.Name,
-						game.Home.Name))
+					name := fmt.Sprintf("%s%s", game.Away.Name, game.Home.Name)
 
-					stats.NbaStoreGame(rtg.Game.Date, rtg.Game.ID)
+					logf("rtgPoll", fmt.Sprintf("Game ended: %s", name))
+
+					stats.RedisStoreGame(rtg.Game.Date, rtg.Game.ID, game)
 
 					return
 

@@ -48,15 +48,16 @@ lowest granularity data to be stored is a set of game stats per team and player
 key | fields | redis structure | comments
 --- | --- | --- | ---
 2019 | 20201024 = regular, 20200601 = playoff | redis hash map |
-20200211 | lalbos = json, clesas = json | redis hash map |
-2019:lebronjames:stats | 20200211 = lalbos, 20200210 = denlal | redis hash map | player games played keys
+20200211 | lalbos = json, clesas = json | redis hash map | game boxscore and play by play
+2019:lebronjames | 20200211:lalbos = json, 20200210 = denlal | redis hash map | player games played keys
 lebronjames | info = json, 2019 = json, 2018 = json, 2017 = json | redis hash map | player season stats
-2019:lal | 20200211 = lalbos | redis hash map | season games
+2019:lal | 20200211 = lalbos | redis hash map | pointer to boxscore
 lal | 2019 = json, 2018 = json | redis hash map | team stats
 2019:lal:stats | points, rebounds, assists, ... | redis counters |
 2019:teams | name = json, ... | redis hash map | team info
 2019:players | name = json, ... | redis hash map | player info
 conf | teams = json, players = json, like = json, dislike = json | redis hash map | settings
+nbad:seasons | 2019 = time | |
 
 ### ingest
 
@@ -67,8 +68,8 @@ these are the things that need
 
 since our golang structs are quite complicated, do we serialize to json and then store as a string value
 or do we take advantage of redis' hash fields?  the nature of nba data doesn't change, especially
-for completed game data.  live games are different, and counters like seasonal statistics are updated,
-but not that often.
+for completed game data.  live games are different, and counters like seasonal statistics need to be
+updated.
 
 
 ## sync

@@ -7,27 +7,36 @@ import (
 	"net/http"
 
 	"github.com/stephenhu/stats"
+	"github.com/gorilla/mux"
 )
 
 
-func scoreApiHandler(w http.ResponseWriter, r *http.Request) {
+func seasonApiHandler(w http.ResponseWriter, r *http.Request) {
 
   switch r.Method {
 	case http.MethodPut:
 	case http.MethodGet:
 
-		d := stats.RedisLastGame()
+		vars := mux.Vars(r)
 
-		if d == "" {
+		id := vars["id"]
+
+		var games []string
+
+		if id == "" {
+			games = stats.RedisGames(stats.CurrentSeason())
+		} else {
+			games = stats.RedisGames(id)
+		}
+
+		if games == nil {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
-
-			games := stats.RedisGetDay(d)
 
 			j, err := json.Marshal(games)
 
 			if err != nil {
-				logf("scoreApiHandler", err.Error())
+				logf("seasonApiHandler", err.Error())
 				w.WriteHeader(http.StatusInternalServerError)
 			} else {
 				w.Header().Set("Content-Type", "application/json")
@@ -42,4 +51,4 @@ func scoreApiHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 
-} // scoreApiHandler
+} // seasonApiHandler

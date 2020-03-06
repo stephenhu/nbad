@@ -10,6 +10,14 @@ import (
 	"github.com/stephenhu/stats"
 )
 
+type DownloadedDetail struct {
+	Seasons					map[string][]string				`json:"seasons"`
+}
+
+type DownloadDetail struct {
+	Days		[]string				`json:"days"`
+}
+
 var SyncMap = make(map[string]map[string]time.Time)
 
 
@@ -64,46 +72,46 @@ func downloadApiHandler(w http.ResponseWriter, r *http.Request) {
 
 		id := vars["id"]
 
+		var year = ""
+
 		if id != "" {
+			year = id
+		} else {
+			year = stats.RedisCurrentSeason()
+		}
 
-			// check map
+		_, ok := stats.OfficialSeasons[year]
 
-			_, ok := stats.OfficialSeasons[id]
+		if ok {
+
+			_, ok := SyncMap[year]
 
 			if ok {
+				w.WriteHeader(http.StatusForbidden)
+			} else {
 
-				_, ok := SyncMap[id]
+				days := stats.RedisSeasonCheck(year)
 
-				if ok {
-					w.WriteHeader(http.StatusForbidden)
+				queueSyncGames(year, days)
+
+				j, err := json.Marshal(days)
+
+				if err != nil {
+					logf("downloadApiHandler", err.Error())
+					w.WriteHeader(http.StatusInternalServerError)
 				} else {
 
-					days := stats.RedisSeasonCheck(id)
+					go syncGames(year)
 
-					queueSyncGames(id, days)
-
-					j, err := json.Marshal(days)
-
-					if err != nil {
-						logf("downloadApiHandler", err.Error())
-						w.WriteHeader(http.StatusInternalServerError)
-					} else {
-
-						go syncGames(id)
-
-						w.Header().Set("Content-Type", "application/json")
-						w.Write(j)
-
-					}
+					w.Header().Set("Content-Type", "application/json")
+					w.Write(j)
 
 				}
 
-			} else {
-				w.WriteHeader(http.StatusNotFound)
 			}
 
 		} else {
-
+			w.WriteHeader(http.StatusNotFound)
 		}
 
 	case http.MethodGet:
@@ -114,23 +122,7 @@ func downloadApiHandler(w http.ResponseWriter, r *http.Request) {
 
 		if id == "" {
 
-			all := struct{
-				Seasons		map[string][]string			`json:"seasons"`
-			}{
-				Seasons: make(map[string][]string),
-			}
-
-			seasons := stats.RedisSeasons()
-
-			for _, s := range seasons {
-
-				keys := stats.RedisGames(s)
-
-				all.Seasons[s] = keys
-
-			}
-
-			j, err := json.Marshal(all)
+			j, err := json.Marshal(SyncMap)
 
 			if err != nil {
 				logf("downloadApiHandler", err.Error())

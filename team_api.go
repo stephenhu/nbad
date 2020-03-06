@@ -26,7 +26,7 @@ func getTeamLast(n int) map[string]Team {
 
 	for _, t := range config.Teams {
 
-		last := stats.LastTeamGames(n, t)
+		last := stats.LastGamesTeam(n, stats.CurrentSeason(), t)
 
 		as := stats.TeamAverages(last)
 
