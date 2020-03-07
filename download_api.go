@@ -75,6 +75,7 @@ func syncTeams(y string) {
 
 	stats.RedisStoreTeamInfo(y)
 	stats.RedisStoreTeamRanks(y)
+	stats.RedisStoreTeamRosters(y)
 
 } // syncTeams
 
