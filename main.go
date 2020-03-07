@@ -97,7 +97,8 @@ func initRouter() *mux.Router {
 	router.HandleFunc("/", homeHandler)
 	router.HandleFunc("/console", consoleHandler)
 	router.HandleFunc("/downloads", downloadHandler)
-	router.HandleFunc("/games/{date:[0-9]+}/{id:[a-zA-Z.]+}", gameHandler)
+	router.HandleFunc("/games/{date:[0-9]+}/{id:[a-zA-Z]+}", gameHandler)
+	router.HandleFunc("/live/{id:[0-9]+}", liveHandler)
 	router.HandleFunc("/players/{id:[a-zA-Z.-]+}", playerHandler)
 	router.HandleFunc("/teams/{id:[a-zA-Z]+}", teamHandler)
 
@@ -108,6 +109,7 @@ func initRouter() *mux.Router {
 	router.HandleFunc("/api/follows", followApiHandler)
 	router.HandleFunc("/api/games", gameApiHandler)
 	router.HandleFunc("/api/games/{date:[0-9]+}/teams/{id:[a-z]+}", gameApiHandler)
+	router.HandleFunc("/api/live/{id:[0-9]+}", liveApiHandler)
 	router.HandleFunc("/api/news", newsApiHandler)
 	router.HandleFunc("/api/players", playerApiHandler)
 	router.HandleFunc("/api/players/{name:[a-zA-Z]+}", playerApiHandler)

@@ -55,9 +55,12 @@ lebronjames | info = json, 2019 = json, 2018 = json, 2017 = json | redis hash ma
 lal | 2019 = json, 2018 = json | redis hash map | team stats
 2019:lal:stats | points, rebounds, assists, ... | redis counters |
 2019:teams | name = json, ... | redis hash map | team info
+2019:teams:stats | name = json, ... | redis hash map | team stats
 2019:players | name = json, ... | redis hash map | player info
+2019:players:stats | name = json, ... | redis hash map | player stats
 conf | teams = json, players = json, like = json, dislike = json | redis hash map | settings
-nbad:seasons | 2019 = time | |
+seasons | 2019 = time | |
+
 
 ### ingest
 

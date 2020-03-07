@@ -18,6 +18,7 @@ const (
 	PAGE_DOWNLOADS			= "downloads.amber"
 	PAGE_HOME						= "index.amber"
 	PAGE_GAMES					= "games.amber"
+	PAGE_LIVE           = "live.amber"
 	PAGE_PLAYERS				= "players.amber"
 	PAGE_TEAMS					= "teams.amber"
 	PAGE_NOT_FOUND      = "notfound.amber"

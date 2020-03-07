@@ -75,8 +75,29 @@ func playerApiHandler(w http.ResponseWriter, r *http.Request) {
 				}
 
 			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+
+		} else {
+
+			p := stats.RedisGetPlayer(stats.CurrentSeason(), name)
+
+			if p == nil {
+				w.WriteHeader(http.StatusNotFound)
+			} else {
+
+				j, err := json.Marshal(p)
+
+				if err != nil {
+					logf("playerApiHandler", err.Error())
+					w.WriteHeader(http.StatusInternalServerError)
+				} else {
+					w.Header().Set("Content-Type", "application/json")
+					w.Write(j)
+				}
 
 			}
+
 
 		}
 

@@ -5,3 +5,4 @@ nbad
 mockups
 .vscode
 .DS_Store
+www/js/*.json

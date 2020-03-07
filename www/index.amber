@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div.container
+  div.container-fluid
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         small[id="date"]
@@ -11,111 +11,111 @@ block content
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s1"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s2"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s3"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s4"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s5"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s6"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s7"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s8"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s9"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s10"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s11"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
           div.list-group-item.ml-1.rounded.bg-gray-black[id="s12"]
               a.list-group-item-action[href=""]
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
                 div
-                  span.meter-sm.blue
+                  img
                   span.meter-l.pl-2.float-right
 
     div.row.pt-5
       div.col-xl-5.col-lg-5.col-md-5.col-sm-5.col-xs-5
         h5 top headlines
         div.list-group.mt-3[id="news"]
-        h5.pt-5 followed teams
-          small last 10 games
-        div.list-group.mt-3[id="teams"]
       div.col.xl-7.col-lg-7.col-md-7.col-sm-7.col-xs-7
         h5 followed players
           small last 5 games
         div.list-group.mt-3[id="players"]
+        h5.pt-5 followed teams
+          small last 10 games
+        div.list-group.mt-3[id="teams"]
   import indexbar
   script
     getNews();

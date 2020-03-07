@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div.container
+  div.container-fluid
     div.row.pt-5.pb-5.border-bottom.border-secondary
       div.col-6
         div.list-group.list-group-horizontal[id="periods"]

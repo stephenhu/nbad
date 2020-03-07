@@ -1,60 +1,63 @@
 extends layout
 
 block content
-  div.container
+  div.container-fluid
     div.row.pt-3
-      h3 James Harden
-        small Houston Rockets
+      h3.ml-3[id="name"]
+        small[id="team"] Houston Rockets
     div.row.pt-3
-      div.col-xl-2.col-lg-2.col-md-2.col-sm-2[id="logo"]
-        img[src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=160&w=220&scale=crop"]
+      div.col-xl-2.col-lg-2.col-md-2.col-sm-2
+        img[id="logo"]
       div.col-xl-2.col-lg-2.col-md-2.col-sm-2
       div.col-xl-8.col-lg-8.col-md-8.col-sm-8
         div.list-group.list-group-horizontal.pt-3[id="bigstats"]
           div.list-group-item.mr-2.rounded.text-center.active
-            div.meter-xxl 2019
+            div.meter-xxl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 27.4
+            div.meter-xxl
             small.meter-xl.blue Points
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 7.3
+            div.meter-xxl
             small.meter-xl.blue Rebounds
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 5.5
+            div.meter-xxl
             small.meter-xl.blue Assists
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         div.list-group.list-group-horizontal.pt-3[id="smallstats"]
             div.list-group-item.mr-2.rounded.text-center.active
-              div.meter-xl 2019
+              div.meter-xl
               small.meter-l
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 33.4
+              div.meter-xl
               small.meter-l.blue Minutes
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 48.7%
+              div.meter-xl
               small.meter-l.blue FG
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 39.0%
+              div.meter-xl
               small.meter-l.blue 3PT
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 89.3%
+              div.meter-xl
               small.meter-l.blue FT
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 1.3
+              div.meter-xl
               small.meter-l.blue Steals
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 0.9
+              div.meter-xl
               small.meter-l.blue Blocks
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 2.5
+              div.meter-xl
               small.meter-l.blue Turnovers
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 3.3
+              div.meter-xl
               small.meter-l.blue Fouls
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 3.3
+              div.meter-xl
               small.meter-l.blue PER
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        canvas[id="careerChart"]
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         table.table.table-hover.table-striped.table-dark.mt-3
@@ -71,39 +74,6 @@ block content
               th.text-right 3PT%
               th.text-right FT%
           tbody[id="career"]
-            tr
-              td.text-right Career
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
-            tr
-              td.text-right 2019
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
-            tr
-              td.text-right 2018
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         table.table.table-hover.table-striped.table-dark.mt-3
@@ -111,6 +81,7 @@ block content
             tr
               th.text-right Season
               th.text-right Games
+              th.text-right Minutes
               th.text-right Points
               th.text-right Rebounds
               th.text-right Assists
@@ -119,44 +90,6 @@ block content
               th.text-right Turnovers
               th.text-right Fouls
           tbody[id="totals"]
-            tr
-              td.text-right 2017
-              td.text-right 350
-              td.text-right 2352
-              td.text-right 1123
-              td.text-right 344
-              td.text-right 120
-              td.text-right 432
-              td.text-right 190
-              td.text-right 520
-            tr
-              td.text-right 2018
-              td.text-right 350
-              td.text-right 2352
-              td.text-right 1123
-              td.text-right 344
-              td.text-right 120
-              td.text-right 432
-              td.text-right 190
-              td.text-right 520
-            tr
-              td.text-right 2019
-              td.text-right 350
-              td.text-right 2352
-              td.text-right 1123
-              td.text-right 344
-              td.text-right 120
-              td.text-right 432
-              td.text-right 190
-              td.text-right 520
-            tr
-              td.text-right Total
-              td.text-right 350
-              td.text-right 2352
-              td.text-right 1123
-              td.text-right 344
-              td.text-right 120
-              td.text-right 432
-              td.text-right 190
-              td.text-right 520
   import indexbar
+  script
+    getPlayerStats();

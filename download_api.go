@@ -36,9 +36,9 @@ func queueSyncGames(s string, days []string) {
 } // queueSyncGames
 
 
-func syncGames(id string) {
+func syncGames(y string) {
 
-	m, ok := SyncMap[id]
+	m, ok := SyncMap[y]
 
 	if ok {
 
@@ -46,7 +46,7 @@ func syncGames(id string) {
 
 			count := stats.RedisStoreDay(day)
 
-			delete(SyncMap[id], day)
+			delete(SyncMap[y], day)
 
 			if count == 0 {
 				logf("syncGames", fmt.Sprintf("Download failed for game: %s", day))
@@ -54,13 +54,29 @@ func syncGames(id string) {
 
 		}
 
-		delete(SyncMap, id)
+		delete(SyncMap, y)
 
 	} else {
 		logf("syncGames", "No jobs exist in SyncMap")
 	}
 
 } // syncGames
+
+
+func syncPlayers(y string) {
+
+	stats.RedisStorePlayers(y)
+	stats.RedisStoreProfiles(y)
+
+} // syncPlayers
+
+
+func syncTeams(y string) {
+
+	stats.RedisStoreTeamInfo(y)
+	stats.RedisStoreTeamRanks(y)
+
+} // syncTeams
 
 
 func downloadApiHandler(w http.ResponseWriter, r *http.Request) {
@@ -102,6 +118,8 @@ func downloadApiHandler(w http.ResponseWriter, r *http.Request) {
 				} else {
 
 					go syncGames(year)
+					go syncTeams(year)
+					go syncPlayers(year)
 
 					w.Header().Set("Content-Type", "application/json")
 					w.Write(j)
