@@ -1,62 +1,59 @@
 extends layout
 
 block content
-  div.container
+  div.container-fluid
+    div.row.pt-3.ml-3
+      h3[id="name"]
     div.row.pt-3
-      h3 Los Angeles Clippers
-    div.row.pt-3
-      div.col-xl-2.col-lg-2.col-md-2.col-sm-2[id="logo"]
-        img[src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png"][width="256"]
+      div.col-xl-2.col-lg-2.col-md-2.col-sm-2
+        img[id="logo"]
       div.col-xl-2.col-lg-2.col-md-2.col-sm-2
       div.col-xl-8.col-lg-8.col-md-8.col-sm-8
         div.list-group.list-group-horizontal.pt-3[id="bigstats"]
           div.list-group-item.mr-2.rounded.text-center.active
             div.meter-l
-            div.meter-xxl 2019
+            div.meter-xxl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 102.4
+            div.meter-xxl
             small.meter-xl.blue Points
-            div.meter-l.bg-gray-black.rounded 1st
+            div.meter-l.bg-gray-black.rounded
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 99.7
+            div.meter-xxl
             small.meter-xl.blue Opponents
-            div.meter-l.bg-gray-black.rounded 3rd
+            div.meter-l.bg-gray-black.rounded
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            div.meter-xxl 8.5
+            div.meter-xxl
             small.meter-xl.blue PER
-            div.meter-l.bg-gray-black.rounded 15th
+            div.meter-l.bg-gray-black.rounded
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         div.list-group.list-group-horizontal.pt-3[id="smallstats"]
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 33.4
-              small.meter-l.blue Minutes
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 48.7%
+              div.meter-xl
               small.meter-l.blue FG
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 39.0%
+              div.meter-xl
               small.meter-l.blue 3PT
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 89.3%
+              div.meter-xl
               small.meter-l.blue FT
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 1.3
+              div.meter-xl
               small.meter-l.blue Rebounds
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 1.3
+              div.meter-xl
               small.meter-l.blue Assists
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 1.3
+              div.meter-xl
               small.meter-l.blue Steals
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 0.9
+              div.meter-xl
               small.meter-l.blue Blocks
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 2.5
+              div.meter-xl
               small.meter-l.blue Turnovers
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              div.meter-xl 3.3
+              div.meter-xl
               small.meter-l.blue Fouls
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
@@ -74,43 +71,10 @@ block content
               th.text-right 3PT%
               th.text-right FT%
           tbody[id="players"]
-            tr
-              td.text-right Kawhi Leonard
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
-            tr
-              td.text-right Patrick Beverley
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
-            tr
-              td.text-right Marcus Morris Sr.
-              td.text-right 24.7
-              td.text-right 8.6
-              td.text-right 2.3
-              td.text-right 1.1
-              td.text-right 0.5
-              td.text-right 2.1
-              td.text-right 37.8%
-              td.text-right 35.3%
-              td.text-right 82.1%
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         h3 last 10 games
           canvas[id="last10"]
   import indexbar
   script
-    getTeam();
+    getTeamStats();

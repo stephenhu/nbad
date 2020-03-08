@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/stephenhu/stats"
@@ -22,7 +23,7 @@ func teamHandler(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusNotFound)
 		} else {
 
-			_, ok := stats.TeamsMap[id]
+			_, ok := stats.RosterTeams[strings.ToLower(id)]
 
 			if ok {
 

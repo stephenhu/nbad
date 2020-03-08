@@ -55,7 +55,7 @@ const CHART_DOUGHNUT  = "doughnut";
 const CHART_2D        = "2d";
 const CHART_LINE      = "line";
 
-const API                     = "http://10.0.1.9:9005/api";
+const API                     = "http://10.0.1.6:9005/api";
 const DOWNLOADS_API           = API + "/downloads";
 const GAMES_API               = API + "/games";
 const LIVE_API                = API + "/live";
@@ -73,10 +73,6 @@ const ESPN_PLAYER_ICON        = "https://a.espncdn.com/combiner/i?img=/i/headsho
 
 const NBA_PLAYER_ICON         = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/";
 const PNG_FORMAT              = ".png";
-
-//https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png
-//https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&h=80&w=110&scale=crop
-
 
 const FAV_STATS = {"ppg": "PPG", "rpg": "RPG", "apg": "APG", "spg": "SPG", "bpg": "BPG"};
 const FAV_STATS_R1 = {"ppg": "PPG", "rpg": "RPG", "apg": "APG"};
@@ -881,7 +877,7 @@ function renderFavoritePlayers(players) {
       a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-3";
     }
 
-    a.setAttribute("href", "/players");
+    a.setAttribute("href", "/players/" + namekey(key) );
 
     var media       = document.createElement("div");
     media.className = "media";
@@ -940,7 +936,7 @@ function renderFavoriteTeams(teams) {
       a.className = "list-group-item list-group-item-action rounded bg-gray-black mt-3";
     }
 
-    a.setAttribute("href", "/players");
+    a.setAttribute("href", "/teams/" + key);
 
     var media       = document.createElement("div");
     media.className = "media";
@@ -1828,6 +1824,109 @@ function renderPlayerStats(data) {
 } // renderPlayerStats
 
 
+function renderRosterStats(data) {
+
+  var id = document.getElementById("players");
+
+  for(var i = 0; i < data.players.length; i++) {
+
+    var tr = document.createElement("tr");
+
+    var p0 = document.createElement("td");
+    p0.className = "text-right";
+    p0.innerText = data.players[i].first + " " + data.players[i].last;
+
+    var p1 = document.createElement("td");
+    p1.className = "text-right";
+    p1.innerText = data.players[i].ppg;
+
+    var p2 = document.createElement("td");
+    p2.className = "text-right";
+    p2.innerText = data.players[i].rpg;
+
+    var p3 = document.createElement("td");
+    p3.className = "text-right";
+    p3.innerText = data.players[i].apg;
+
+    var p4 = document.createElement("td");
+    p4.className = "text-right";
+    p4.innerText = data.players[i].spg;
+
+    var p5 = document.createElement("td");
+    p5.className = "text-right";
+    p5.innerText = data.players[i].bpg;
+
+    var p6 = document.createElement("td");
+    p6.className = "text-right";
+    p6.innerText = data.players[i].tpg;
+
+    var p7 = document.createElement("td");
+    p7.className = "text-right";
+    p7.innerText = data.players[i].fgp + "%";
+
+    var p8 = document.createElement("td");
+    p8.className = "text-right";
+    p8.innerText = data.players[i].fg3p + "%";
+
+    var p9 = document.createElement("td");
+    p9.className = "text-right";
+    p9.innerText = data.players[i].ftp + "%";
+
+    tr.appendChild(p0);
+    tr.appendChild(p1);
+    tr.appendChild(p2);
+    tr.appendChild(p3);
+    tr.appendChild(p4);
+    tr.appendChild(p5);
+    tr.appendChild(p6);
+    tr.appendChild(p7);
+    tr.appendChild(p8);
+    tr.appendChild(p9);
+
+    id.appendChild(tr);
+
+  }
+
+} // renderRosterStats
+
+
+function renderTeamStats(data) {
+
+  var name = document.getElementById("name");
+
+  var teamName = data.name.toLowerCase();
+
+  name.innerText = NBA_TEAMS[teamName];
+
+  var logo = document.getElementById("logo");
+
+  logo.setAttribute("src", ESPN_TEAM_LOGO + data.name + PNG_FORMAT);
+  logo.setAttribute("width", "256");
+
+  var big = document.getElementById("bigstats");
+
+  big.children[0].children[1].innerText = data.seasonId;
+  big.children[1].children[0].innerText = data.ranks.ppg;
+  big.children[2].children[0].innerText = data.ranks.oppg;
+  big.children[3].children[0].innerText = "n/a";
+
+  var small = document.getElementById("smallstats");
+
+  small.children[0].children[0].innerText = (data.ranks.fgp * 100).toFixed(1) + "%";
+  small.children[1].children[0].innerText = (data.ranks.fg3p * 100).toFixed(1) + "%";
+  small.children[2].children[0].innerText = (data.ranks.ftp * 100).toFixed(1) + "%";
+  small.children[3].children[0].innerText = data.ranks.trpg;
+  small.children[4].children[0].innerText = data.ranks.apg;
+  small.children[5].children[0].innerText = data.ranks.spg;
+  small.children[6].children[0].innerText = data.ranks.bpg;
+  small.children[7].children[0].innerText = data.ranks.tpg;
+  small.children[8].children[0].innerText = data.ranks.fpg;
+
+  renderRosterStats(data);
+
+} // renderTeamStats
+
+
 function renderMiniStats(t, h) {
 
   var tbody = null;
@@ -2281,6 +2380,25 @@ function getPlayerStats() {
   });
 
 } // getPlayerStats
+
+
+function getTeamStats() {
+
+  var toks = location.pathname.split("/");
+
+  var team = toks[toks.length - 1];
+
+  fetch(TEAMS_API + "/" + team)
+  .then((res) => res.json())
+  .then(function(data) {
+
+    renderTeamStats(data);
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+} // getTeamStats
 
 
 function getLiveGame() {

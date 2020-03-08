@@ -155,22 +155,11 @@ func main() {
 
 	parseConfig()
 
-	if *download {
+	startJobs()
 
-		log.Println(fmt.Sprintf("%s v%s downloading data...", APP_NAME,
-			APP_VERSION))
+	log.Println(fmt.Sprintf("%s v%s starting on %s...", APP_NAME,
+		APP_VERSION, addr(config.Dashboard)))
 
-		downloadData()
-
-	} else {
-
-		startJobs()
-
-		log.Println(fmt.Sprintf("%s v%s starting on %s...", APP_NAME,
-			APP_VERSION, addr(config.Dashboard)))
-
-		log.Fatal(http.ListenAndServe(addr(config.Dashboard), initRouter()))
-
-	}
+	log.Fatal(http.ListenAndServe(addr(config.Dashboard), initRouter()))
 
 } // main

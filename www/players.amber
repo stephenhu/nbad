@@ -4,7 +4,7 @@ block content
   div.container-fluid
     div.row.pt-3
       h3.ml-3[id="name"]
-        small[id="team"] Houston Rockets
+        small[id="team"]
     div.row.pt-3
       div.col-xl-2.col-lg-2.col-md-2.col-sm-2
         img[id="logo"]

@@ -19,6 +19,11 @@ type Team struct {
 	ID            string            `json:"id"`
 }
 
+type TeamView struct {
+	Ranks 				stats.TeamRanks        	`json:"ranks"`
+	Players       []stats.PlayerSeason    `json:"players"`
+}
+
 
 func getTeamLast(n int) map[string]Team {
 
@@ -92,9 +97,9 @@ func teamApiHandler(w http.ResponseWriter, r *http.Request) {
 
 		} else {
 
-			team := stats.TeamsMap[strings.ToLower(name)]
+			td := stats.RedisGetTeamData(stats.CurrentSeason(), strings.ToLower(name))
 
-			j, err := json.Marshal(team)
+			j, err := json.Marshal(td)
 
 			if err != nil {
 				logf("teamApiHandlerHandler", err.Error())
