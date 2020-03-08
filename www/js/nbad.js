@@ -55,7 +55,7 @@ const CHART_DOUGHNUT  = "doughnut";
 const CHART_2D        = "2d";
 const CHART_LINE      = "line";
 
-const API                     = "http://10.0.1.6:9005/api";
+const API                     = "/api";
 const DOWNLOADS_API           = API + "/downloads";
 const GAMES_API               = API + "/games";
 const LIVE_API                = API + "/live";
