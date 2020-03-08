@@ -127,19 +127,13 @@ func initRouter() *mux.Router {
 
 func startJobs() {
 
-	//log.Println(fmt.Sprintf("%s v%s downloading latest games...", APP_NAME, APP_VERSION))
-	//go checkDownloads()
-
 	log.Println(fmt.Sprintf("%s v%s connecting to redis...", APP_NAME, APP_VERSION))
-	//stats.LoadCache()
 	stats.ConnectRedis(config.Store.Protocol, addr(config.Store))
 
 	log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
 	getNews()
 
 	go checkRtg()
-
-	// TODO: check interval boundaries
 
 	go newsJob()
 
