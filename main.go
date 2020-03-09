@@ -130,6 +130,9 @@ func startJobs() {
 	log.Println(fmt.Sprintf("%s v%s connecting to redis...", APP_NAME, APP_VERSION))
 	stats.ConnectRedis(config.Store.Protocol, addr(config.Store))
 
+	log.Println(fmt.Sprintf("%s v%s updating statistics...", APP_NAME, APP_VERSION))
+	go updateStats()
+
 	log.Println(fmt.Sprintf("%s v%s loading latest news...", APP_NAME, APP_VERSION))
 	getNews()
 
@@ -139,7 +142,7 @@ func startJobs() {
 
 	go rtgJob()
 
-	go gameJob()
+	go statsJob()
 
 } // startJobs
 

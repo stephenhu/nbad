@@ -227,6 +227,21 @@ function padInt(i) {
 } // padInt
 
 
+function niceRank(r) {
+
+  if(r === 1 || r === 21) {
+    return r + "st";
+  } else if(r === 2 || r === 22) {
+    return r + "nd";
+  } else if(r === 3 || r === 23) {
+    return r + "rd";
+  } else {
+    return r + "th";
+  }
+
+} // niceRank
+
+
 function playerBasicStats(n, d) {
 
   var ctx = document.getElementById(n).getContext(CHART_2D);
@@ -840,13 +855,17 @@ function filterTeamName(n) {
 } // filterTeamName
 
 
-function setScore(div, g) {
+function setScore(div, g, live) {
 
   if(g === null || g === undefined) {
     div.className = "invisible";
   } else {
 
-    div.children[0].setAttribute("href", gamekey(g));
+    if(live) {
+      div.children[0].setAttribute("href", "/live/" + g.id);
+    } else {
+      div.children[0].setAttribute("href", gamekey(g));
+    }
 
     div.children[0].children[0].children[0].setAttribute("src",
       ESPN_TEAM_LOGO + filterTeamName(g.away.name) + PNG_FORMAT + ESPN_24x24);
@@ -1031,7 +1050,7 @@ function renderLiveScores(games) {
   for(var key in games) {
 
     if(index < id.children.length) {
-      setScore(id.children[index], games[key]);
+      setScore(id.children[index], games[key], true);
     }
 
     index += 1;
@@ -1054,9 +1073,9 @@ function renderScores(games) {
   for(var i = 0; i < id.children.length; i++) {
 
     if(i > games.length) {
-      setScore(id.children[i], null);
+      setScore(id.children[i], null, false);
     } else {
-      setScore(id.children[i], games[i]);
+      setScore(id.children[i], games[i], false);
     }
 
   }
@@ -1459,23 +1478,6 @@ function renderSummary(g) {
 } // renderSummary
 
 
-function renderTeam(t) {
-
-  console.log(t);
-
-  var logo = document.getElementById("logo");
-
-  var bigStats = document.getElementById("bigstats");
-
-  var smallStats = document.getElementById("smallstats");
-
-  var players = document.getElementById("players");
-
-  var l10 = document.getElementById("last10");
-
-} // renderTeam
-
-
 function renderGame(g) {
 
   if(g === null) {
@@ -1783,6 +1785,176 @@ function renderCareerChart(data) {
 } // renderCareerChart
 
 
+function renderLastTenChart(data) {
+
+  var opponents = data.games.map(function(e) { return e.opponent; });
+  var points    = data.games.map(function(e) { return e.summary.points; });
+  var rebounds  = data.games.map(function(e) { return e.summary.treb; });
+  var assists   = data.games.map(function(e) { return e.summary.assists; });
+  var turnovers = data.games.map(function(e) { return e.summary.turnovers; });
+
+  console.log(opponents);
+  var ctx = document.getElementById("last10").getContext(CHART_2D);
+
+  var c = new Chart(ctx, {
+    type: CHART_LINE,
+    data: {
+      labels: opponents,
+      datasets: [{
+        label: "Points",
+        data: points,
+        borderColor: [
+          F8GREEN
+        ],
+        pointRadius: 3,
+        fill: false
+      },
+      {
+        label: "Rebounds",
+        data: rebounds,
+        borderColor: [
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4,
+          F8BLUE4
+        ],
+        pointRadius: 3,
+        fill: false
+      },
+      {
+        label: "Assists",
+        data: assists,
+        borderColor: [
+          F8WHITE
+        ],
+        pointRadius: 3,
+        fill: false
+      },
+      {
+        label: "Turnovers",
+        data: turnovers,
+        borderColor: [
+          F8RED
+        ],
+        pointRadius: 3,
+        fill: true
+      }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          stacked: false
+        }],
+        xAxes: [{
+          stacked: false
+        }]
+      }
+    }
+  });
+
+} // renderLastTenChart
+
+
+function renderMinutesChart(data) {
+
+  var players = data.players.map(function(e) { return e.first + " " + e.last; });
+  var minutes = data.players.map(function(e) { return e.minutes; });
+
+  var ctx = document.getElementById("minutes").getContext(CHART_2D);
+
+  var c = new Chart(ctx, {
+    type: CHART_DOUGHNUT,
+    data: {
+      labels: players,
+      datasets: [{
+        data: minutes,
+        backgroundColor: [
+          F1GREEN,
+          F1BLUE4,
+          F1CHARCOAL,
+          F1BLUE2,
+          F1BLUE3,
+          F1BLUE5,
+          F1GRAY1,
+          F1BLUE1,
+          F1GRAY2,
+          F1BLUE8,
+          F1WHITE
+        ],
+        borderColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
+          F8WHITE
+        ],
+        hoverBackgroundColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
+          F8WHITE
+        ],
+        hoverBorderColor: [
+          F8GREEN,
+          F8BLUE4,
+          F8CHARCOAL,
+          F8BLUE2,
+          F8BLUE3,
+          F8BLUE5,
+          F8GRAY1,
+          F8BLUE1,
+          F8GRAY2,
+          F8BLUE8,
+          F8WHITE
+        ],
+        fill: false
+      }
+      ]
+    },
+    options: {
+      title: {
+        text: "Minutes distribution",
+        display: true
+      },
+      scales: {
+        yAxes: [{
+          display: false,
+        }],
+        xAxes: [{
+          display: false,
+        }]
+      }
+    }
+  });
+
+} // renderMinutesChart
+
+
+function renderLastTenGames(data) {
+
+} // renderLastTenGames
+
+
 function renderPlayerStats(data) {
 
   var name = document.getElementById("name");
@@ -1901,28 +2073,58 @@ function renderTeamStats(data) {
   var logo = document.getElementById("logo");
 
   logo.setAttribute("src", ESPN_TEAM_LOGO + data.name + PNG_FORMAT);
-  logo.setAttribute("width", "256");
+  logo.setAttribute("width", "192");
 
   var big = document.getElementById("bigstats");
 
   big.children[0].children[1].innerText = data.seasonId;
-  big.children[1].children[0].innerText = data.ranks.ppg;
-  big.children[2].children[0].innerText = data.ranks.oppg;
-  big.children[3].children[0].innerText = "n/a";
+  big.children[1].children[1].innerText = niceRank(data.standings.records[data.name].rank);
+  big.children[2].children[1].innerText = data.standings.records[data.name].w + "-" + data.standings.records[data.name].l;
+  big.children[3].children[1].innerText = data.standings.records[data.name].gb;
+  big.children[4].children[1].innerText = data.standings.records[data.name].l10w + "-" + data.standings.records[data.name].l10l;
 
   var small = document.getElementById("smallstats");
 
-  small.children[0].children[0].innerText = (data.ranks.fgp * 100).toFixed(1) + "%";
-  small.children[1].children[0].innerText = (data.ranks.fg3p * 100).toFixed(1) + "%";
-  small.children[2].children[0].innerText = (data.ranks.ftp * 100).toFixed(1) + "%";
-  small.children[3].children[0].innerText = data.ranks.trpg;
-  small.children[4].children[0].innerText = data.ranks.apg;
-  small.children[5].children[0].innerText = data.ranks.spg;
-  small.children[6].children[0].innerText = data.ranks.bpg;
-  small.children[7].children[0].innerText = data.ranks.tpg;
-  small.children[8].children[0].innerText = data.ranks.fpg;
+  small.children[0].children[1].innerText = data.ranks.ppg.val;
+  small.children[0].children[2].innerText = niceRank(data.ranks.ppg.rank);
+
+  small.children[1].children[1].innerText = data.ranks.oppg.val;
+  small.children[1].children[2].innerText = niceRank(data.ranks.oppg.rank);
+
+  small.children[2].children[1].innerText = (data.ranks.fgp.val * 100).toFixed(1) + "%";
+  small.children[2].children[2].innerText = niceRank(data.ranks.fgp.rank);
+
+  small.children[3].children[1].innerText = (data.ranks.fg3p.val * 100).toFixed(1) + "%";
+  small.children[3].children[2].innerText = niceRank(data.ranks.fg3p.rank);
+
+  small.children[4].children[1].innerText = (data.ranks.ftp.val * 100).toFixed(1) + "%";
+  small.children[4].children[2].innerText = niceRank(data.ranks.ftp.rank);
+
+  small.children[5].children[1].innerText = data.ranks.trpg.val;
+  small.children[5].children[2].innerText = niceRank(data.ranks.trpg.rank);
+
+  small.children[6].children[1].innerText = data.ranks.apg.val;
+  small.children[6].children[2].innerText = niceRank(data.ranks.apg.rank);
+
+  small.children[7].children[1].innerText = data.ranks.spg.val;
+  small.children[7].children[2].innerText = niceRank(data.ranks.spg.rank);
+
+  small.children[8].children[1].innerText = data.ranks.bpg.val;
+  small.children[8].children[2].innerText = niceRank(data.ranks.bpg.rank);
+
+  small.children[9].children[1].innerText = data.ranks.tpg.val;
+  small.children[9].children[2].innerText = niceRank(data.ranks.tpg.rank);
+
+  small.children[10].children[1].innerText = data.ranks.fpg.val;
+  small.children[10].children[2].innerText = niceRank(data.ranks.fpg.rank);
 
   renderRosterStats(data);
+
+  renderMinutesChart(data);
+
+  renderLastTenChart(data);
+
+  renderLastTenGames(data);
 
 } // renderTeamStats
 
@@ -2150,7 +2352,7 @@ function generateSummary(g) {
   // TODO: lead changes
   // TODO: top scorers
   // TODO: rebounds, assists
-  // TODO: by quarter breakdown
+  // TODO: by quarter breakdown (plus/minus per quarter)
   // TODO: playoff hopes
   // all starters double figures, without stars, double double, triple double
 

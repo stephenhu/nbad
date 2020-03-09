@@ -121,6 +121,4 @@ block content
     getNews();
     favoritePlayers();
     favoriteTeams();
-    //getScores();
     checkLiveScores();
-    //refresh(getScores, "scores", 20000);

@@ -58,6 +58,7 @@ lal | 2019 = json, 2018 = json | redis hash map | team stats
 2019:teams:stats | name = json, ... | redis hash map | team stats
 2019:players | name = json, ... | redis hash map | player info
 2019:players:stats | name = json, ... | redis hash map | player stats
+2019:standings | team = json | redis hash map | team standings
 conf | teams = json, players = json, like = json, dislike = json | redis hash map | settings
 seasons | 2019 = time | |
 

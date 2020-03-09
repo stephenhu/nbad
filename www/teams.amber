@@ -7,54 +7,75 @@ block content
     div.row.pt-3
       div.col-xl-2.col-lg-2.col-md-2.col-sm-2
         img[id="logo"]
-      div.col-xl-2.col-lg-2.col-md-2.col-sm-2
-      div.col-xl-8.col-lg-8.col-md-8.col-sm-8
+      div.col-xl-10.col-lg-10.col-md-10.col-sm-10
         div.list-group.list-group-horizontal.pt-3[id="bigstats"]
           div.list-group-item.mr-2.rounded.text-center.active
             div.meter-l
             div.meter-xxl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue Rank
             div.meter-xxl
-            small.meter-xl.blue Points
-            div.meter-l.bg-gray-black.rounded
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue Record
             div.meter-xxl
-            small.meter-xl.blue Opponents
-            div.meter-l.bg-gray-black.rounded
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue GB
             div.meter-xxl
-            small.meter-xl.blue PER
-            div.meter-l.bg-gray-black.rounded
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue L10
+            div.meter-xxl
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         div.list-group.list-group-horizontal.pt-3[id="smallstats"]
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue PPG
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue OPPG
+              div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue FG
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue 3PT
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue FT
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Rebounds
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Assists
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Steals
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Blocks
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Turnovers
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Fouls
+              div.meter-xl
+              div.meter-m.blue.rounded.mt-1
+    div.row.pt-3
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="last10"]
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="minutes"]
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         table.table.table-hover.table-striped.table-dark.mt-3
@@ -73,8 +94,20 @@ block content
           tbody[id="players"]
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
-        h3 last 10 games
-          canvas[id="last10"]
+        table.table.table-hover.table-striped.table-dark.mt-3
+          thead
+            tr
+              th.text-right Game
+              th.text-right Points
+              th.text-right Rebounds
+              th.text-right Assists
+              th.text-right Steals
+              th.text-right Blocks
+              th.text-right Turnovers
+              th.text-right FG%
+              th.text-right 3PT%
+              th.text-right FT%
+          tbody[id="games"]
   import indexbar
   script
     getTeamStats();

@@ -7,7 +7,7 @@ import (
 )
 
 
-func gameJob() {
+func statsJob() {
 
 	var ticker *time.Ticker
 
@@ -25,40 +25,22 @@ func gameJob() {
 		select {
 		case <-ticker.C:
 
-			logf("INFO", "checking last game download")
+			logf("INFO", "updating statistics")
 
-			if !checkLiveMap() {
-
-				checkDownloads()
-
-				//clearLiveMap()
-
-			}
+			updateStats()
 
 		}
 
 	}
 
-} // gameJob
+} // statsJob
 
 
-func downloadData() {
+func updateStats() {
 
-	stats.NbaStoreAll("2019")
+	stats.RedisStoreTeamStandings(stats.CurrentSeason())
+	stats.RedisStoreTeamRanks(stats.CurrentSeason())
+	stats.RedisStoreTeamRosters(stats.CurrentSeason())
+	stats.RedisStoreProfiles(stats.CurrentSeason())
 
-} // downloadData
-
-
-func checkDownloads() {
-
-	if len(RtgMap) == 0 {
-
-		last := stats.LastDownload()
-
-		stats.NbaStoreFromDay(last)
-
-		//stats.NbaStoreTeamRank()
-
-	}
-
-} // checkDownloads
+} // updateStats
