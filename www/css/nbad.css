@@ -26,6 +26,10 @@ a, a:active, a:link, a:hover, a:visited {
   text-decoration: none;
 }
 
+a:visited {
+  background-color: #00ff00;
+}
+
 div {
   color: #dddddd;
 }
@@ -86,6 +90,10 @@ th {
 
 .bg-darker-blue {
   background-color: #03202f;
+}
+
+.green-bottom {
+  border-bottom: 1px solid #00ff00;
 }
 
 .bad {
@@ -160,6 +168,12 @@ th {
 .list-group-item-action:hover {
   color: #ffffff;
   background-color: #052584;
+  /* opacity: .8; */
+}
+
+.list-group-item-action:visited {
+  color: #ffffff;
+  background-color: #ff0000;
   /* opacity: .8; */
 }
 

@@ -29,7 +29,9 @@ func gameApiHandler(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusNotFound)
 			} else {
 
+				liveMutex.Lock()
 				j, err := json.Marshal(LiveMap)
+				liveMutex.Unlock()
 
 				if err != nil {
 					logf("gameApiHandler", err.Error())

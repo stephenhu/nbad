@@ -2,7 +2,8 @@ package main
 
 import (
 	//"log"
-  "fmt"
+	"fmt"
+	"sync"
 	"time"
 
 	"github.com/stephenhu/stats"
@@ -18,6 +19,9 @@ type RealTimeGame struct {
 
 var RtgMap 	= map[string] RealTimeGame{}
 var LiveMap = map[string] stats.Game{}
+
+var rtgMutex 	= &sync.Mutex{}
+var liveMutex = &sync.Mutex{}
 
 
 func ticksDiff(t time.Time) time.Duration {
@@ -65,7 +69,9 @@ func nextGames(t time.Time) *stats.NbaScoreboard {
 func clearLiveMap() {
 
 	for k, _ := range LiveMap {
+		liveMutex.Lock()
 		delete(LiveMap, k)
+		liveMutex.Unlock()
 	}
 
 } // clearLiveGames
@@ -133,7 +139,9 @@ func checkRtg() {
 				logf("checkRtg", err.Error())
 			} else {
 
+				rtgMutex.Lock()
 				_, ok := RtgMap[game.ID]
+				rtgMutex.Unlock()
 
 				if ok {
 					logf("checkRtg", "Real time game exists.")
@@ -153,7 +161,9 @@ func checkRtg() {
 					logf("checkRtg", fmt.Sprintf("Added game: %s at %s in %s",
 						game.Away.ShortName, game.Home.ShortName, delta.String()))
 
+					rtgMutex.Lock()
 					RtgMap[rtg.ID] = rtg
+					rtgMutex.Unlock()
 
 					go rtgListener(rtg)
 
@@ -204,11 +214,15 @@ func rtgPoll(rtg RealTimeGame) {
 
 			if game != nil {
 
+				liveMutex.Lock()
 				LiveMap[rtg.Game.ID] = *game
+				liveMutex.Unlock()
 
 				if box.EndUtc != "" {
 
+					rtgMutex.Lock()
 					delete(RtgMap, box.ID)
+					rtgMutex.Unlock()
 
 					name := fmt.Sprintf("%s%s", game.Away.Name, game.Home.Name)
 

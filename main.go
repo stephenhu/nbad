@@ -116,6 +116,8 @@ func initRouter() *mux.Router {
 	router.HandleFunc("/api/scores", scoreApiHandler)
 	router.HandleFunc("/api/seasons", seasonApiHandler)
 	router.HandleFunc("/api/seasons/{id:[0-9]+}", seasonApiHandler)
+	router.HandleFunc("/api/standings", standingsApiHandler)
+	router.HandleFunc("/api/standings/{id:[0-9]+}", standingsApiHandler)
 	router.HandleFunc("/api/teams", teamApiHandler)
 	router.HandleFunc("/api/teams/{name:[a-zA-Z]+}", teamApiHandler)
 	router.HandleFunc("/api/version", versionApiHandler)

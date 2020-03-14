@@ -104,21 +104,36 @@ block content
                 div
                   img
                   span.meter-l.pl-2.float-right
-
     div.row.pt-5
-      div.col-xl-5.col-lg-5.col-md-5.col-sm-5.col-xs-5
+      div.col-xl-4.col-lg-4.col-md-4.col-sm-4.col-xs-4
         h5 top headlines
-        div.list-group.mt-3[id="news"]
+        ul.list-unstyled.mt-3[id="news"]
+        div.col-xl-1.col-lg-1.col-md-1.col-sm-1.col-xs-1
       div.col.xl-7.col-lg-7.col-md-7.col-sm-7.col-xs-7
-        h5 followed players
-          small last 5 games
-        div.list-group.mt-3[id="players"]
-        h5.pt-5 followed teams
-          small last 10 games
-        div.list-group.mt-3[id="teams"]
+        h5 standings
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
+          thead
+            tr
+              th.text-right Rank
+              th.text-right Team
+              th.text-right W
+              th.text-right L
+              th.text-right GB
+              th.text-right L10
+              th.text-right
+              th.text-right Rank
+              th.text-right Team
+              th.text-right W
+              th.text-right L
+              th.text-right GB
+              th.text-right L10
+          tbody[id="standings"]
+        h5[id="players"] followed players
+        h5[id="teams"] followed teams
   import indexbar
   script
     getNews();
     favoritePlayers();
     favoriteTeams();
     checkLiveScores();
+    getStandings();

@@ -22,7 +22,48 @@ block content
       div.col-xl-4.col-l-4.col-m-4.col-s-4.col-xs-4
     div.row.mt-3
       div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
-        table.table.table-dark.table-striped.table-hover.mt-3
+        div.list-group.list-group-horizontal
+          div.list-group-item.bg-serene-blue.text-center.rounded
+            div.meter-l.blue FG%
+            div.meter-xl[id="afgp"]
+            div.meter-m.blue[id="afgps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue 3PT%
+            div.meter-xl[id="afg3p"]
+            div.meter-m.blue[id="afg3ps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue FT%
+            div.meter-xl[id="aftp"]
+            div.meter-m.blue[id="aftps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Assists
+            div.meter-xl[id="aa"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Rebounds
+            div.meter-xl[id="ar"]
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.list-group.list-group-horizontal.float-right
+          div.list-group-item.bg-serene-blue.text-center.rounded
+            div.meter-l.blue FG%
+            div.meter-xl[id="hfgp"]
+            div.meter-m.blue[id="hfgps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue 3PT%
+            div.meter-xl[id="hfg3p"]
+            div.meter-m.blue[id="hfg3ps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue FT%
+            div.meter-xl[id="hftp"]
+            div.meter-m.blue[id="hftps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Assists
+            div.meter-xl[id="ha"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Rebounds
+            div.meter-xl[id="hr"]
+    div.row.mt-3
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
           thead
             tr
               th Players
@@ -35,7 +76,7 @@ block content
               th.text-right To
               th.text-right F
           tbody[id="awayStats"]
-        table.table.table-dark.table-striped.table-hover.mt-3
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
           thead
             tr
               th Players
@@ -53,3 +94,4 @@ block content
   import indexbar
   script
     getLiveGame();
+    setInterval(getLiveGame, 10000);

@@ -31,7 +31,9 @@ func liveApiHandler(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusNotFound)
 			} else {
 
+				liveMutex.Lock()
 				game, ok := LiveMap[id]
+				liveMutex.Unlock()
 
 				if ok {
 
