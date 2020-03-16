@@ -17,8 +17,9 @@ type RealTimeGame struct {
 	Alarm      			*time.Timer
 }
 
-var RtgMap 	= map[string] RealTimeGame{}
-var LiveMap = map[string] stats.Game{}
+var UpcomingGamesMap 	= map[string] []stats.Game{}
+var RtgMap 						= map[string] RealTimeGame{}
+var LiveMap 					= map[string] stats.Game{}
 
 var rtgMutex 	= &sync.Mutex{}
 var liveMutex = &sync.Mutex{}
@@ -43,7 +44,7 @@ func nextGames(t time.Time) *stats.NbaScoreboard {
 
 	for {
 
-		_, ok := stats.GamesMap[d]
+		_, ok := UpcomingGamesMap[d]
 
 		if !ok {
 
