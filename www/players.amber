@@ -14,13 +14,16 @@ block content
           div.list-group-item.mr-2.rounded.text-center.active
             div.meter-xl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            small.meter-xl.blue Points
+            small.meter-xl.blue Pts
             div.meter-xxl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            small.meter-xl.blue Rebounds
+            small.meter-xl.blue Reb
             div.meter-xxl
           div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-            small.meter-xl.blue Assists
+            small.meter-xl.blue Ast/To
+            div.meter-xxl
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue +/-
             div.meter-xxl
     div.row.pt-3
       div.col-xl-12.col-lg-12.col-md-12.col-sm-12
@@ -46,9 +49,6 @@ block content
               small.meter-l.blue Blocks
               div.meter-xl
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Turnovers
-              div.meter-xl
-            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
               small.meter-l.blue Fouls
               div.meter-xl
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
@@ -56,29 +56,37 @@ block content
               div.meter-xl
     div.row.pt-3
       div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="careerChart"]
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="lastGames"]
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
         table.table.table-hover.table-striped.table-dark.table-sm.mt-3
           thead
             tr
               th.text-right Season
               th.text-right G
+              th.text-right Mpg
               th.text-right Min
+              th.text-right Ppg
               th.text-right Pts
-              th.text-right FGM
-              th.text-right 3PTM
-              th.text-right FTM
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Rpg
               th.text-right Reb
+              th.text-right Apg
               th.text-right Ast
+              th.text-right Spg
               th.text-right St
+              th.text-right Bpg
               th.text-right Bl
+              th.text-right Topg
               th.text-right To
+              th.text-right Fpg
               th.text-right F
           tbody[id="totals"]
-      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
-        canvas.mt-3[id="careerChart"]
-    div.row.pt-3
-      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
-        canvas.mt-3[id="lastGames"]
-
+    div.row
       div.col-xl-6.col-lg-6.col-md-6.col-sm-6
         table.table.table-hover.table-striped.table-dark.table-sm.mt-3
           thead
@@ -96,23 +104,6 @@ block content
               th.text-right To
               th.text-right F
           tbody[id="last10"]
-    div.row.pt-3
-      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
-        table.table.table-hover.table-striped.table-dark.table-sm.mt-3
-          thead
-            tr
-              th.text-right Season
-              th.text-right Mpg
-              th.text-right Ppg
-              th.text-right Rpg
-              th.text-right Apg
-              th.text-right Spg
-              th.text-right Bpg
-              th.text-right Topg
-              th.text-right FG%
-              th.text-right 3PT%
-              th.text-right FT%
-          tbody[id="career"]
   import indexbar
   script
     getPlayerStats();

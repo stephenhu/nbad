@@ -53,23 +53,23 @@ block content
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Rebounds
+              small.meter-l.blue Reb
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Assists
+              small.meter-l.blue Ast
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Steals
+              small.meter-l.blue St
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Blocks
+              small.meter-l.blue Bl
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
-              small.meter-l.blue Turnovers
+              small.meter-l.blue To
               div.meter-xl
               div.meter-m.blue.rounded.mt-1
             div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
@@ -102,7 +102,7 @@ block content
           thead
             tr
               th.text-right Game
-              th.text-right Points
+              th Score
               th.text-right Reb
               th.text-right Ast
               th.text-right St

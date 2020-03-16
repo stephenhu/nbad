@@ -101,39 +101,6 @@ const IMONTH = {
   "12": "Dec",
 };
 
-const NBA_TEAMS = {
-  "atl": "Atlanta Hawks",
-  "bkn": "Brooklyn Nets",
-  "bos": "Boston Celtics",
-  "cha": "Charlotte Hornets",
-  "chi": "Chicago Bulls",
-  "cle": "Cleveland Cavaliers",
-  "dal": "Dallas Mavericks",
-  "den": "Denver Nuggets",
-  "det": "Detroit Pistons",
-  "gsw": "Golden State Warriors",
-  "hou": "Houston Rockets",
-  "ind": "Indiana Pacers",
-  "lac": "Los Angeles Clippers",
-  "lal": "Los Angeles Lakers",
-  "mem": "Memphis Grizzlies",
-  "mia": "Miami Heat",
-  "mil": "Milwaukee Bucks",
-  "min": "Minnesota Timberwolves",
-  "nop": "New Orleans Pelicans",
-  "nyk": "New York Knicks",
-  "okc": "Oklahoma City Thunder",
-  "orl": "Orlando Magic",
-  "phi": "Philadelphia 76ers",
-  "phx": "Phoenix Suns",
-  "por": "Portland Trailblazers",
-  "sac": "Sacramento Kings",
-  "sas": "San Antonio Spurs",
-  "tor": "Toronto Raptors",
-  "uta": "Utah Jazz",
-  "was": "Washington Wizards"
-};
-
 const NBA_EAST = ["atl", "bkn", "bos", "cha", "chi", "cle", "det",
   "ind", "mia", "mil", "nyk", "orl", "phi", "tor", "was"];
 
@@ -296,6 +263,28 @@ function clearNode(n) {
   return n;
 
 } // clearNode
+
+
+function perGame(s, g) {
+
+  if(g === 0) {
+    return "0.0";
+  } else {
+    return (s/g).toFixed(1);
+  }
+
+} // perGame
+
+
+function pct(m, a) {
+
+  if(a === 0) {
+    return "0.0%";
+  } else {
+    return (m/a*100).toFixed(1) + "%";
+  }
+
+} // pct
 
 
 function sortStandings(data, east) {
@@ -1982,75 +1971,148 @@ function renderCareerTotals(data) {
 
   var totals = document.getElementById("totals");
 
-  for(var i = 0; i < data.seasons.length; i++) {
+  for(var i = 0; i < data.seasons.length+1; i++) {
+
+    var d = null;
+
+    if(i === 0) {
+      d = data.career;
+    } else {
+      d = data.seasons[i-1].summary;
+    }
 
     var tr = document.createElement("tr");
 
     var p0 = document.createElement("td");
     p0.className = "text-right";
-    p0.innerText = data.seasons[i].seasonId;
+
+    if(i === 0) {
+      p0.innerText = "Career";
+    } else {
+      p0.innerText = data.seasons[i-1].seasonId;
+    }
 
     var p1 = document.createElement("td");
     p1.className = "text-right";
-    p1.innerText = data.seasons[i].summary.played;
+    p1.innerText = d.played;
 
     var p2 = document.createElement("td");
     p2.className = "text-right";
-    p2.innerText = data.seasons[i].summary.minutes;
+    p2.innerText = d.mpg;
 
     var p3 = document.createElement("td");
     p3.className = "text-right";
-    p3.innerText = data.seasons[i].summary.points;
-
-    var p3a = document.createElement("td");
-    p3a.className = "text-right";
-    p3a.innerText = data.seasons[i].summary.fgm;
-
-    var p3b = document.createElement("td");
-    p3b.className = "text-right";
-    p3b.innerText = data.seasons[i].summary.fg3m;
-
-    var p3c = document.createElement("td");
-    p3c.className = "text-right";
-    p3c.innerText = data.seasons[i].summary.ftm;
+    p3.innerText = d.minutes;
 
     var p4 = document.createElement("td");
     p4.className = "text-right";
-    p4.innerText = data.seasons[i].summary.treb;
+    p4.innerText = d.ppg;
 
     var p5 = document.createElement("td");
     p5.className = "text-right";
-    p5.innerText = data.seasons[i].summary.assists;
-
-    var p6 = document.createElement("td");
-    p6.className = "text-right";
-    p6.innerText = data.seasons[i].summary.steals;
+    p5.innerText = d.points;
 
     var p7 = document.createElement("td");
     p7.className = "text-right";
-    p7.innerText = data.seasons[i].summary.blocks;
+    p7.innerText = (d.fgm - d.fg3m) + "-" + (d.fga - d.fg3a);
 
-    var p8 = document.createElement("td");
-    p8.className = "text-right";
-    p8.innerText = data.seasons[i].summary.turnovers;
+    var s1 = document.createElement("small");
+    s1.innerText =  " (" + pct(d.fgm - d.fg3m, d.fga - d.fg3a) + ")";
+
+    p7.appendChild(s1);
 
     var p9 = document.createElement("td");
     p9.className = "text-right";
-    p9.innerText = data.seasons[i].summary.fouls;
+    p9.innerText = d.fg3m + "-" + d.fg3a;
+
+    var s2 = document.createElement("small");
+    s2.innerText = " (" + pct(d.fg3m, d.fg3a) + ")";
+
+    p9.appendChild(s2);
+
+    var p11 = document.createElement("td");
+    p11.className = "text-right";
+    p11.innerText = d.ftm + "-" + d.fta;
+
+    var s3 = document.createElement("small");
+    s3.innerText = " (" + d.ftp + "%)";
+
+    p11.appendChild(s3);
+
+    var p12 = document.createElement("td");
+    p12.className = "text-right";
+    p12.innerText = d.rpg;
+
+    var p13 = document.createElement("td");
+    p13.className = "text-right";
+    p13.innerText = d.treb;
+
+    var p14 = document.createElement("td");
+    p14.className = "text-right";
+    p14.innerText = d.apg;
+
+    var p15 = document.createElement("td");
+    p15.className = "text-right";
+    p15.innerText = d.assists;
+
+    var p16 = document.createElement("td");
+    p16.className = "text-right";
+    p16.innerText = d.spg;
+
+    var p17 = document.createElement("td");
+    p17.className = "text-right";
+    p17.innerText = d.steals;
+
+    var p18 = document.createElement("td");
+    p18.className = "text-right";
+    p18.innerText = d.bpg;
+
+    var p19 = document.createElement("td");
+    p19.className = "text-right";
+    p19.innerText = d.blocks;
+
+    var p20 = document.createElement("td");
+    p20.className = "text-right";
+
+    if(i === 0) {
+      p20.innerText = perGame(d.turnovers, d.played);
+    } else {
+      p20.innerText = d.tpg;
+    }
+
+    var p21 = document.createElement("td");
+    p21.className = "text-right";
+    p21.innerText = d.turnovers;
+
+    var p22 = document.createElement("td");
+    p22.className = "text-right";
+    p22.innerText = perGame(d.fouls, d.played);
+
+    var p23 = document.createElement("td");
+    p23.className = "text-right";
+    p23.innerText = d.fouls;
 
     tr.appendChild(p0);
     tr.appendChild(p1);
     tr.appendChild(p2);
     tr.appendChild(p3);
-    tr.appendChild(p3a);
-    tr.appendChild(p3b);
-    tr.appendChild(p3c);
     tr.appendChild(p4);
     tr.appendChild(p5);
-    tr.appendChild(p6);
     tr.appendChild(p7);
-    tr.appendChild(p8);
     tr.appendChild(p9);
+    tr.appendChild(p11);
+    tr.appendChild(p12);
+    tr.appendChild(p13);
+    tr.appendChild(p14);
+    tr.appendChild(p15);
+    tr.appendChild(p16);
+    tr.appendChild(p17);
+    tr.appendChild(p18);
+    tr.appendChild(p19);
+    tr.appendChild(p20);
+    tr.appendChild(p21);
+    tr.appendChild(p22);
+    tr.appendChild(p23);
 
     totals.appendChild(tr);
 
@@ -2444,7 +2506,14 @@ function renderPlayerStats(data) {
   big.children[0].children[0].innerText = data.seasonId;
   big.children[1].children[1].innerText = data.latest.ppg;
   big.children[2].children[1].innerText = data.latest.rpg;
-  big.children[3].children[1].innerText = data.latest.apg;
+
+  if(data.latest.tpg === 0) {
+    big.children[3].children[1].innerText = "0.0";
+  } else {
+    big.children[3].children[1].innerText = (data.latest.apg/data.latest.tpg).toFixed(1);
+  }
+
+  big.children[4].children[1].innerText = data.latest.plusMinus;
 
   var small = document.getElementById("smallstats");
 
@@ -2455,15 +2524,15 @@ function renderPlayerStats(data) {
   small.children[4].children[1].innerText = data.latest.ftp + "%";
   small.children[5].children[1].innerText = data.latest.spg;
   small.children[6].children[1].innerText = data.latest.bpg;
-  small.children[7].children[1].innerText = data.latest.tpg;
-  small.children[8].children[1].innerText = (data.latest.fouls / data.latest.played).toFixed(1);
-  small.children[9].children[1].innerText = "n/a";
+  //small.children[7].children[1].innerText = data.latest.tpg;
+  small.children[7].children[1].innerText = (data.latest.fouls / data.latest.played).toFixed(1);
+  small.children[8].children[1].innerText = "n/a";
 
   playerSeasonStats("careerChart", data);
 
   //renderCareerChart(data);
 
-  renderCareer(data);
+  //renderCareer(data);
 
   renderCareerTotals(data);
 
@@ -2499,7 +2568,6 @@ function renderLastTenStats(data) {
     p0.innerText = NBA_TEAMS[data.games[i].opponent];
 
     var p1 = document.createElement("td");
-    p1.className = "text-right";
     p1.innerText = result + " " + data.games[i].score + "-" + data.games[i].opponentScore;
 
     var p2 = document.createElement("td");

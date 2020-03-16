@@ -8,6 +8,39 @@ const MASK_BLK = 8;
 const SHOOTING_VERBS = ["draining", "hitting", "nailing", "shooting"];
 const REBOUNDING_VERBS = ["grabbing", "hauling", "securing", "snatching"];
 
+const NBA_TEAMS = {
+  "atl": "Atlanta Hawks",
+  "bkn": "Brooklyn Nets",
+  "bos": "Boston Celtics",
+  "cha": "Charlotte Hornets",
+  "chi": "Chicago Bulls",
+  "cle": "Cleveland Cavaliers",
+  "dal": "Dallas Mavericks",
+  "den": "Denver Nuggets",
+  "det": "Detroit Pistons",
+  "gsw": "Golden State Warriors",
+  "hou": "Houston Rockets",
+  "ind": "Indiana Pacers",
+  "lac": "Los Angeles Clippers",
+  "lal": "Los Angeles Lakers",
+  "mem": "Memphis Grizzlies",
+  "mia": "Miami Heat",
+  "mil": "Milwaukee Bucks",
+  "min": "Minnesota Timberwolves",
+  "nop": "New Orleans Pelicans",
+  "nyk": "New York Knicks",
+  "okc": "Oklahoma City Thunder",
+  "orl": "Orlando Magic",
+  "phi": "Philadelphia 76ers",
+  "phx": "Phoenix Suns",
+  "por": "Portland Trailblazers",
+  "sac": "Sacramento Kings",
+  "sas": "San Antonio Spurs",
+  "tor": "Toronto Raptors",
+  "uta": "Utah Jazz",
+  "was": "Washington Wizards"
+};
+
 // quarterly comparison
 //
 // multiple double figures scoring
@@ -32,7 +65,7 @@ class Gotg {
       lose  = this.game.home;
     }
 
-    sum +=  win.name + " beat " + lose.name;
+    sum +=  "The " + NBA_TEAMS[win.name] + " beat the " + NBA_TEAMS[lose.name];
 
     if(this.winner()) {
       sum += " at home ";
@@ -46,9 +79,9 @@ class Gotg {
 
     sum += " by the score of " + win.score + " - " + lose.score + ".\t";
 
-    sum += this.notables(this.winner());
+    sum += this.notables(win);
 
-    sum += this.notables(!this.winner());
+    sum += this.notables(lose);
 
     return sum;
 
@@ -94,42 +127,35 @@ class Gotg {
   } // numDoubles
 
 
-  doubleOrTriple(home) {
+  doubleOrTriple(players) {
 
-    var players = [];
-    var team = null;
+    var ret = [];
 
-    if(home) {
-      team = this.game.home.players;
-    } else {
-      team = this.game.away.players;
-    }
-
-    for(var i = 0; i < team.length; i++) {
+    for(var i = 0; i < players.length; i++) {
 
       var p = {
-        name: team[i].name,
-        points: team[i].points,
-        rebounds: team[i].treb,
-        assists: team[i].assists,
-        blocks: team[i].blocks,
+        name: players[i].name,
+        points: players[i].points,
+        rebounds: players[i].treb,
+        assists: players[i].assists,
+        blocks: players[i].blocks,
         mask: 0,
         triple: false,
       }
 
-      if(team[i].points > 9) {
+      if(players[i].points > 9) {
         p.mask |= MASK_PTS
       }
 
-      if(team[i].treb > 9) {
+      if(players[i].treb > 9) {
         p.mask |= MASK_REB
       }
 
-      if(team[i].assists > 9) {
+      if(players[i].assists > 9) {
         p.mask |= MASK_AST
       }
 
-      if(team[i].blocks > 9) {
+      if(players[i].blocks > 9) {
         p.mask |= MASK_BLK
       }
 
@@ -141,13 +167,13 @@ class Gotg {
           p.triple = true;
         }
 
-        players.push(p);
+        ret.push(p);
 
       }
 
     }
 
-    return players;
+    return ret;
 
   } // doubleOrTriple
 
@@ -213,21 +239,13 @@ class Gotg {
   } // allScorers
 
 
-  scorers(home) {
+  scorers(players) {
 
-    var team = null;
-
-    if(home) {
-      team = this.game.home.players;
-    } else {
-      team = this.game.away.players;
-    }
-
-    team.sort(function(a, b) {
+    players.sort(function(a, b) {
       return b.points - a.points;
     });
 
-    return team;
+    return players;
 
   } // scorers
 
@@ -303,52 +321,49 @@ class Gotg {
   } // quarters
 
 
-  notables(home) {
+  notables(team) {
 
     var str = "";
 
-    var top = this.scorers(home);
-    var dd  = this.doubleOrTriple(home);
+    var top = this.scorers(team.players);
+    var dd  = this.doubleOrTriple(team.players);
 
-    if(top[0].name === dd[0].name) {
+    if(top !== undefined && dd !== undefined && top.length > 0 && dd.length > 0) {
 
-      str += this.doubleTripleText(dd[0]);
+      if(top[0].name === dd[0].name) {
 
-      if(dd.length > 1) {
+        str += this.doubleTripleText(dd[0]);
 
-        str += this.doubleTripleText(dd[1]);
+        if(dd.length > 1) {
 
-      } else {
+          str += this.doubleTripleText(dd[1]);
 
-        var ret = this.analyzePlayer(top[1]);
+        } else {
 
-        console.log(ret);
-        if(ret.length === 1) {
-          str += ret[0] + ".\t";
-        } else if(ret.length > 1) {
-          str += ret[0] + " and " + ret[1] + ".\t";
+          var ret = this.analyzePlayer(top[1]);
+
+          if(ret.length === 1) {
+            str += ret[0] + ".\t";
+          } else if(ret.length > 1) {
+            str += ret[0] + " and " + ret[1] + ".\t";
+          }
+
         }
 
       }
-
 
     } else {
 
       str += top[0].name + " scored a team high of " + top[0].points + " points for ";
 
-      if(this.winner()) {
-        str += this.game.home.name;
-      } else {
-        str += this.game.away.name;
-      }
+      str += team.name;
 
-      str +=  ".\t"
       var ret = this.analyzePlayer(top[0]);
 
-      if(ret.length === 2) {
-        str += ", " + ret[0] + ", and " + ret[1] + ".\t";
-      } else if(ret.length === 1) {
-        str += " and " + ret[0] + ".\t";
+      if(ret.length >= 3) {
+        str += ", " + ret[1] + ", and " + ret[2] + ".\t";
+      } else if(ret.length === 2) {
+        str += " and " + ret[1] + ".\t";
       }
 
       str += top[1].name + " contributed ";
@@ -356,7 +371,7 @@ class Gotg {
       var ret2 = this.analyzePlayer(top[1]);
 
       if(ret2.length > 1) {
-        str += ret2[0] + " and " + ret2[1];
+        str += ret2[0] + " and " + ret2[1] + ".\t";
       }
 
     }

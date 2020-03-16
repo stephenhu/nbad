@@ -11,12 +11,26 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.traefik.address=:8080"
       - "--log.level=WARN"
+      - "--certificatesResolvers.le.acme.email=stephen@madsportslab.com"
+      - "--certificatesResolvers.le.acme.storage=acme.json"
+      - "--certificatesResolvers.le.acme.tlsChallenge=true"
+      - "--certificatesResolvers.le.acme.httpChallenge=true"
+      - "--certificatesResolvers.le.acme.httpChallenge.entryPoint=web"
+    labels:
+      - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
+      - "traefik.http.routers.http_catchall.entrypoints=web"
+      - "traefik.http.routers.http_catchall.middlewares=https_redirect"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./acme.json:/acme.json
   redis:
     image: "redis"
     restart: "unless-stopped"
@@ -26,8 +40,11 @@ services:
     image: "nbad"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nbad.rule=PathPrefix(`/`, `/api`, `/games`, `/teams`, `/players`, `/live`, `/downloads`)"
+      - "traefik.http.routers.nbad.rule=Host(`madsportslab.pro`) && PathPrefix(`/`, `/api`, `/games`, `/teams`, `/players`, `/live`, `/downloads`)"
       - "traefik.http.routers.nbad.entrypoints=web"
+      - "traefik.http.routers.nbad.tls=true"
+      - "traefik.http.routers.nbad.tls.certresolver=le"
+      - "traefik.http.middlewares.nbad.compress=true"
     restart: "unless-stopped"
     volumes:
       - "./secrets:/run/secrets"
