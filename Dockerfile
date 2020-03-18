@@ -19,4 +19,4 @@ RUN apt-get -y update && apt-get install -y \
     openssl \
     ca-certificates
 EXPOSE 9005
-CMD /usr/local/nbad/nbad -conf secrets/config.json
+CMD /usr/local/nbad/nbad

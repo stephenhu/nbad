@@ -9,4 +9,4 @@ RUN apt-get -y update && apt-get install -y \
 COPY . .
 COPY nbad .
 EXPOSE 9005
-CMD /usr/local/nbad/nbad -conf secrets/config.json
+CMD /usr/local/nbad/nbad
