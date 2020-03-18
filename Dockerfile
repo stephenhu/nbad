@@ -1,5 +1,5 @@
 FROM golang as builder
-WORKDIR /nbad
+WORKDIR /work/src/github.com/stephenhu/nbad
 COPY . .
 RUN go get github.com/eknkc/amber && \
     go get github.com/gomodule/redigo/redis && \
@@ -10,11 +10,13 @@ RUN go get github.com/eknkc/amber && \
 
 FROM ubuntu
 WORKDIR /usr/local/nbad
-COPY --from=builder /nbad/nbad .
+COPY --from=builder /work/src/github.com/stephenhu/nbad/nbad .
 COPY www ./www
 RUN apt-get -y update && apt-get install -y \
     libc6 \
     libssl-dev \
-    tzdata
+    tzdata \
+    openssl \
+    ca-certificates
 EXPOSE 9005
-CMD /usr/local/nbad/nbad
+CMD /usr/local/nbad/nbad -conf secrets/config.json
