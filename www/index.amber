@@ -1,0 +1,139 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        small[id="date"]
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div.list-group.list-group-horizontal[id="scores"]
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s1"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s2"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s3"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s4"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s5"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s6"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s7"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s8"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s9"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s10"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s11"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+          div.list-group-item.ml-1.rounded.bg-gray-black[id="s12"]
+              a.list-group-item-action[href=""]
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+                div
+                  img
+                  span.meter-l.pl-2.float-right
+    div.row.pt-5
+      div.col-xl-4.col-lg-4.col-md-4.col-sm-4.col-xs-4
+        h5 top headlines
+        ul.list-unstyled.mt-3[id="news"]
+        div.col-xl-1.col-lg-1.col-md-1.col-sm-1.col-xs-1
+      div.col.xl-7.col-lg-7.col-md-7.col-sm-7.col-xs-7
+        h5 standings
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
+          thead
+            tr
+              th.text-right Rank
+              th.text-right Team
+              th.text-right W
+              th.text-right L
+              th.text-right GB
+              th.text-right L10
+              th.text-right
+              th.text-right Rank
+              th.text-right Team
+              th.text-right W
+              th.text-right L
+              th.text-right GB
+              th.text-right L10
+          tbody[id="standings"]
+        h5[id="players"] followed players
+        h5[id="teams"] followed teams
+  import indexbar
+  script
+    getNews();
+    favoritePlayers();
+    favoriteTeams();
+    checkLiveScores();
+    getStandings();

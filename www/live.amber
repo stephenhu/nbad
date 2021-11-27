@@ -1,0 +1,97 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row.pt-3
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.media.mt-3[id="away"]
+          img
+          div.media-body
+            div.text-right
+            div.display-1.text-right
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.media.media-right.mt-3[id="home"]
+          div.media-body
+            div
+            div.display-1
+          img
+    div.row.pt-3
+      div.col-xl-4.col-l-4.col-m-4.col-s-4.col-xs-4
+      div.col-xl-4.col-l-4.col-m-4.col-s-4.col-xs-4
+        div.list-group.list-group-horizontal.center-block[id="periods"]
+      div.col-xl-4.col-l-4.col-m-4.col-s-4.col-xs-4
+    div.row.mt-3
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.list-group.list-group-horizontal
+          div.list-group-item.bg-serene-blue.text-center.rounded
+            div.meter-l.blue FG%
+            div.meter-xl[id="afgp"]
+            div.meter-m.blue[id="afgps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue 3PT%
+            div.meter-xl[id="afg3p"]
+            div.meter-m.blue[id="afg3ps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue FT%
+            div.meter-xl[id="aftp"]
+            div.meter-m.blue[id="aftps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Assists
+            div.meter-xl[id="aa"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Rebounds
+            div.meter-xl[id="ar"]
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.list-group.list-group-horizontal.float-right
+          div.list-group-item.bg-serene-blue.text-center.rounded
+            div.meter-l.blue FG%
+            div.meter-xl[id="hfgp"]
+            div.meter-m.blue[id="hfgps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue 3PT%
+            div.meter-xl[id="hfg3p"]
+            div.meter-m.blue[id="hfg3ps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue FT%
+            div.meter-xl[id="hftp"]
+            div.meter-m.blue[id="hftps"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Assists
+            div.meter-xl[id="ha"]
+          div.list-group-item.bg-serene-blue.text-center.rounded.ml-1
+            div.meter-l.blue Rebounds
+            div.meter-xl[id="hr"]
+    div.row.mt-3
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
+          thead
+            tr
+              th Players
+              th.text-right Min
+              th.text-right Pts
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right F
+          tbody[id="awayStats"]
+        table.table.table-dark.table-striped.table-hover.table-sm.mt-3
+          thead
+            tr
+              th Players
+              th.text-right Min
+              th.text-right Pts
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right F
+          tbody[id="homeStats"]
+      div.col-xl-6.col-l-6.col-m-6.col-s-6.col-xs-6
+        div.list-group.mt-3[id="plays"]
+  import indexbar
+  script
+    getLiveGame();
+    setInterval(getLiveGame, 10000);

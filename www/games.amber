@@ -1,0 +1,82 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col-6
+        div.list-group.list-group-horizontal[id="periods"]
+      div.col-6
+        h3[id="names"]
+    div.row.pt-5.pb-5
+      div.col
+        h3.blue summary
+        p[id="summary"] leonard took 40% of the team's shots and was only 32% from the field.
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col
+        canvas.mt-3[id="comparisons"]
+    div.row.pt-5
+      div.col
+        h3.blue top performers
+          small[id="awaytopname"]
+    div.row.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas.mt-3[id="awaytop1"]
+      div.col-6
+        canvas.mt-3[id="awaytop2"]
+    div.row.pt-5
+      div.col
+        h3.blue top performers
+          small[id="hometopname"]
+    div.row.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas.mt-3[id="hometop1"]
+      div.col-6
+        canvas.mt-3[id="hometop2"]
+    div.row.pt-5
+      div.col
+        h3.blue shot distribution
+    div.row.pt-5.pb-5.border-bottom.border-secondary
+      div.col-6
+        canvas[id="awayshots"]
+      div.col-6
+        canvas[id="homeshots"]
+    div.row.pt-5.pb-5
+      div.col
+        h3.mt-3.blue boxscore
+        table.table.table-dark.table-hover.table-striped.mt-3
+          thead
+            tr
+              th Player
+              th.text-right Min
+              th.text-right Points
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right Pf
+              th.text-right +/-
+          tbody[id="awaybox"]
+        table.table.table-hover.table-striped.table-dark.mt-3
+          thead
+            tr
+              th Player
+              th.text-right Min
+              th.text-right Points
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right Stl
+              th.text-right Blk
+              th.text-right To
+              th.text-right Pf
+              th.text-right +/-
+          tbody[id="homebox"]
+  import indexbar
+  script
+    getGame();

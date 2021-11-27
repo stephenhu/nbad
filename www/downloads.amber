@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        h1 storage
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div[id="downloads"]
+        div[id="remaining"]
+        if Count == 0
+          button.button.btn-xl.btn-success.rounded.mt-3[onclick="downloadSeason(); return true;"] Start download
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div.list-group.mt-3
+          each $y, $s in Seasons
+            div.list-group-item.bg-gray-black.mt-3.pb-3
+              div.media
+                h3.mr-5 #{$y}
+                div.media-body
+                  div.list-group.list-group-horizontal
+                    div.list-group-item.bg-gray-black
+                      h5.badge.badge-primary Last
+                      small.mr-3 20200301
+                    div.list-group-item.bg-gray-black
+                      h5.badge.badge-info Regular
+                      small.mr-3 20191024 - 20200424
+                    div.list-group-item.bg-gray-black
+                      h5.badge.badge-secondary Playoff
+                      small.mr-3 20200425 - 20200615
+                  $pct = $s.Pct
+                  $w = "width: " + $pct + "%"
+                  div #{$s.Count}
+                  div.progress.mt-3
+                    div.progress-bar.bg-primary[style=$w]
+                  button.button.btn-xl.btn-primary.rounded.mt-3[onclick="downloadSeason(); return false;"] Sync games
+    div.row.pt-5
+      div.col-xl-5.col-lg-5.col-md-5.col-sm-5.col-xs-5
+  import indexbar
+  script
+    setInterval(function() {
+      checkDownloads();
+    }, 10000);

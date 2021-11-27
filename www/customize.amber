@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  div.container
+    div.row.pt-5
+      div.col
+        div.row
+
+  import indexbar

@@ -1,0 +1,8 @@
+secrets
+archives
+nba
+nbad
+mockups
+.vscode
+.DS_Store
+www/js/*.json

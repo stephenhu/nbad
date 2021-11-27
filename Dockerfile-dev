@@ -1,0 +1,12 @@
+FROM ubuntu
+WORKDIR /usr/local/nbad
+RUN apt-get -y update && apt-get install -y \
+    libc6 \
+    libssl-dev \
+    openssl \
+    tzdata \
+    ca-certificates
+COPY . .
+COPY nbad .
+EXPOSE 9005
+CMD /usr/local/nbad/nbad

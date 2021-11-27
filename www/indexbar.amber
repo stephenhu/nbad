@@ -1,0 +1,2 @@
+nav.navbar.static-bottom.navbar-dark
+  a.navbar-brand.red[href="/"] NBAd

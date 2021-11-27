@@ -1,0 +1,109 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row.pt-3
+      div.col-xl-2.col-lg-2.col-md-2.col-sm-2
+        div.card.bg-gray-black.mt-3
+          img.card-img-top[id="logo"]
+          div.card-body
+            h5.card-title[id="name"]
+            h6.card-subtitle[id="team"]
+      div.col-xl-10.col-lg-10.col-md-10.col-sm-10
+        div.list-group.list-group-horizontal.pt-3[id="bigstats"]
+          div.list-group-item.mr-2.rounded.text-center.active
+            div.meter-xl
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue Pts
+            div.meter-xxl
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue Reb
+            div.meter-xxl
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue Ast/To
+            div.meter-xxl
+          div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+            small.meter-xl.blue +/-
+            div.meter-xxl
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        div.list-group.list-group-horizontal.pt-3[id="smallstats"]
+            div.list-group-item.mr-2.rounded.text-center.active
+              div.meter-l
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue Minutes
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue FG
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue 3PT
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue FT
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue Steals
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue Blocks
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue Fouls
+              div.meter-xl
+            div.list-group-item.mr-2.rounded.text-center.bg-serene-blue
+              small.meter-l.blue PER
+              div.meter-xl
+    div.row.pt-3
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="careerChart"]
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        canvas.mt-3[id="lastGames"]
+    div.row.pt-3
+      div.col-xl-12.col-lg-12.col-md-12.col-sm-12
+        table.table.table-hover.table-striped.table-dark.table-sm.mt-3
+          thead
+            tr
+              th.text-right Season
+              th.text-right G
+              th.text-right Mpg
+              th.text-right Min
+              th.text-right Ppg
+              th.text-right Pts
+              th.text-right FG
+              th.text-right 3PT
+              th.text-right FT
+              th.text-right Rpg
+              th.text-right Reb
+              th.text-right Apg
+              th.text-right Ast
+              th.text-right Spg
+              th.text-right St
+              th.text-right Bpg
+              th.text-right Bl
+              th.text-right Topg
+              th.text-right To
+              th.text-right Fpg
+              th.text-right F
+          tbody[id="totals"]
+    div.row
+      div.col-xl-6.col-lg-6.col-md-6.col-sm-6
+        table.table.table-hover.table-striped.table-dark.table-sm.mt-3
+          thead
+            tr
+              th.text-right Game
+              th.text-right Min
+              th.text-right Pts
+              th.text-right FGM
+              th.text-right 3PTM
+              th.text-right FTM
+              th.text-right Reb
+              th.text-right Ast
+              th.text-right St
+              th.text-right Bl
+              th.text-right To
+              th.text-right F
+          tbody[id="last10"]
+  import indexbar
+  script
+    getPlayerStats();
