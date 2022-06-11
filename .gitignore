@@ -2,6 +2,7 @@ secrets
 archives
 nba
 nbad
+*.exe
 mockups
 .vscode
 .DS_Store
