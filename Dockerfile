@@ -1,7 +1,9 @@
 FROM golang as builder
 WORKDIR /work/src/github.com/stephenhu/nbad
 COPY . .
-RUN go build
+RUN go env -w GO111MODULE=on && \
+    go env -w GOPROXY=https://goproxy.cn,direct && \
+    go build
 
 FROM ubuntu
 WORKDIR /usr/local/nbad
