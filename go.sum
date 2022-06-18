@@ -30,6 +30,8 @@ github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQD
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/stephenhu/stats v0.0.0-20211127044421-0d34d7b2b3fc h1:v24W8MtDIKtlJfFLIKY0u6gObj7ld/DmzDMatE9EhAY=
 github.com/stephenhu/stats v0.0.0-20211127044421-0d34d7b2b3fc/go.mod h1:drlCnBH2FtLRj+F/ob2xpHdOD8kucaInNSZXF8HznI0=
+github.com/stephenhu/stats v0.0.0-20220618094635-3c82921e33f5 h1:uwdqyb1rJKkeDoS+KuG1xRuSA9XekOGeIdMWbhem5hI=
+github.com/stephenhu/stats v0.0.0-20220618094635-3c82921e33f5/go.mod h1:drlCnBH2FtLRj+F/ob2xpHdOD8kucaInNSZXF8HznI0=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=

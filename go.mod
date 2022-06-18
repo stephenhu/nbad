@@ -6,7 +6,7 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385
 	github.com/gorilla/mux v1.8.0
 	github.com/mmcdole/gofeed v1.1.3
-	github.com/stephenhu/stats v0.0.0-20211127044421-0d34d7b2b3fc
+	github.com/stephenhu/stats v0.0.0-20220618094635-3c82921e33f5
 )
 
 require (
