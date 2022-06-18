@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nbad - nba daemon
+spec:
+  containers:
+    - name: nbad
+      image: nbad:latest
+      ports:
+      - containerPort: 9005
